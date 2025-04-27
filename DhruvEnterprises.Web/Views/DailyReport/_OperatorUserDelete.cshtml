@@ -1,0 +1,12 @@
+﻿@model DhruvEnterprises.Web.Models.Others.Modal
+    <div id="frm-create-delete-adminrole" class="cmxform">
+        @using (Html.BeginForm())
+        {
+            @Html.Partial("_ModalHeader", Model.Header)
+            <div id="validation-summary"></div>
+            <div class="modal-body">
+                <p class="del-msg">@Model.Message</p>
+            </div>
+            @Html.Partial("_ModalFooter", Model.Footer)
+        }
+        </div>

@@ -1,0 +1,129 @@
+﻿
+
+@model IEnumerable<DhruvEnterprises.Dto.RechargeDetail>
+
+@{
+    ViewBag.Title = "Random Key";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Genearate -Random Key
+    </h1>
+
+
+    <style>
+
+        #btnClose:hover {
+            cursor: pointer;
+        }
+
+
+        .tr-silver {
+            background: silver;
+        }
+
+        .tr-custom {
+            background: inherit;
+        }
+    </style>
+
+</section>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+               
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">No. Of Keys</label>
+                            <input type="text" id="txtNoOfKeys" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Generate Keys" id="btnGenerateKeys" class="btn btn-success" />
+
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div id="dvKeyResult" class="col-md-12 table table-responsive divclass">
+
+
+                        <table width="500" id="tblRandomKeys" class="table table-hover table-responsive table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SRN </th>
+                                    <th>Key Type </th>
+                                    <th>Length/Text </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 1; i <= 10; i++)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>
+                                            <select id="ddKeyType" class="form-control select2">
+                                                <option value="0">--Select--</option>
+                                                <option value="1">Fixed</option>
+                                                <option value="2">Numeric</option>
+                                                <option value="3">Alphabetic -LOWER</option>
+                                                <option value="4">Alphabetic -UPPER</option>
+                                                <option value="5">Alphabetic -MIX</option>
+                                                <option value="6">Alph-Numeric-LOWER</option>
+                                                <option value="7">Alph-Numeric-UPPER</option>
+                                                <option value="8">Alph-Numeric-MIX</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="txtLengthOrText" class="form-control" />
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/RandomKeyGen.js")
+}

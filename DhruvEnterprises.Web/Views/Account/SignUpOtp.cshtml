@@ -1,0 +1,70 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login -@SiteKey.CompanyShortName</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    @Styles.Render("~/Content/css/bootstrap.min.css",
+    "~/Content/css/font-awesome.min.css",
+    "~/Content/css/AdminLTE.min.css",
+    "~/Content/css/skins/_all-skins.min.css", "~/Content/plugins/iCheck/square/blue.css"
+    )
+    <style>
+        .signup-box {
+            width: 650px;
+            margin: 7% auto;
+        }
+    </style>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+</head>
+<body class="hold-transition login-page">
+
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="@Url.Action("Index")">
+                <img src="~/Images/nouser.png" width="100" height="100" />
+            </a>
+        </div>
+        <div class="login-box-body">
+            <p class="login-box-msg">OTP VERIFICATION</p>
+            @Html.Partial("_Notification")
+            <form id="form1" action="@Url.Action("SignUpOtp", "account")" method="post">
+                @{
+                    TempData.Keep("UserSignupData");
+                   
+                }
+                <div class="form-group has-feedback">
+                    @Html.Label("Enter OTP", new { @class = "control-label" })
+                    @Html.TextBox("otp", "", htmlAttributes: new { @class = "form-control " })<!-- /.input group -->
+
+                </div>
+                
+                <div class="footer">
+                    <div class="btn-mar pull-right">
+                        <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                    </div>
+                    <div class="btn-mar pull-right">
+                        <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                    </div>
+                </div>
+                <p style="height:20px;"></p>
+
+            </form>
+
+
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

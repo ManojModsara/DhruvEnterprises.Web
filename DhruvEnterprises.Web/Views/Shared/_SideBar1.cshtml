@@ -1,0 +1,62 @@
+﻿@model List<DhruvEnterprises.Data.Menu>
+@using DhruvEnterprises.Web.Code.LIBS
+
+
+
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="~/images/nouser.png" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+                <p>Hello, @(CurrentUser.Username)    </p>
+                @*<a href="javascript:void(0);"><i class="fa fa-circle text-success"></i> Online</a>*@
+            </div>
+        </div>
+
+        <ul class="sidebar-menu" data-widget="collapse">
+
+            @foreach (var item in Model.FindAll(m => m.ParentId == null && m.IsActive == true))
+            {
+                var childs = Model.Where(c => c.ParentId == item.Id && c.IsActive == true);
+                if (childs.Count() > 0)
+                {
+
+                    <li class="treeview " id="@item.Id">
+                        <a href="#">
+                            <i class="@item.IconClass"></i>
+                            <span>@item.Name</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            @foreach (var child in childs)
+                            {
+                                <li id="@child.MenuId" class="">
+                                    <a href="@(SiteKey.DomainName + child.Url)"><i class="@child.IconClass"></i>@child.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    if (item.Url != null)
+                    {
+                        <li class="" id="@item.Id">
+                            <a href="@(SiteKey.DomainName + item.Url)">
+                                <i class="@item.IconClass"></i><span>@item.Name</span>
+                            </a>
+                        </li>
+                    }
+                }
+
+            }
+
+        </ul>
+
+    </section>
+</aside>

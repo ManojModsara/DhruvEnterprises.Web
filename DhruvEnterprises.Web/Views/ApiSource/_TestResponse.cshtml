@@ -1,0 +1,121 @@
+﻿@using DhruvEnterprises.Web.Models.Others
+@model DhruvEnterprises.Web.LIBS.FilterResponseModel
+
+
+            <div id="tblTestResponse" class="table-responsive scroll_tbl">
+                <h3>RESULT: </h3>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>SRN</th>
+                            <th>Name</th>
+                            <th>
+                                Value  <span id="btnCloseResult" style="color:red;background-color:white; float:right; border:1px solid red; border-radius:40%; padding:3px; cursor:pointer; font-weight:bold;" onclick="HideResult()">X</span>
+                            </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td style="font-weight:bold;">Status</td>
+                            <td>@Model.Status</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td style="font-weight:bold;">ApiTxnID</td>
+                            <td>@Model.ApiTxnID</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td style="font-weight:bold;">OperatorTxnID</td>
+                            <td>@Model.OperatorTxnID</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td style="font-weight:bold;">Message</td>
+                            <td>@Model.Message</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td style="font-weight:bold;">RequestTxnId</td>
+                            <td>@Model.RequestTxnId</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td style="font-weight:bold;">Vendor_CL_Bal</td>
+                            <td>@Model.Vendor_CL_Bal</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td style="font-weight:bold;">Vendor_OP_Bal</td>
+                            <td>@Model.Vendor_OP_Bal</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td style="font-weight:bold;">LapuNo</td>
+                            <td>@Model.LapuNo</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td style="font-weight:bold;">Complaint_Id</td>
+                            <td>@Model.Complaint_Id</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td style="font-weight:bold;">R_Offer</td>
+                            <td>@Model.R_Offer</td>
+
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td style="font-weight:bold;">Customer No</td>
+                            <td>@Model.CustomerNo</td>
+
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td style="font-weight:bold;">Customer Name</td>
+                            <td>@Model.CustomerName</td>
+
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td style="font-weight:bold;">Bill No</td>
+                            <td>@Model.BillNo</td>
+
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td style="font-weight:bold;">Bill Period</td>
+                            <td>@Model.BillPeriod</td>
+
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td style="font-weight:bold;">Bill Date</td>
+                            <td>@Model.BillDate</td>
+
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td style="font-weight:bold;">Bill Due Date</td>
+                            <td>@Model.BillDueDate</td>
+
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td style="font-weight:bold;">Bill Amount</td>
+                            <td>@Model.BillPrice</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<script>
+    function HideResult() {
+        $('#tblTestResponse').hide();
+    }
+</script>
+      

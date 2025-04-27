@@ -1,0 +1,121 @@
+﻿@model DhruvEnterprises.Dto.SMSAPIDto
+@{
+    ViewBag.Title = "CreateEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css")
+
+
+@using (Html.BeginForm("createedit", "SMSAPI", FormMethod.Post, new { @action = Url.Action("createedit"), enctype = "multipart/form-data", @id = "model-createedit-SMSAPI" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.SMSID)
+    <section class="content-header">
+        <h1>
+            @(Model.SMSID == 0 ? "Add SMS Api" : "Edit SMS Api")
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:red">
+                                    <b>Note:-</b> Please use following naming convenctions for the SMS  urls:-
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <ul style="color:red">
+                                    <li> [TO] -->  Mobile Number</li>
+                                    <li> [MS] -->  Message</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">SMS Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.ApiName, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.ApiName, htmlAttributes: new { @class = "form-control ", @placeholder = "API Name" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Method, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Method, htmlAttributes: new { @class = "form-control ", @placeholder = "GET/POST" })<!-- /.input group -->
+                                    </div>
+                                    @*<div class="form-group required">
+                                            @Html.LabelFor(m => m.SenderID, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.SenderID, htmlAttributes: new { @class = "form-control ", @placeholder = "SenderID" })<!-- /.input group -->
+                                        </div>
+                                        <div class="form-group required">
+                                            @Html.LabelFor(m => m.userid, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.userid, htmlAttributes: new { @class = "form-control ", @placeholder = "UserID" })<!-- /.input group -->
+                                        </div>
+                                        <div class="form-group required">
+                                            @Html.LabelFor(m => m.password, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.password, htmlAttributes: new { @class = "form-control ", @placeholder = "Password" })<!-- /.input group -->
+                                        </div>*@
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">SMS API Detail</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @*http://sms.DhruvEnterprises.com/api/SMS?UserID=1111&TokenID=1111&MobileNo=[TO]&TextM=[MS]&SENDERID=Ezytm*@
+                                        @Html.LabelFor(m => m.SmsURL, new { @class = "control-label" })
+                                        @Html.TextAreaFor(m => m.SmsURL, htmlAttributes: new { @class = "form-control ", @placeholder = "SMS URL" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.status, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.status)
+                                    </div>
+                                    @*<div class="form-group required">
+                                            @Html.LabelFor(m => m.Method, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.Method, htmlAttributes: new { @class = "form-control ", @placeholder = "GET/POST" }) /.input group
+                                        </div>
+                                        <div class="form-group required">
+                                            @Html.LabelFor(m => m.Parameter, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.Parameter, htmlAttributes: new { @class = "form-control ", @placeholder = "Parameter" })<!-- /.input group -->
+                                        </div>*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

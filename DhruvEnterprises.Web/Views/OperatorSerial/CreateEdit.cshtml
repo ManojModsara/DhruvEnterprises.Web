@@ -1,0 +1,107 @@
+﻿@model DhruvEnterprises.Dto.OperatorSerialDto
+@{
+    ViewBag.Title = "CreateEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css")
+
+
+@using (Html.BeginForm("createedit", "OperatorSerial", FormMethod.Post, new { @action = Url.Action("createedit"), enctype = "multipart/form-data", @id = "model-createedit-OperatorSerial" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.Id)
+    <section class="content-header">
+        <h1>
+            @(Model.Id == 0 ? "Add Operator Serial" : "Edit Operator Serial")
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                       
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">Operator Serial</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.CircleId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.CircleId, true, new SelectList(ViewBag.CircleList, "Value", "Text", @Model.CircleId), "Select a Circle", new { @class = "form-control select2" })
+
+
+                                    </div>
+
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.OpId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.OpId, true, new SelectList(ViewBag.OperatorList, "Value", "Text", @Model.OpId), "Select a Operator", new { @class = "form-control" })
+
+
+                                    </div>
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Series, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Series, htmlAttributes: new { @class = "form-control ", @placeholder = "Series" })<!-- /.input group -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">Credential Details</h3>
+                                </div>
+                                <div class="box-body">
+
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.UserName, htmlAttributes: new { @class = "form-control ", @placeholder = "UserName" })<!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control ", @placeholder = "Password" })<!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.status, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.status)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

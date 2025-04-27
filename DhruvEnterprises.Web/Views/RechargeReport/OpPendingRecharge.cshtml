@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "User:Pending Recharge";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+<section class="content-header">
+    <h1>
+        Pending  Recharge (<label for="opCount" id="opCount" >0</label>)
+    </h1>
+    
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+            <div class="box">
+
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table id="grid-PendingOpWise" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>VendorId</th>
+                                    <th>OpId</th>
+                                    <th>VendorName</th>
+                                    <th>Operator</th>
+                                    <th>Pending</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+</section>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/RechargeReport/pendingopwise.js")
+
+}
+

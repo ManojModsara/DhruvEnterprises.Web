@@ -1,0 +1,596 @@
+﻿@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+@model DataTableServerSide
+@{
+    ViewBag.Title = "ExcelPayoutPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css", "~/Content/css/bootstrap-datepicker.css")
+
+<h2>Excel Payout </h2>
+<style>
+
+
+    .card {
+        width: 100%;
+        height: 100%;
+        background: #013c7ea1;
+        position: relative;
+        display: flex;
+        place-content: center;
+        place-items: center;
+        overflow: hidden;
+        color: #fff;
+        padding: 30px;
+        border: 2px solid #015cab;
+    }
+
+
+    form {
+        position: relative;
+        z-index: 9;
+    }
+
+    @@keyframes bgRotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+
+
+    .space {
+        padding: 50px 0;
+    }
+
+    .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0;
+        align-items: center;
+        display: flex;
+    }
+
+    input, select {
+        box-shadow: none !important;
+        border: 1px solid #e5e5e5 !important;
+        height: 24px !important;
+    }
+
+        input#btnSubmit {
+            width: 100%;
+            font-size: 18px;
+            font-weight: 700;
+            background: transparent;
+            padding: 20px 0;
+            line-height: 0;
+        }
+
+    .control-label.col-md-2 {
+        font-size: 22px;
+        font-weight: 900;
+    }
+
+    section.ExcelBillPayment h2 {
+        text-align: center;
+        font-weight: 900;
+        font-size: 36px;
+        line-height: 65px;
+        position: relative;
+    }
+</style>
+
+<style>
+    .side-bar-sec {
+        padding: 0 30px;
+        height: 100%;
+    }
+
+        .side-bar-sec ul li {
+            display: flex;
+            padding: 20px 0;
+            align-items: center;
+        }
+
+            .side-bar-sec ul li .bill-sec {
+                width: 50px;
+            }
+
+        .side-bar-sec .nav > li > a:focus, .nav > li > a:hover {
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .side-bar-sec h2 {
+            font-weight: bold;
+            color: #00142a;
+            font-size: 26px;
+        }
+
+        .side-bar-sec ul li .bill-sec-sec-text {
+            font-weight: bold;
+            color: #00142a;
+        }
+
+    section.section-new01 .bg-row {
+        background: #fff;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        padding: 30px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .forment-bill {
+        background: #006ec5;
+        padding: 30px;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    .bg-new-color {
+        background: #fafafa;
+        padding: 30px;
+        text-align: center;
+        border: 3px #a6a6a6;
+        border-style: dotted;
+        border-radius: 5px;
+    }
+
+    .control-label.col-md-4 {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 0;
+        text-align: left;
+        padding: 0;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .file-uplode button.btn {
+        width: 100px;
+        padding: 6px;
+        margin: auto;
+        background: #006ec5;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .file-uplode {
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    .side-bar-sec ul li .bill-sec img {
+        width: 35px;
+    }
+
+    .bg-new-color img.uplode011-sec {
+        width: 75px;
+    }
+
+    @@media (min-width: 1200px) {
+        .container {
+            width: 1400px;
+        }
+    }
+
+    .file-upload {
+        position: relative;
+        width: 140px;
+        color: #0167bb;
+        font-size: 1.2em;
+        background: transparent;
+        border: 2px solid #0167bb;
+        padding: 8px 15px;
+        display: inline;
+        -ms-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+        font-weight: 500;
+    }
+
+    .form-group button {
+        padding: 6px;
+        background: #016dc4;
+        border: 2px solid rgba(0, 0, 0, 0.1) !important;
+        height: auto;
+        border-radius: 5px !important;
+        color: #fff;
+        margin-bottom: -24px;
+        margin: auto;
+        margin-top: 15px;
+    }
+
+    input#FileUpload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        height: 100%;
+    }
+
+    .form-group .form-control {
+        height: 35px !important;
+        border-radius: 30px 0 0 30px !important;
+        border: 2px solid rgba(0, 0, 0, 0.1) !important;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1c2437;
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding: 5px 20px;
+        text-align: left;
+    }
+
+    .modal.right .modal-content .form-group .form-control {
+        height: 30px;
+        border-radius: 0 !important;
+        border: none !important;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1c2437;
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding: 0;
+        text-align: left;
+    }
+
+    .side-bar-sec ul#pills-tab div {
+        display: flex;
+        align-items: center;
+    }
+
+    .side-bar-sec ul li a {
+        padding: 0;
+    }
+
+    .bgbfg {
+        border: 1px solid #ccc;
+        height: 500px !important;
+    }
+
+    .bodd {
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+        padding: 15px 0;
+    }
+
+        .bodd h2 {
+            margin: 0;
+            padding: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #364145;
+        }
+
+    a.nav-link.active .bill-sec-sec-text {
+        color: #006EC5;
+    }
+
+    .title-h2 {
+        background: #006EC5;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        .title-h2 h2 {
+            color: #fff;
+            margin: 0;
+            font-weight: bold;
+        }
+
+    ul.bill-paYment {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        ul.bill-paYment li {
+            width: 20%;
+            text-align: center;
+            margin-bottom: 5px;
+            display: block;
+            padding: 20px 0;
+        }
+
+    .img-box-ixon {
+        width: 40px;
+        height: 40px;
+        margin: auto;
+    }
+
+        .img-box-ixon img {
+            width: 45px;
+            height: 45px;
+        }
+
+    .icon-box h4 {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 16px;
+        color: #3D3D3D;
+    }
+
+    .bill-fill-from {
+        background: #FAFAFA;
+        padding: 20px;
+        border: 1px solid #9a9a9a47;
+        border-radius: 10px;
+    }
+
+        .bill-fill-from input, select {
+            width: 100%;
+            margin-bottom: 0;
+            box-shadow: rgb(0 0 0 / 4%) 0px 4px 13px !important;
+            height: 35px !important;
+        }
+
+    .from_group label {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 7px 0;
+    }
+
+    .check-boc-add {
+        display: flex;
+        align-items: center;
+    }
+
+        .check-boc-add input {
+            width: 20px;
+            margin: 0;
+            margin-right: 10px;
+        }
+
+    .btn-group {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: auto;
+    }
+
+        .btn-group a {
+            background: #013C7E;
+            padding: 10px;
+            margin: 10px 4px;
+            width: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: none;
+        }
+
+
+
+    .form-group.col-md-1 button {
+        margin-top: 18px;
+    }
+
+    .form-group.col-md-1 input#btnExport {
+        margin-top: 18px;
+    }
+
+    select.form-control.input-sm {
+        margin-bottom: 0;
+    }
+
+    div#grid-index_paginate .pagination {
+        display: flex;
+        margin: 0;
+    }
+
+    .content {
+        min-height: 250px;
+        padding: 0;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 0;
+        padding-right: 0;
+        /* height: 600px !important;
+        overflow: auto;*/
+    }
+</style>
+<style>
+
+    .btn-two {
+        justify-content: end;
+        display: flex;
+    }
+
+    button.cancel-btn.btn {
+        background: orange;
+        margin-top: 20px;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    button.submit-btn.btn {
+        background: linear-gradient(358deg, #006EC5, #013C7E);
+        margin-top: 20px;
+        color: #fff;
+        font-weight: 700;
+        margin-left: 20px;
+    }
+
+    div#divShowdatapg {
+        overflow: auto;
+    }
+
+    .table > tbody > tr > td {
+        padding: 10px 15px !important;
+    }
+</style>
+
+
+<section class="section-new01 space">
+    <div class="container">
+        <div class="row bg-row justify-content-center">
+            <div class="col-md-9 col-sm-12 mb-4">
+                <div class="forment-billo">
+                    @Html.Partial("_Notification")
+                    @using (Html.BeginForm("ExcelPayoutPayment", "Wallet", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div id="divUploadpg">
+                            <div class="form-horizontal">
+                                <div class="bg-new-color">
+                                    <p>Choose a file</p>
+                                    <img class="uplode011-sec" src="~/SiteIndex/images/icon-file04.png" />
+                                    <div class="form-group">
+                                        <button class="file-upload" type="button">
+                                            <input type="file" id="FileUpload" name="FileUpload" class="form-control file-input" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-exce" />
+                                            Choose File
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" style="display:none;" id="btnSubmit" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.33/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.33/sweetalert2.all.min.js"></script>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js")
+}
+
+<script>
+    $(document).ready(function () {
+        $("#loading-wrapper").addClass("dis");
+        // alert('hay');
+    })
+    $('#FileUpload').change(function () {
+        debugger;
+        try {
+            var formData = new FormData();
+            var totalFiles = document.getElementById('FileUpload').files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById('FileUpload').files[i];
+                formData.append("oHttpPostedFileBase", file);
+            }
+
+            verifys();
+        } catch (e) {
+            alert("File Upload Error" + e.message);
+        }
+    });
+    function verifys() {
+        debugger;
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Upload it!!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                GetBillVerifyData()
+                // $("#loading-wrapper").addClass("dis");
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+
+                ErrorAlert('uploading Document Cancelled by User!!');
+            }
+        })
+    }
+
+    function SuccessAlert(titless) {
+        Swal.fire({
+
+            icon: 'success',
+            title: titless,
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+    function ErrorAlert(err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+
+        })
+    }
+    function CancelBillPay() {
+        $("#divUploadpg").css("display", "block");
+        $("#divShowdatapg").css("display", "none");
+        $("#Fetchdata").empty();
+    }
+    function GetBillVerifyData() {
+        debugger;
+        var formData1 = new FormData();
+
+        var file1 = document.getElementById('FileUpload').files[0];
+        var totalFiles = document.getElementById('FileUpload').files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById('FileUpload').files[i];
+            formData1.append("FileUpload", file);
+        }
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: '/Wallet/ExcelPayoutPayment',
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: formData1,
+
+            success: function (result) {
+                debugger;
+                if (result == 1) {
+                    location.reload();
+                }
+                else if (result == 2) {
+                    location.reload();
+                }
+                else if (result == 3) {
+                    location.reload();
+                }
+            },
+            error: function (errormessage) {
+                location.reload();
+                alertify.error('something went wrong');
+            }
+        });
+    }
+
+</script>

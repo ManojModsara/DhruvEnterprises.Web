@@ -1,0 +1,174 @@
+﻿
+@model DhruvEnterprises.Dto.PackageDto
+
+@{
+    ViewBag.Title = "Vendor: OpCode/Commission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+@Html.Partial("_Notification")
+@Html.HiddenFor(model => model.Id)
+<style>
+    td {
+        max-width: 150px !important;
+       
+    }
+    input {
+        max-width: 140px !important;
+    }
+
+</style>
+<section class="content-header">
+    <h1>
+        @(Model.Id == 0 ? "Add ServiceCode Margin" : "Edit ServiceCode Margin")
+    </h1>
+
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="validation-summary">
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-mar pull-left">
+                        <input type="submit" id="btn-submit" value="Submit" class="btn btn-success pull-right" onclick="return ApimarginwithcodeSaveAndUpdate()" />
+                    </div>
+                    <div class="btn-mar pull-left">
+                        <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Vendor Package With Service Code</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group required table table-responsive">
+
+                                <table id="tabid" style="width:70%"  class="table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>ServiceName</th>
+                                            <th>IsAmt?</th>
+                                            <th>Service-Code (OOO)</th>
+                                            <th>Extra Url (EEE)</th>
+                                            <th>Extra Params (DDD)</th>
+                                            <th style="width:20px !important;">Comm</th>
+                                            <th>AmtType</th>
+                                            <th>CommType</th>
+                                            <th style="width:20px !important;">Q-size</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var menu in Model.PackageCommList)
+                                        {
+
+                                            <tr>
+                                                <td>@menu.OpId</td>
+                                                <td>@menu.OperatorName</td>
+                                                <td>
+                                                    <input type="checkbox" id="chkAmtWiseComm" @(menu.IsAmtWiseComm ?"checked" : "") />
+                                                    <input type="hidden" id="ApiID" value="@menu.ApiID" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txtApiOpcode" value="@menu.ApiOpcode">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txtExtraUrl" value="@menu.ExtraUrl">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txtExtraData" value="@menu.ExtraData">
+                                                </td>
+                                                <td style="width:20px !important;">
+                                                    <input type="text" id="txtCommAmt" value="@menu.CommAmt">
+                                                </td>
+                                                <td style="min-width:140px;">
+                                                    <select id="AmtTypeId" class="form-control" style="min-width:140px;" >
+                                                        <option value="5" @(menu.AmtTypeId == 5 ? "selected" : "")>Discount</option>
+                                                        <option value="4" @(menu.AmtTypeId == 4 ? "selected" : "")>Surcharge</option>
+                                                    </select>
+                                                </td>
+                                                <td  style="min-width:140px;">
+                                                    <select id="CommTypeId" class="form-control" style="min-width:140px;">
+                                                        <option value="2" @(menu.CommTypeId == 2 ? "selected" : "")>Percentage</option>
+                                                        <option value="1" @(menu.CommTypeId == 1 ? "selected" : "")>Flat</option>
+                                                    </select>
+                                                </td>
+                                                <td style="width:20px !important;">
+                                                    <input type="text" id="txtMaxQSize" value="@menu.MaxQSize">
+                                                </td>
+                                                
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}
+
+<script>
+    function ApimarginwithcodeSaveAndUpdate() {
+        debugger;
+                var ObjList = [];
+         var Packageid = @Model.Id;
+         $('#tabid > tbody  > tr').each(function (i, row) {
+             var $row = $(row)
+             debugger;
+             ObjList.push({
+                 PackId: Packageid,
+                 Id: Packageid,
+                 commTypeId : $row.find("#CommTypeId :selected").val(),
+                 amtTypeId : $row.find("#AmtTypeId :selected").val(),
+                 OpId: $row.find("td:eq(0)").html().trim(), 
+                 CommAmt: $row.find("#txtCommAmt").val(), 
+                 ApiOpcode: $row.find("#txtApiOpcode").val(),
+                 ExtraUrl: $row.find("#txtExtraUrl").val(), 
+                 ExtraData: $row.find("#txtExtraData").val(),
+                 ApiID: $row.find("#ApiID").val(), 
+                 MaxQSize: $row.find("#txtMaxQSize").val(), 
+                 IsAmtWiseComm: $row.find("#chkAmtWiseComm").is(':checked')
+             });
+
+         });
+
+         debugger;
+                $.ajax({
+                    url: "/ApiSource/ApiOpcode",
+                    type: "POST",
+                    data: JSON.stringify(ObjList),
+                   // dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (!data) {
+                            alertify.error('An internal Error occurred.');
+                        }
+                        else {
+                            alertify.success('Status Updated.');
+                        }
+                    }
+                });
+            }
+</script>
+

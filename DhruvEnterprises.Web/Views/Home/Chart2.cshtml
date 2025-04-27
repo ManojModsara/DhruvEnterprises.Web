@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+<body>
+    <script src="https://canvasjs.com/~/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/~/assets/script/jquery.canvasjs.min.js"></script>
+    <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+    <script>
+        var dataPoints = [];
+        var success = [{ "x": 1, "y": 6587 }, { "x": 2, "y": 3709 }, { "x": 3, "y": 2707 }, { "x": 4, "y": 1463 }, { "x": 5, "y": 2172 }, { "x": 6, "y": 294 }, { "x": 7, "y": 1003 }, { "x": 8, "y": 925 }, { "x": 9, "y": 1653 }, { "x": 10, "y": 1989 }, { "x": 11, "y": 11614 }, { "x": 12, "y": 29339 }, { "x": 13, "y": 65594 }, { "x": 14, "y": 93882 }, { "x": 15, "y": 209772 }, { "x": 16, "y": 283265 }, { "x": 17, "y": 291053 }, { "x": 18, "y": 249730 }, { "x": 19, "y": 230028 }, { "x": 20, "y": 286192 }, { "x": 21, "y": 339042 }, { "x": 22, "y": 261414 }, { "x": 23, "y": 277024 }, { "x": 24, "y": 195570 }, { "x": 25, "y": 195592 }, { "x": 26, "y": 249714 }, { "x": 27, "y": 289415 }, { "x": 28, "y": 269220 }, { "x": 29, "y": 139777 }, { "x": 30, "y": 133959 }, { "x": 31, "y": 138509 }, { "x": 32, "y": 120257 }, { "x": 33, "y": 2321 }];
+        var failed = [{ "x": 1, "y": 2589 }, { "x": 2, "y": 755 }, { "x": 3, "y": 792 }, { "x": 4, "y": 1247 }, { "x": 5, "y": 313 }, { "x": 6, "y": 1105 }, { "x": 7, "y": 198 }, { "x": 8, "y": 1262 }, { "x": 9, "y": 3503 }, { "x": 10, "y": 3947 }, { "x": 11, "y": 8513 }, { "x": 12, "y": 23871 }, { "x": 13, "y": 31337 }, { "x": 14, "y": 44379 }, { "x": 15, "y": 59187 }, { "x": 16, "y": 136620 }, { "x": 17, "y": 106751 }, { "x": 18, "y": 84001 }, { "x": 19, "y": 137068 }, { "x": 20, "y": 162864 }, { "x": 21, "y": 107144 }, { "x": 22, "y": 197155 }, { "x": 23, "y": 166652 }, { "x": 24, "y": 146135 }, { "x": 25, "y": 110311 }, { "x": 26, "y": 72833 }, { "x": 27, "y": 60386 }, { "x": 28, "y": 38707 }, { "x": 29, "y": 40872 }, { "x": 30, "y": 52338 }, { "x": 31, "y": 36190 }, { "x": 32, "y": 40642 }, { "x": 33, "y": 1021 }];
+        var x, y = 1;
+        for (var i = 1; i < success.length; i++) {
+            dataPoints.push({ x: new Date(2021, 7, 28, 1, 10 * i), y: success[i].y });
+        }
+         var dataPoints2 = [];
+        var x, y = 1;
+        for (var i = 1; i < failed.length; i++) {
+            dataPoints2.push({ x: new Date(2021, 7, 28, 1, 10 * i), y: failed[i].y });
+        }
+        console.log(dataPoints);
+        console.log(dataPoints2);
+
+        var chart = new CanvasJS.Chart("chartContainer",
+            {
+                exportEnabled: true,
+				animationEnabled: true,
+				title: {
+					text: "Operator Success VS Failed"
+				},
+				subtitles: [{
+					text: "Click Operator to Hide or Unhide Data Series"
+				}],
+				
+				data: [{
+					type: "spline",
+					name: "Success",
+					//xValueType: "dateTime",
+					//xvalueFormatString: "dd/mm/yyyy hh:mm tt",
+					showInLegend: true,
+					dataPoints: dataPoints
+				},
+				{
+					type: "spline",
+					name: "Failed",
+					//axisYType: "secondary",
+					showInLegend: true,
+					dataPoints: dataPoints2
+				}
+				]
+                //title: {
+                //    text: "Date time axis with intervalType: hour"
+                //},
+                //axisX: {
+                //    interval: 20,    // for every 10minutes
+                //    intervalType: "minute",
+                //    valueFormatString: "hh:mm tt"
+                //},
+                //data: [
+                //    {
+                //        type: "spline",
+                //        dataPoints: dataPoints
+                //    },
+                //    {
+                //        type: "spline",
+                //        dataPoints: dataPoints2
+                //    }
+                //]
+            });
+        chart.render();
+
+    </script>
+</body>
+</html>

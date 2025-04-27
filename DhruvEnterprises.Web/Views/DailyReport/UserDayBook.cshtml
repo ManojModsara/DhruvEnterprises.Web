@@ -1,0 +1,231 @@
+﻿@model IEnumerable<DhruvEnterprises.Dto.UserDayBookDto>
+
+@{
+    ViewBag.Title = "UserDayBook";
+}
+
+<h2>User-DayBook</h2>
+
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+@{
+
+    var date = ViewBag.FilterData != null ? Convert.ToString(ViewBag.FilterData) : "";
+    var date2 = ViewBag.FilterData2 != null ? Convert.ToString(ViewBag.FilterData2) : "";
+
+    decimal OP_Bal = 0;
+    decimal WR_Amt = 0;
+    decimal RC_Amt = 0;
+    decimal DB_Amt = 0;
+    decimal CM_Amt = 0;
+    decimal CL_Bal = 0;
+    decimal Calc_Bal = 0;
+    decimal CL_Diff = 0;
+
+    decimal Old_sRC_Amt = 0;
+    decimal Old_fRC_Amt = 0;
+    decimal Old_DB_Amt = 0;
+    decimal Old_CR_Amt = 0;
+    decimal Total_Surcharge = 0;
+    decimal Total_Discount = 0;
+
+}
+
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">from-Date</label>
+                            <input type="text" id="txtFromDate" value="@date" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">to-Date</label>
+                            <input type="text" id="txtToDate" value="@date2" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12 table table-responsive divclass">
+                        <table class="table table-hover table-responsive table-bordered">
+
+                            <tr>
+                                @*<th>UserId</th>*@
+                                <th>User Name</th>
+                                <th>
+                                    OP_Bal
+                                </th>
+                                <th>
+                                    WR_Amt
+                                </th>
+                                <th>
+                                    Payout_Amt
+                                </th>
+                                <th>
+                                    DB_Amt
+                                </th>
+                                <th>
+                                    CM_Amt
+                                </th>
+                                <th>
+                                    CL_Bal
+                                </th>
+                                <th>
+                                    Total_SR
+                                </th>
+                                <th>
+                                    Total_DIS
+                                </th>
+                                <th>
+                                    Calc_Bal
+                                </th>
+
+                                <th>
+                                    CL_Diff(Calc-CL)
+                                </th>
+
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+
+                                RC_Amt += !string.IsNullOrEmpty(item.RC_Amt) ? Convert.ToDecimal(item.RC_Amt) : 0;
+                                CM_Amt += !string.IsNullOrEmpty(item.CM_Amt) ? Convert.ToDecimal(item.CM_Amt) : 0;
+                                OP_Bal += !string.IsNullOrEmpty(item.OP_Bal) ? Convert.ToDecimal(item.OP_Bal) : 0;
+                                WR_Amt += !string.IsNullOrEmpty(item.WR_Amt) ? Convert.ToDecimal(item.WR_Amt) : 0;
+                                DB_Amt += !string.IsNullOrEmpty(item.DB_Amt) ? Convert.ToDecimal(item.DB_Amt) : 0;
+                                CL_Bal += !string.IsNullOrEmpty(item.CL_Bal) ? Convert.ToDecimal(item.CL_Bal) : 0;
+                                Calc_Bal += !string.IsNullOrEmpty(item.Calc_Bal) ? Convert.ToDecimal(item.Calc_Bal) : 0;
+                                CL_Diff += !string.IsNullOrEmpty(item.CL_Diff) ? Convert.ToDecimal(item.CL_Diff) : 0;
+
+                                Old_sRC_Amt += !string.IsNullOrEmpty(item.Old_sRc_Amt) ? Convert.ToDecimal(item.Old_sRc_Amt) : 0;
+                                Old_fRC_Amt += !string.IsNullOrEmpty(item.Old_fRc_Amt) ? Convert.ToDecimal(item.Old_fRc_Amt) : 0;
+                                Old_CR_Amt += !string.IsNullOrEmpty(item.Old_CR_Amt) ? Convert.ToDecimal(item.Old_CR_Amt) : 0;
+                                Old_DB_Amt += !string.IsNullOrEmpty(item.Old_DB_Amt) ? Convert.ToDecimal(item.Old_DB_Amt) : 0;
+                                Total_Surcharge += !string.IsNullOrEmpty(item.Total_Surcharge) ? Convert.ToDecimal(item.Total_Surcharge) : 0;
+                                Total_Discount += !string.IsNullOrEmpty(item.Total_Discount) ? Convert.ToDecimal(item.Total_Discount) : 0;
+
+                                <tr>
+                                    <td>
+                                        @(item.UserName)
+                                    </td>
+                                    <td>
+                                        @(item.OP_Bal)
+                                    </td>
+                                    <td>
+                                        @(item.WR_Amt)
+                                    </td>
+                                    <td>
+                                        @(item.RC_Amt)
+                                    </td>
+                                    <td>
+                                        @(item.DB_Amt)
+                                    </td>
+
+                                    <td>
+                                        @(item.CM_Amt)
+                                    </td>
+                                    <td>
+                                        @(item.CL_Bal)
+                                    </td>
+                                    <td>
+                                        @(item.Total_Surcharge)
+                                    </td>
+                                    <td>
+                                        @(item.Total_Discount)
+                                    </td>
+                                    <td>
+                                        @(item.Calc_Bal)
+                                    </td>
+
+                                    <td>
+                                        @(item.CL_Diff)
+                                    </td>
+
+                                </tr>
+                            }
+
+                            <tfoot>
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <th>
+                                        @OP_Bal
+                                    </th>
+                                    <th>
+                                        @WR_Amt
+                                    </th>
+                                    <th>
+                                        @RC_Amt
+                                    </th>
+                                    <th>
+                                        @DB_Amt
+                                    </th>
+                                    <th>
+                                        @CM_Amt
+                                    </th>
+                                    <th>
+                                        @CL_Bal
+                                    </th>
+                                    <th>
+                                        @Total_Surcharge
+                                    </th>
+                                    <th>
+                                        @Total_Discount
+                                    </th>
+                                    <th>
+                                        @Calc_Bal
+                                    </th>
+
+                                    <th>
+                                        @CL_Diff
+                                    </th>
+
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/UserDayBook.js")
+
+}

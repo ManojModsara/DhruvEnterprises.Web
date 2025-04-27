@@ -1,0 +1,107 @@
+﻿
+
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+@model DhruvEnterprises.Dto.OperatorSwitchDto
+@{
+    ViewBag.Title = "Operator Switch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+<section class="content-header">
+    <h1>
+        Operator Switch
+        <input id="UpdateApi" type="button" value="Save All" class="btn btn-primary" style="float:right" />
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        @(Html.Raw(Html.InsertButton(Url.Action("createedit", "operatorswitch"), "modal-add-edit-operator")))
+
+                        @*<a href="#modal-add-edit-adminrole" data-toggle="modal" data-target="#modal-add-edit-adminrole" data-url="@Url.Action("createedit","role")" assigned-id="0" class="btn btn-success">Add new <i class="fa fa-plus"></i></a>*@
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="table table-responsive" id="tblswitch">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Operator</th>
+                                    <th>Save</th>
+                                    <th>Vendor-1</th>
+                                    <th>Vendor-2</th>
+                                    <th>Vendor-3</th>
+                                    <th>Switch Type</th>
+                                    <th>Fetch?</th>
+                                    <th>Partial?</th>
+                                    <th>VendorFetch</th>
+                                    <th colspan="2">Action(s)</th>
+                                    <th>UpdatedOn</th>
+                                    <th>UpdatedBy</th>
+
+                                </tr>
+                            </thead>
+
+                            @foreach (var data in Model.OpcodeLists)
+                            {
+                                <tbody >
+                                    <tr>
+                                        <td>@data.Opid</td>
+                                        <td class="txt-wrap-hide">@data.OperatorName </td>
+                                        <td> <i class="btn btn-primary fa fa-floppy-o btSave" id="btnSave" title="Save"></i> </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => data.ApiID1, true, new SelectList(Model.apiSourceDTOs.Where(x => x.Opid == data.Opid), "Apiid", "Name", data.ApiID1), "Select Vendor", new { @class = "form-control select2" })
+                                        </td>
+                                        <td>@Html.DropDownListFor(m => data.ApiID2, true, new SelectList(Model.apiSourceDTOs.Where(x => x.Opid == data.Opid), "Apiid", "Name", data.ApiID2), "Select Vendor", new { @class = "form-control select2" })</td>
+                                        <td>@Html.DropDownListFor(m => data.ApiID3, true, new SelectList(Model.apiSourceDTOs.Where(x => x.Opid == data.Opid), "Apiid", "Name", data.ApiID3), "Select Vendor", new { @class = "form-control select2" })</td>
+                                        <td>@Html.DropDownListFor(m => data.SwitchTypeId, true, new SelectList(ViewBag.SwitchList, "Id", "TypeName", data.SwitchTypeId), "Select Type", new { @class = "form-control select2" })</td>
+
+                                        <td>@Html.CheckBoxFor(m => data.IsFetch)</td>
+                                        <td>@Html.CheckBoxFor(m => data.IsPartial)</td>
+                                        <td>@Html.DropDownListFor(m => data.FetchApiId, true, new SelectList(Model.apiSourceDTOs.Where(x => x.Opid == data.Opid), "Apiid", "Name", data.FetchApiId), "Select Vendor", new { @class = "form-control select2" })</td>
+                                        @*<td>@Html.DropDownListFor(m => data.ValidTypeId, true, new SelectList(Model.ValidTypeList, "Id", "Name", data.ValidTypeId), "Select Type", new { @class = "form-control select2" })</td>*@
+                                        <td>
+                                            <i class="btn btn-primary fa fa-floppy-o btSave" id="btnSave" title="Save"></i>
+                                        </td> 
+                                        @*<td>
+                                            @Html.ActionLink(".", "CircleSwitch", new { id = @data.Opid }, new { @class = "btn btn-primary fa fa-refresh", @title = "Circle-witch" })
+                                        </td>*@
+                                        <td>
+                                            @Html.ActionLink(".", "OpValidation", new { id = @data.Opid }, new { @class = "btn btn-bitbucket fa fa-cog", @title = "Operator Validation" })
+                                        </td>
+
+                                        <td>@data.UpdatedOn</td>
+                                        <td>@data.UpdatedBy</td>
+                                    </tr>
+                                </tbody>
+                            }
+
+                        </table>
+                    </div>
+                    @*<input id="UpdateApi" type="button" value="Update" class="btn btn-primary" style="float:right" />*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Modal", new Modal { ID = "modal-add-edit-operator", AreaLabeledId = "modal-add-edit-operator-label", Size = Enums.ModalSize.Medium })
+</section>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/OperatorSwitch/DropdownSeraching.js")
+
+}
+

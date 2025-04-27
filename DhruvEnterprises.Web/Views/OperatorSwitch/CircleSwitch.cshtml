@@ -1,0 +1,76 @@
+﻿
+@model DhruvEnterprises.Dto.CircleAmtDto
+@{
+    ViewBag.Title = "Circle Operator Switch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+<section class="content-header">
+    <h1>
+       Circle Operator Switch
+        
+        <input id="UpdateApi" type="button" value="Save All" class="btn btn-primary" style="float:right" />
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td>Circle Id</td>
+                                    <th>Operator Id</th>
+                                    <th>Circle Name</th>
+                                    <th>1st-Vendor</th>
+                                    <th>2nd-Vendor</th>
+                                    <th>3rd-Vendor</th>
+                                    <th>Roffer</th>
+                                    <th>Action(s)</th>
+                                    <th>UpdatedOn</th>
+                                    <th>UpdatedBy</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var data in Model.CircleAmtLists)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>@data.CircleId</td>
+                                        <td>@data.OpId</td>
+                                        <td>@data.CircleName</td>
+                                        <td>@Html.DropDownListFor(m => @data.API1_Id, true, new SelectList(Model.CircleApiSourceList, "Apiid", "Name", @data.API1_Id), "Select Api", new { @class = "form-control select2" })</td>
+                                        <td>@Html.DropDownListFor(m => @data.API2_Id, true, new SelectList(Model.CircleApiSourceList, "Apiid", "Name", @data.API2_Id), "Select Api", new { @class = "form-control select2" })</td>
+                                        <td>@Html.DropDownListFor(m => @data.API3_Id, true, new SelectList(Model.CircleApiSourceList, "Apiid", "Name", @data.API3_Id), "Select Api", new { @class = "form-control select2" })</td>
+                                        <td>@Html.CheckBoxFor(m => data.IsRoffer) </td>
+                                        <td>
+                                            <i class="btn btn-primary fa fa-floppy-o btSave" id="btnSave" title="Save"></i>
+                                        </td>
+                                        <td>@data.UpdatedOn</td>
+                                        <td>@data.UpdatedBy</td>
+                                    </tr>
+                                </tbody>
+                            }
+
+                        </table>
+                    </div>
+                    <input id="UpdateApi" type="button" value="Update" class="btn btn-primary" style="float:right" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/OperatorSwitch/CricleOperatorUpdate.js")
+
+}

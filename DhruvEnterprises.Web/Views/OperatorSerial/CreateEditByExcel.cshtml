@@ -1,0 +1,92 @@
+﻿@model DhruvEnterprises.Dto.OperatorSerialExcelDto
+@{
+    ViewBag.Title = "CreateEditByExcel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css", "~/Content/css/bootstrap-datepicker.css")
+
+
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+@using (Html.BeginForm("CreateEditByExcel", "OperatorSerial", FormMethod.Post, new { @action = Url.Action("CreateEditByExcel"), enctype = "multipart/form-data", @id = "model-CreateEditByExcel-CreateEditByExcel" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.Id)
+    <section class="content-header">
+        <h1>
+           Upload Operator Series
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="box box-danger">
+                                <div class="box-body">
+
+                                    <div class="form-group required">
+                                       
+                                            <label class="control-label">Select File: </label>
+                                            @Html.TextBoxFor(m => m.UploadedFile, new { type = "file", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.UploadedFile)
+                                        </div>
+
+                                      
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 col-md-6 col-sm-12">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-12">
+                                    Click here to <a href="~/Download/AddOperatorSeries.xlsx" download="">
+                                        Download Sample Format
+                                    </a>
+                                </label>
+                            </div>
+                            
+
+
+                        </div>
+
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("Index")"><i class="fa fa-arrow-circle-left"></i> Operator Series</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/bankaccount/addpullaccount.js", "~/bundles/jqueryval", "~/bundles/select2", "~/bundles/datepicker")
+}
+

@@ -1,0 +1,78 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        <div class="btn-mar pull-left">
+                            @{
+                                ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                                if (act.AllowCreate)
+                                {
+                                    @(Html.Raw(Html.InsertButton(Url.Action("createedit", "OperatorSerial"))))
+                                }
+                            }
+                        </div>                       
+                        <div class="btn-mar pull-left">
+                            @(Html.Raw(Html.UploadExcel(Url.Action("createeditbyExcel", "OperatorSerial"))))
+                        </div>
+                        <div class="btn-mar pull-right">  
+                            @(Html.Raw(Html.DownloadExcel(Url.Action("DownLoadInExcel", "OperatorSerial"))))                         
+                            @*<input type="button" value="Download In Excel" id="btnExport" class="btn btn-primary " />*@@*<i class='fa fa-file-excel-o'></i>*@
+                        </div>
+                        </div>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Operator</th>
+                                    <th>Circle</th>                                    
+                                    <th>Series</th>                                    
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-delete-OperatorSerial", AreaLabeledId = "modal-delete-OperatorSerial-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js")
+    @Scripts.Render("~/Scripts/Custom/OpSerial/index.js")
+}
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        
+        $('#btnExport').on('click', function () {
+            var Opid = 0;// $('select#ddOperator :Selected').val();
+            var Circleid = 0;// $('select#ddOperator :Selected').val();
+            var requrl = '/Export/ExportCSV?rt=8';
+            var routeval = '';
+            if (Opid != '' && Opid != '0') routeval += '&o=' + Opid;
+            if (Circleid != '' && Circleid != '0') routeval += '&c=' + Circleid;
+            window.location.href = requrl + routeval;
+        });
+    });
+</script>*@

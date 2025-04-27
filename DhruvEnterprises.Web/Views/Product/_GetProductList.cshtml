@@ -1,0 +1,553 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS
+@model List<DhruvEnterprises.Dto.Productdto>
+
+
+@{
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    @Styles.Render("~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            line-height: 18px;
+            background: #24aeb121;
+        }
+
+        .list-wrapper {
+            padding: 15px 0px;
+            overflow: hidden;
+        }
+
+        .list-item {
+            border: 1px solid #EEE;
+            background: #FFF;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 0px #EEE;
+        }
+
+            .list-item h4 {
+                color: #FF7182;
+                font-size: 18px;
+                margin: 0 0 5px;
+            }
+
+            .list-item p {
+                margin: 0;
+            }
+
+        .simple-pagination ul {
+            padding: 0;
+            list-style: none;
+            text-align: right;
+        }
+
+        .simple-pagination li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+            .simple-pagination li a,
+            .simple-pagination li span {
+                color: #666;
+                padding: 5px 10px;
+                text-decoration: none;
+                border: 1px solid #EEE;
+                background-color: #FFF;
+            }
+
+        .simple-pagination .current {
+            color: #FFF;
+            background-color: #373333;
+            border-color: #373333;
+        }
+
+        .simple-pagination .prev.current,
+        .simple-pagination .next.current {
+            background: #47bbbe;
+            border-color: #47bbbe;
+        }
+    </style>
+    <style>
+        .save-badge {
+            background: #84be52;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 12px;
+            font-family: LatoBold;
+            padding: 4px 5px 2px 5px;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            line-height: 11px;
+        }
+
+        .site-section {
+            background: linear-gradient(180deg,#241f64 50%,#241f64 50%);
+            position: relative;
+            padding: 40px 0px;
+        }
+
+        .pharma-product-card {
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0px 0px 12px #47bbbe57;
+            overflow: hidden;
+            padding: 0 0 12px;
+            height: 390px;
+        }
+
+        span.price {
+            font-weight: 600;
+        }
+
+            span.price del {
+                color: #9d9999;
+                font-size: 11px;
+            }
+
+        .site-section h4 {
+            color: #241f64;
+        }
+
+        .pharma-product-card img {
+            display: flex;
+            margin: 0 auto 8px;
+            padding: 0 8px;
+            height: 208px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pharma-product-card-body {
+            padding: 15px 15px 0px 15px;
+        }
+
+            .pharma-product-card-body a {
+                color: #24aeb1;
+            }
+
+        .theme-btn::before {
+            left: 50%;
+            top: 0;
+            transition-duration: 0.4s;
+        }
+
+        .btn-6::after {
+            left: 50%;
+            bottom: 0;
+            transition-duration: 0.4s;
+        }
+
+        .theme-btn span::before {
+            left: 0;
+            top: 50%;
+            transition-duration: 0.4s;
+        }
+
+        .theme-btn span::after {
+            right: 0;
+            top: 50%;
+            transition-duration: 0.4s;
+        }
+
+        .theme-btn:hover::before, .theme-btn:hover::after {
+            left: 0;
+        }
+
+        .theme-btn:hover span::before, .theme-btn:hover span::after {
+            top: 0;
+        }
+
+        .theme-btn {
+            display: inline-block;
+            position: relative;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            background: #25c8e0;
+        }
+
+        .cart-flex .theme-btn {
+            font-size: 15px !important;
+        }
+
+        .product-price {
+            margin-bottom: 10px;
+        }
+
+        .theme-btn span {
+            display: block;
+            padding: 10px 14px;
+        }
+
+        .theme-btn::before, .theme-btn::after {
+            content: "";
+            width: 0;
+            height: 2px;
+            position: absolute;
+            transition: all 0.2s linear;
+            background: #24aeb1;
+        }
+
+        .theme-btn span::before, .theme-btn span::after {
+            content: "";
+            width: 2px;
+            height: 0;
+            position: absolute;
+            transition: all 0.2s linear;
+            background: #fff;
+        }
+
+        .theme-btn:hover::before, .theme-btn:hover::after {
+            width: 100%;
+        }
+
+        .theme-btn:hover span::before, .theme-btn:hover span::after {
+            height: 100%;
+        }
+
+        .btn-rounded {
+            border-radius: 50%;
+        }
+
+        .input-rounded {
+            border-radius: 50px;
+        }
+    </style>
+    <style>
+        .profile-togal {
+            font-size: 14px !important;
+            padding: 16px;
+            background: aqua;
+            font-weight: 500 !important;
+            border-radius: 50%;
+        }
+
+        .qty-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            max-width: 200px;
+            display: block;
+            text-align: center;
+        }
+
+            .qty-container .input-qty {
+                text-align: center;
+                padding: 6px 10px;
+                border: 1px solid #d4d4d4;
+                max-width: 80px;
+            }
+
+        .cart-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+            .cart-flex .theme-btn {
+                margin-top: 10px;
+            }
+
+        .qty-container button {
+            background: #000 !important;
+        }
+
+        .product-price {
+            margin-bottom: 10px;
+        }
+
+            .product-price h6 {
+                margin-bottom: 0;
+                color: #878787;
+            }
+
+                .product-price h6 del {
+                    color: #bdb7b7;
+                }
+
+            .product-price h5 span {
+                color: #25c8e0;
+                margin-left: 7px;
+                font-size: 16px;
+            }
+
+            .product-price h5 {
+                font: 14px;
+            }
+
+        .pharma-product-card-body h3 {
+            font-size: 15px;
+            color: #151b39;
+            letter-spacing: 0;
+            display: block;
+            margin: 4px 0 5px;
+            text-align: left;
+            height: 42px;
+            overflow: hidden;
+        }
+
+        h5.pull-right {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2b3993;
+        }
+    </style>
+    <style>
+        .mycon {
+            padding: 5px;
+        }
+
+        .mgbg-details {
+            display: none;
+            position: absolute;
+            top: 30px;
+            left: -130px;
+            background: #fff;
+        }
+
+            .mgbg-details h4 {
+                background-color: #f3a026;
+                font-weight: 500;
+                margin: 0;
+                padding: 10px;
+                color: #fff;
+            }
+
+        .mybg {
+            position: relative;
+        }
+
+            .mybg:hover .mgbg-details {
+                display: block;
+            }
+    </style>
+    <div>
+        <div class="row">
+            <div class="mybg" style=" float: right;">
+                <a class=" profile-togal" href="~/Product/ViewCart" aria-expanded="true">
+                    <i class="fa fa-shopping-cart navbar-icon" id="add-list2"></i>
+                </a>
+                <div class="mgbg-details">
+                    @*<div class="mycon">
+                            <p>Go To Cart</p>
+                        </div>*@
+                    <h4>Proceed To Cart</h4>
+                </div>
+            </div>
+        </div>
+        <div id="divids" class="search-result-container ">
+            <div id="GetPrList">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active " id="grid-container">
+                        <div class="category-product">
+                            <div class="list-wrapper">
+
+                                @{ foreach (var data in Model)
+                                    {
+                                        var s = SiteKey.ImageLink + @data.ImageUrl;
+                                        <div class="col-xs-6 col-md-3 wow fadeInUp">
+                                            <div class="products1">
+                                                <div class="pharma-product-card item">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <img src='@s' alt='@data.Name' class="img-responsive">
+                                                        </div>
+                                                    </div>
+                                                    <div class="pharma-product-card-body">
+                                                        <h3 class="text-dark"><p style="color:black">@data.Name </p></h3>
+                                                        <span>StockQuantity @(decimal.Round(data.StockQuantity,0))</span>
+
+                                                        <div class="cart-flex">
+                                                            <div class="product-price">
+                                                                <h5>
+                                                                    price* <span>Rs. @(Math.Round(data.Price,2))</span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        @{
+                                                            if (data.cartquantity == 0)
+                                                            {
+                                                                if (data.StockQuantity == 0)
+                                                                {
+                                                                    <div class="theme-btn btn-block text-center " id="Add2_@data.Id" onclick="Dose()"><span>Add To Cart</span> </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="theme-btn btn-block text-center" id="Add_@data.Id" onclick="addtocart(@data.Id)"><span>Add To Cart</span> </div>
+                                                                }
+                                                                <div class="qty-container" id="List2_@data.Id" style="display:none">
+                                                                    @*<button class="qty-btn-minus btn-primary btn-rounded mr-1" type="button" onclick="decrease(@data.Id,'#LoaderCount_')"><i class="fa fa-minus"></i></button>*@
+                                                                    <input type="text" id="LoaderCount_@data.Id" name="qty" value="@data.cartquantity" onchange="increase(@data.Id)" class="input-qty input-rounded" />
+                                                                    @*<button class="qty-btn-plus btn-primary btn-rounded ml-1" type="button" onclick="increase(@data.Id,'#LoaderCount_')"><i class="fa fa-plus"></i></button>*@
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="qty-container" id="List_@data.Id">
+                                                                    @*<button class="qty-btn-minus btn-primary btn-rounded mr-1" type="button" onclick="decrease(@data.Id,'#LoaderCount2_')"><i class="fa fa-minus"></i></button>*@
+                                                                    <input type="text" id="LoaderCount2_@data.Id" name="qty" value="@data.cartquantity" onchange="increase(@data.Id)" class="input-qty input-rounded" />
+                                                                    @*<button class="qty-btn-plus btn-primary btn-rounded ml-1" type="button" onclick="increase(@data.Id,'#LoaderCount2_')"><i class="fa fa-plus"></i></button>*@
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                    @if (data.StockQuantity == 0)
+                                                    {
+                                                        <div>
+                                                            <span style="top:30px;right:28px; background:red;color:#fff;border-radius:50px;padding:2px 10px;position:absolute;">Out Of Stock</span>
+
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<script>
+    function Dose() {
+        alertify.error("Out Of Stock")
+    }
+</script>
+<script>
+    function increase(id) {
+        var quantity = $('#LoaderCount2_' + id).val();
+        if (quantity == '') {
+            return alertify.error('Enter Quantity');
+        }
+
+        let produtQty = '#LoaderCount2_' + id;
+        var requrl = '/Product/IncreaseQTY?Id=' + id + '&Cartquantity=' + quantity;
+        $.ajax({
+            type: "POST",
+            url: requrl,
+            success: function (data) {
+                if (data == 01) {
+                    alertify.error("Cannot Add item from the stock quanity!!");
+                }
+                else if (data == 0) {
+                    location.reload();
+                }
+                else {
+                    alertify.success('Cart Update');
+                    $(produtQty).val(data);
+                }
+            }
+        });
+    }
+</script>
+<script>
+    function addtocart(id) {
+        var name = '#Name_' + id;
+        var name1 = $(name).text();
+        var add = '#List_' + id;
+        var add2 = '#List2_' + id;
+        var cart = '#Add_' + id;
+        var cart2 = '#Add2_' + id;
+        let productId = id;
+            let produtQty = '#LoaderCount_' + id;
+        var productttr =1;
+        var requrl = '/Product/AddToCart?Quantity=' + productttr + '&productId=' + productId;
+        $.ajax({
+            type: "POST",
+            url: requrl,
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            //dataType: "text",
+            success: function (response) {
+                var responseObject = jQuery.parseJSON(response);
+                console.log(responseObject.Token);
+                if (responseObject.Token=="4") {
+                    alertify.error("Item is OutofStock!!");
+                }
+                else
+                {
+            $('#add-list').load('@Url.Action("AddTocartPartial", "Site")');
+            $("#add-list").addClass("theme-Click");
+                $(cart).hide();
+                $(produtQty).val(productttr)
+                    location.reload();
+            $(add2).show();
+                }
+            }
+        });
+    }
+</script>
+@*<script>
+        function decrease(id, str) {
+            var name = '#Name_' + id;
+            var name1 = $(name).text();
+            var indess = 1;
+            var quantiy = str + id
+            let add = '#List_' + id;
+            let add2 = '#List2_' + id;
+            let cart = '#Add_' + id;
+            let produtQtyy = '#LoaderCount2_' + id;
+            let url1 = '';
+            var requrl = '/Product/DecreaseQty?Id=' + id + '&url=' + url1 + '&IndexCart=' + indess;
+            $.ajax({
+                type: "POST",
+                url: requrl,
+                success: function (data) {
+                    if (data == 0) {
+                        window.location.reload();
+                    }
+                    else {
+                        $(add).css('display', 'block');
+                        $(add2).css('display', 'none');
+                        $(cart).css('display', 'none');
+                        //$(add).show();
+                        //$(cart).hide();
+                        //$(add2).hide();
+                        $(produtQtyy).val(data);
+                    }
+                }
+            });
+        }
+        function increase(id, str) {
+            var cart2 = 1;
+            var add = '#List_' + id;
+            var add2 = '#List2_' + id;
+            var cart = '#Add_' + id;
+            var quantiy = str + id;
+            let produtQty = '#LoaderCount2_' + id;
+            var requrl = '/Product/IncreaseQTY?Id=' + id + '&IndexCart=' + cart2;
+            $.ajax({
+                type: "POST",
+                url: requrl,
+                success: function (data) {
+                    debugger;
+                    if (data == 0) {
+                        alertify.error("Cannot Add item from the stock quanity!!");
+                    }
+                    else {
+                        $(produtQty).val(data);
+                        /* $(add).show();*/
+                        //$(cart).hide();
+                        //$(add2).hide();
+                    }
+                }
+            });
+        }
+    </script>*@
+

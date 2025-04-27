@@ -1,0 +1,158 @@
+﻿@model IEnumerable<DhruvEnterprises.Dto.LapuPurchageDto>
+
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+
+@{
+    ViewBag.Title = "Lapu Purcharge Report";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                </div>
+                @{
+                    DhruvEnterprises.Dto.LapuPurFilterDto filter = (DhruvEnterprises.Dto.LapuPurFilterDto)ViewBag.FilterData;
+                }
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header" id="btnClose">
+                                <h3 class="box-title">Search Panel</h3>
+                                <div class="pull-right" style="color:red">Show/Hide</div>
+                            </div>
+                            <div class="box-body" id="dvSearchPanel">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        Start Date
+                                        <input id="txtFromDate" type="text" value="@filter.StartDate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        End Date
+                                        <input id="txtToDate" type="text" value="@filter.EndDate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Operator</label>
+                                        @Html.DropDownList("ddOperator", (List<SelectListItem>)ViewBag.OperatorList, "--All--", new { @class = "form-control select2" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Circle</label>
+                                        @Html.DropDownList("ddCircle", (List<SelectListItem>)ViewBag.CircleList, "--All--", new { @class = "form-control select2" })
+                                    </div>
+
+
+
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Lapu</label>
+                                        @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Dealer</label>
+                                        @Html.DropDownList("ddVendor", (List<SelectListItem>)ViewBag.ApiList, "--All--", new { @class = "form-control select2" })
+                                    </div>
+
+
+
+                                    <div class="form-group col-md-1">
+                                        <br />
+                                        <button class="btn btn-block btn-success" id="btnSearch"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <br />
+                                        <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+
+    </div>
+    <style>
+        th{
+            text-align:center;
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-12 table table-responsive divExport">
+            <table id="grid-index" class="table table-hover table-responsive table-bordered">
+                <tr>
+                    <th rowspan="2">SrNo  </th>
+                    <th rowspan="2">PurDate  </th>
+                    <th rowspan="2">Lapu  </th>
+                    <th rowspan="2">Operator   </th>
+                    <th rowspan="2">Circle  </th>
+                    <th colspan="3">Purchage </th>
+                    <th rowspan="2">Margin(%)  </th>
+                    <th rowspan="2">Dealer  </th>
+                    <th rowspan="2">DB_Amt  </th>
+                    <th rowspan="2">AddDate  </th>
+                </tr>
+                <tr>
+                    
+                    <th>Amount </th>
+                    <th>Comm.  </th>
+                    <th>Total  </th>
+                    
+                </tr>
+                @{ 
+                    int indx = 1;
+                }
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@(indx++)  </td>
+                    <td>@item.PurDate  </td>
+                    <td style="font-weight:bold">@item.LapuNo  </td>
+                    <td>@item.OpName   </td>
+                    <td>@item.CircleName  </td>
+                    <td>@item.CR_Amt </td>
+                    <td>@item.CM_Amt   </td>
+                    <td style="font-weight:bold">@item.Total  </td>
+                    <td>@item.Margin  </td>
+                    <td>@item.DealerName  </td>
+                    <td>@item.DB_Amt   </td>
+                    <td>@item.TxnDate  </td>
+                </tr>
+                }
+                <tfoot>
+                    <tr>
+                        <th colspan="4">  </th>
+                        <th>TOTAL: </th>
+                        <th>@ViewBag.CR_Amt </th>
+                        <th>@ViewBag.CM_Amt   </th>
+                        <th>@ViewBag.Total  </th>
+                        <th colspan="2"></th>
+                        <th>@ViewBag.DB_Amt   </th>
+                        <th title="(Total-DB_Amt):"> @(Convert.ToDecimal(ViewBag.Total==""?"0": ViewBag.Total) - Convert.ToDecimal(ViewBag.DB_Amt == "" ? "0" : ViewBag.DB_Amt))  </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/lapupurchase.js")
+
+}

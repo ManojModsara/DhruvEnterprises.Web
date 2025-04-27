@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69c5fe71fd934ea9bb88715e321c6d2e" Name="Diagram1">
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.AccountType" Width="1.5" PointX="17.5" PointY="108.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ActivityLog" Width="1.5" PointX="11.25" PointY="85.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.AmountRouting" Width="1.5" PointX="14.25" PointY="116.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.AmountUnit" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.AmtType" Width="1.5" PointX="14.5" PointY="107.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiRandomKey" Width="1.5" PointX="15.75" PointY="131.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiSource" Width="1.5" PointX="13.5" PointY="121.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiSourceExt" Width="1.5" PointX="15.75" PointY="134.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiType" Width="1.5" PointX="11.25" PointY="116.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiUrl" Width="1.5" PointX="18.75" PointY="119.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiUrlType" Width="1.5" PointX="16.5" PointY="103.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ApiWalletTxn" Width="1.5" PointX="16.75" PointY="111.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.BankAccount" Width="1.5" PointX="19.75" PointY="112.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.BankAccountData" Width="1.5" PointX="11.25" PointY="106.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.BankStatement" Width="1.5" PointX="25" PointY="110.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.BeneficiaryList" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.BlockRoute" Width="1.5" PointX="11.25" PointY="110.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Cart" Width="1.5" PointX="14.25" PointY="111.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Circle" Width="1.5" PointX="12" PointY="95" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.CircleCode" Width="1.5" PointX="21.75" PointY="119.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.CircleRouting" Width="1.5" PointX="22.75" PointY="114.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.CommanRouting" Width="1.5" PointX="22.75" PointY="107.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.CommonSwitch" Width="1.5" PointX="31" PointY="114.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.CommType" Width="1.5" PointX="30.75" PointY="132.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Complaint" Width="1.5" PointX="39.25" PointY="114.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.DMT" Width="1.5" PointX="24.75" PointY="120.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.DueAmount" Width="1.5" PointX="18.75" PointY="125.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.EmailAPI" Width="1.5" PointX="11.25" PointY="119.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ExcelPayoutListverify" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.FilterType" Width="1.5" PointX="20.5" PointY="109.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.FireBaseToken" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.GatewayTransferType" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.GlobalSetting" Width="1.5" PointX="11.25" PointY="123.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.InvoiceDetail" Width="1.5" PointX="11.25" PointY="127.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.KYCDistrictList" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.KYCStateList" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.KYCTypedDocument" Width="1.5" PointX="11.25" PointY="131.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.MapMenuToRole" Width="1.5" PointX="3" PointY="116.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.MediumType" Width="1.5" PointX="31.75" PointY="106.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Menu" Width="1.5" PointX="11.25" PointY="135.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.NotificationBar" Width="1.5" PointX="6" PointY="116.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Operator" Width="1.5" PointX="21.75" PointY="124.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OperatorCode" Width="1.5" PointX="31" PointY="109.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OperatorKeyGenrate" Width="1.5" PointX="33" PointY="120.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OperatorSerial" Width="1.5" PointX="24" PointY="130.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OperatorType" Width="1.5" PointX="19.5" PointY="131.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OperatorValidation" Width="1.5" PointX="30" PointY="126.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OperatorValidType" Width="1.5" PointX="19.5" PointY="134" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Order" Width="1.5" PointX="41.5" PointY="115.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.OrderDetail" Width="1.5" PointX="43.75" PointY="116.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Package" Width="1.5" PointX="11.25" PointY="140.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.PackageComm" Width="1.5" PointX="27" PointY="127.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.PackageCommCircle" Width="1.5" PointX="33" PointY="125.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.PackageCommRange" Width="1.5" PointX="16.5" PointY="125.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Product" Width="1.5" PointX="12" PointY="99.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.ProductImage" Width="1.5" PointX="14.25" PointY="100.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.RCType" Width="1.5" PointX="31.75" PointY="103.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Recharge" Width="1.5" PointX="34" PointY="106" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.RechargeGap" Width="1.5" PointX="28" PointY="115" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.RechargeGiftCard" Width="1.5" PointX="36.25" PointY="117.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.RequestResponse" Width="1.5" PointX="28" PointY="110.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Role" Width="1.5" PointX="0.75" PointY="117.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.SmsAPI" Width="1.5" PointX="11.25" PointY="145.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.SMSData" Width="1.5" PointX="13.5" PointY="146.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.SqlErrorLog" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.StateList" Width="1.5" PointX="6.75" PointY="113" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.StatusType" Width="1.5" PointX="31.75" PointY="100.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.StopRouteMessage" Width="1.5" PointX="11.25" PointY="150.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.SwitchType" Width="1.5" PointX="19.5" PointY="136.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.Tag" Width="1.5" PointX="27.75" PointY="133.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.TagValue" Width="1.5" PointX="30" PointY="120.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.TracingLog" Width="1.5" PointX="11.25" PointY="154.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.TransferType" Width="1.5" PointX="22.75" PointY="104.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.TxnLedger" Width="1.5" PointX="36.25" PointY="110.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.TxnType" Width="1.5" PointX="34" PointY="101.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.User" Width="1.5" PointX="9" PointY="104.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.UserFilterRule" Width="1.5" PointX="11.25" PointY="157.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.UserFilterRuleReport" Width="1.5" PointX="25" PointY="103.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.UserKYC" Width="1.5" PointX="16.5" PointY="119.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.UserProfile" Width="1.5" PointX="11.25" PointY="162.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.WalletRequest" Width="1.5" PointX="27" PointY="120" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.bankit" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.UserHistory" Width="1.5" PointX="11.25" PointY="167.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DhruvEnterprisesDBModel.View_UserListWithBalance" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankAccount_AccountType_AccountTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_ActivityLog_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__AmountRouting_ApiSource_API1_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__AmountRouting_ApiSource_API2_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__AmountRouting_ApiSource_API3_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__AmountRouting_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__AmountRouting_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__AmountRouting_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiWalletTxn_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DueAmount_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageComm_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__TxnLedger_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__WalletRequest_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_PackageCommRange_AmtType_AmtTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_ApiRandomKey_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiSource_ApiType_ApiTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiSource_Package_ApiPackid" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiSource_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiSource_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiUrl_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiWalletTxn_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleCode_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleRouting_ApiSource_API1_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleRouting_ApiSource_API2_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleRouting_ApiSource_API3_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CommanRouting_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DueAmount_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Operator_ApiSource_API1_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Operator_ApiSource_API2_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Operator_ApiSource_API3_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorCode_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorKeyGenrate_Apisource_VendorId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ResTagValue_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__User__VendorId__184C96B4" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_ApiSourceExt_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankAccount_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CommonSwitch_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRuleReport_ApiSource_ApiId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiUrl_ApiUrlType_UrlTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiUrl_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiUrl_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__RequestResponse_ApiUrl_UrlId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ResTagValue_ApiUrl_UrlId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_RechargeGap_UrlId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiWalletTxn_TxnLedger_RefTxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiWalletTxn_TxnType_TxnTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ApiWalletTxn_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_ApiWalletTxn_DMT_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_apiwallettxn_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_ApiWalletTxn_ApiTxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankAccount_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankAccount_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankAccount_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_BankAccount_AccountId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_BankAccount_RefAccountId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_WalletRequest_BankAccount_BankAccountId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__BankAccountData_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__BankAccountData_User_UpdateByID" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__BankAccountData_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_TransferType_TrTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_TxnLedger_TxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_TxnType_TxnTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BankStatement_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BlockRoute_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_BlockRoute_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.Cart_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.Cart_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleCode_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleRouting_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorSeries_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CommonSwitch_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRuleReport_Circle_CircleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleCode_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CircleCode_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleRouting_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CircleRouting_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CircleRouting_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CommanRouting_FilterType_FTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CommanRouting_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CommanRouting_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__CommanRouting_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CommanRouting_User_ActiveUpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CommonSwitch_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CommonSwitch_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_CommonSwitch_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageComm_CommType_CommTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_CommType_CommTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_PackageCommRange_CommType_CommTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Complaint_Recharge_RecId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Complaint_StatusType_StatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Complaint_TxnLedger_RefundTxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Complaint_User_ComplaintById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Complaint_User_ResolvedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Complaint_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__DMT__StatusId__226010D3" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_MediumType_MediumId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_RCType_RCTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_TxnLedger_TxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DMT_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_DMT_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DueAmount_TxnType_TxnTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DueAmount_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DueAmount_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__DueAmount_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__EmailAPI__Addedb__1881A0DE" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__EmailAPI__Update__1975C517" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__GlobalSetting_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__GlobalSetting_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__InvoiceDetails_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__InvoiceDetails_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_InvoiceDetails_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__KYCDistri__state__0FEC5ADD" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__KYCDistri__state__10E07F16" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__KYCTypedD__Added__22FF2F51" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__Documen__2C538F61" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__Documen__2D47B39A" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__MapMenuTo__MenuI__45544755" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__MapMenuTo__RoleI__46486B8E" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__MapMenuToRole_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__MapMenuToRole_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_MediumType_MediumId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__Menu__ParentId__4924D839" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Menu_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Menu_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_NotificationBar_Role_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_NotificationBar_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_NotificationBar_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Operator_SwitchType_SwitchTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Operator_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorCode_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorKeyGenrate_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorSeries_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageComm_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Operator_OperatorType_OpTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Operator_OperatorValidType_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Operator_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_OperatorValidation_Operator_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRuleReport_Operator_OpId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorCode_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_OperatorCode_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__OperatorKeyGenrate_User_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_OperatorValidation_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_OperatorValidation_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Order_TxnLedger_TxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Order_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_OrderDetails_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_Product_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Package_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Package_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageComm_Package_PackId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_Package_PackId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_PackageCommRange_Package_PackId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_User_Package_User_PackageId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageComm_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageComm_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__PackageCommCircle_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_PackageCommRange_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_PackageCommRange_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.productimage_PId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_RCType_RCTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_StatuType_StatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_TxnLedger_TxnId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__Recharge_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__RechargeGiftCard_Recharge_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__RequestResponse_Recharge_RecId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__TxnLedger_Recharge_RecId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Recharge_User_ResendById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_Recharge_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_RechargeGap_RecId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__RequestResponse_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_User_Role_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__SmsAPI__AddedbyI__062DE679" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__SmsAPI__AddedbyI__07220AB2" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__SmsAPI__Updateby__08162EEB" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__SmsAPI__Updateby__090A5324" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__SMSData__Smsid__09FE775D" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__User__StateID__1758727B" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__WalletRequest_StatusType_StatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_StopRouteMessage_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_StopRouteMessage_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__ResTagValue_Tag_TagId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_TagValue_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_TagValue_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__TracingLog_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_WalletRequest_TransferType_TrTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__TxnLedger_TxnType_TxnTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__TxnLedger_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__TxnLedger_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__WalletRequest_TxnType_TxnTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__User_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__User_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__UserHistory_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__UserHistory_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__UserHistory_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__AddedBy__2882FE7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__AddedBy__297722B6" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__Approve__2A6B46EF" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__Approve__2B5F6B28" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__UserId__2E3BD7D3" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK__UserKYC__UserId__2F2FFC0C" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__UserProfile_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__UserProfile_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__UserProfile_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__WalletRequest_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__WalletRequest_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk__WalletRequest_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRule_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRule_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRuleReport_User_AddedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRuleReport_User_UpdatedById" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserFilterRuleReport_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.fk_UserLog_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DhruvEnterprisesDBModel.FK_ApiWalletTxn_Recharge" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

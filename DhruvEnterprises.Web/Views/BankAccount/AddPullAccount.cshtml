@@ -1,0 +1,132 @@
+﻿
+@model DhruvEnterprises.Dto.BankStatementDto
+
+@{
+    ViewBag.Title = "AddPull -Bank Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css", "~/Content/css/bootstrap-datepicker.css")
+
+
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+@using (Html.BeginForm("addpullaccount", "BankAccount", FormMethod.Post, new { @action = Url.Action("addpullaccount"), enctype = "multipart/form-data", @id = "model-addpullaccount-bankaccount" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.Id) 
+    <section class="content-header">
+        <h1>
+            Deposit/Withdraw Account
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-body">
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.AccountId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.AccountId, true, new SelectList(ViewBag.AdminAccountList, "Id", "HolderName", @Model.AccountId), "Select a Account", new { @class = "form-control select2" })
+                                    </div>
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.TrTypeId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.TrTypeId, true, new SelectList(ViewBag.TrTypeList, "Id", "Name", @Model.TrTypeId), "Select Transfer Type", new { @class = "form-control select2" })
+
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Amount, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Amount, htmlAttributes: new { @class = "form-control ", @placeholder = "Amount" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.IsWithdraw, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.IsWithdraw)
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.PaymentRef, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.PaymentRef, htmlAttributes: new { @class = "form-control ", @placeholder = "Payment Ref" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Remark, new { @class = "control-label" })
+                                        @Html.TextAreaFor(m => m.Remark, htmlAttributes: new { @class = "form-control ", @placeholder = "Remark" })<!-- /.input group -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CurrentBalance, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.CurrentBalance, htmlAttributes: new { @class = "form-control ",@disabled= "disabled", @placeholder = "Current Balance" })<!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.RefAccountId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.RefAccountId, true, new SelectList(ViewBag.BankAccountList, "Id", "HolderName", @Model.RefAccountId), "Select Bank Account", new { @class = "form-control select2" })
+
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.PaymentDate, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.PaymentDate, htmlAttributes: new { @class = "form-control ", @placeholder = "Payment Date", @autocomplete = "off" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.UserId, true, new SelectList(ViewBag.UserList, "Id", "Username", @Model.UserId), "Select User", new { @class = "form-control select2" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ApiId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.ApiId, true, new SelectList(ViewBag.ApiList, "Id", "ApiName", @Model.ApiId), "Select Vendor", new { @class = "form-control select2" })
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("BankStatement")"><i class="fa fa-arrow-circle-left"></i> Bank Satement</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/bankaccount/addpullaccount.js", "~/bundles/jqueryval", "~/bundles/select2", "~/bundles/datepicker")
+}
+
+
+
+
+

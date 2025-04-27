@@ -1,0 +1,139 @@
+﻿
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Models.Others;
+@model DhruvEnterprises.Dto.OperatorGenrateListdto
+
+@{
+    ViewBag.Title = "Random Key";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Operator -Random Key
+    </h1>
+
+
+    <style>
+
+        #btnClose:hover {
+            cursor: pointer;
+        }
+
+
+        .tr-silver {
+            background: silver;
+        }
+
+        .tr-custom {
+            background: inherit;
+        }
+    </style>
+
+</section>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">No. Of Keys</label>
+                            <input type="text" id="txtNoOfKeys" value="" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Operator</label>
+                            @Html.DropDownList("ddOperator", (List<SelectListItem>)ViewBag.OperatorList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">UserId</label>
+                            @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">VendorId</label>
+                            @Html.DropDownList("ddVendor", (List<SelectListItem>)ViewBag.ApiList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Save" id="btnGenerateKeys" class="btn btn-success" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div id="dvKeyResult" class="col-md-12 table table-responsive divclass">
+
+
+                        <table width="500" id="tblRandomKeys" class="table table-hover table-responsive table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SRN </th>
+                                    <th>Key Type </th>
+                                    <th>Length/Text </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 1; i <= 10; i++)
+                                {
+                                    <tr>
+                                        @{
+                                            DhruvEnterprises.Dto.OperatorGenatedto data = Model.OperatorGenateList.Where(x => x.KeyTypeId == i).FirstOrDefault() ?? new DhruvEnterprises.Dto.OperatorGenatedto();
+
+                                            <td>@i</td>
+                                            <td>
+                                                <select id="ddKeyType" class="form-control select2">
+                                                    <option value="0">--Select--</option>
+                                                    <option value="1" @(data.KeyTypeId == 1 ? "selected" : "")>Fixed</option>
+                                                    <option value="2" @(data.KeyTypeId == 2 ? "selected" : "")>Numeric</option>
+                                                    <option value="3" @(data.KeyTypeId == 3 ? "selected" : "")>Alphabetic -LOWER</option>
+                                                    <option value="4" @(data.KeyTypeId == 4 ? "selected" : "")>Alphabetic -UPPER</option>
+                                                    <option value="5" @(data.KeyTypeId == 5 ? "selected" : "")>Alphabetic -MIX</option>
+                                                    <option value="6" @(data.KeyTypeId == 6 ? "selected" : "")>Alph-Numeric-LOWER</option>
+                                                    <option value="7" @(data.KeyTypeId == 7 ? "selected" : "")>Alph-Numeric-UPPER</option>
+                                                    <option value="8" @(data.KeyTypeId == 8 ? "selected" : "")>Alph-Numeric-MIX</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="txtLengthOrText" value="@data.TextLength" class="form-control" />
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/UserOperatorgen.js")
+
+}

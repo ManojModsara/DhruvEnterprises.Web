@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/css/bootstrap-datepicker.css")
+<style>
+    .rpt {
+        text-align: left;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        Wallet Exchange Report
+    </h1>
+</section>
+<section class="content">
+    @{
+        DhruvEnterprises.Dto.WalletRequestFilterDto filter = (DhruvEnterprises.Dto.WalletRequestFilterDto)ViewBag.FilterData;
+    }
+
+    <div class="row" style="display:block;">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@filter.SdateNow" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@filter.EdateNow" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="IsShow" value="@filter.IsActive" />
+                        </div>
+                        <div class="form-group col-md-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <h3 class="text-capitalize purple">User Exchange Report</h3>
+                        @*<div class="table-content balance-record">*@
+
+                        <div style="width:100%;  overflow:auto;">
+                            <table class="table table-bordered" >
+                                
+                              
+                                <thead>
+                                    <tr>
+                                        <th class="rpt">User Name</th>
+                                        <th class="rpt">Amount</th>
+                                        <th class="rpt">Added On</th>
+                                        <th class="rpt">Added By</th>
+                                        <th class="rpt">Remark</th>
+                                    </tr></thead>
+                                
+                                <tbody id="userExchange">
+                                    </tbody>
+</table>
+                        </div>
+                        @*</div>*@
+                        <!--box-->
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3 class="text-capitalize purple">Vendor Exchange Report</h3>
+                        @*<div class="table-content balance-record">*@
+
+                        <div style="width:100%;  overflow:auto;">
+                            <table class="table table-bordered" >
+                              
+                                
+                                <thead>
+                                    <tr>
+                                        <th class="rpt">User Name</th>
+                                        <th class="rpt">CR_AMT</th>
+                                        <th class="rpt">DR_AMT</th>
+                                        <th class="rpt">Added On</th>
+                                        <th class="rpt">Added By</th>
+                                        <th class="rpt">Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="VendorExchange">
+                                    </tbody>
+</table>
+                        </div>
+                        @*</div>*@
+                        <!--box-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var isactive = '@filter.IsActive';
+</script>
+<script src="~/Content/Admin/js/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        DisplayUserReport();
+                $('#btnSearch').on('click', function () {
+            var Sdate = $('#txtFromDate').val();
+            var Edate = $('#txtToDate').val();
+            $.ajax({
+                type: "POST",
+                url: '/Wallet/WExchange',
+                data: "{'f':'" + Sdate + "','e':'" + Edate + "'}",
+                dataType: 'json',
+                async: false,
+                contentType: "application/json",
+                success: function (r) {
+                    //User Exchange Report Section
+                    var userExchangeData = r.UserExchangeReport;
+                    var aObjs3 = JSON.parse(userExchangeData);
+                    var divOutput = [];
+                    divOutput.push('<tr><thead><th class="rpt">User Name</th><th class="rpt">Amount</th><th class="rpt">Added On</th><th class="rpt">Added By</th><th class="rpt">Remark</th></thead></tr>');
+                    divOutput.push('<tbody>');
+                    var TotalAmount = 0;
+                    for (var i = 0; i < aObjs3.length; ++i) {
+                        divOutput.push('<tr><td>' + aObjs3[i].Fullname + '</td><td>' + aObjs3[i].Amount + '</td><td>' + aObjs3[i].AddedDate + '</td><td>' + aObjs3[i].fn + '</td><td>' + aObjs3[i].PaymentRemark + '</td></tr>');
+                        TotalAmount += parseInt(aObjs3[i].Amount);
+                    }
+                    divOutput.push('<tr><td>Total</td><td>' + TotalAmount + '</td><td></td><td></td><td></td></tr>');
+                    divOutput.push('</tbody>');
+                    $('#userExchange').html(divOutput);
+                    //User Exchange Report Section Ends
+                    //Vendor Exchange Report Section
+                    var vendorExchangeData = r.VendorExchangeReport;
+                    var aObjs2 = JSON.parse(vendorExchangeData);
+                    var divOutputVendor = [];
+                    divOutputVendor.push('<tr><thead><th class="rpt">User Name</th><th class="rpt">CR_AMT</th><th class="rpt">DR_AMT</th><th class="rpt">Added On</th><th class="rpt">Added By</th><th class="rpt">Remark</th></thead></tr>');
+                    divOutputVendor.push('<tbody>');
+                    var CrTotal = 0;
+                    var DbTotal = 0;
+                    for (var i = 0; i < aObjs2.length; ++i) {
+                        divOutputVendor.push('<tr><td>' + aObjs2[i].apiName + '</td><td>' + aObjs2[i].Cr_amt + '</td><td>' + aObjs2[i].Db_Amt + '</td><td>' + aObjs2[i].AddedDate + '</td><td>' + aObjs2[i].Username + '</td><td>' + aObjs2[i].Remark + '</td></tr>');
+                        CrTotal += parseInt(aObjs2[i].Cr_amt);
+                        DbTotal += parseInt(aObjs2[i].Db_Amt);
+                    }
+                    divOutputVendor.push('<tr><td>Total</td><td>' + CrTotal + '</td><td>' + DbTotal + '</td><td></td><td></td><td></td></tr>');
+                    divOutputVendor.push('</tbody>');
+                    $('#VendorExchange').html(divOutputVendor);
+                    //Vendor Exchange Report Section Ends
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                    alert("Error has occurred..");
+                }
+            });
+        });
+    });
+    function DisplayUserReport() {
+        $.ajax({
+            type: "POST",
+            url: '/Wallet/WExchange',
+            data: '{}',
+            dataType: 'json',
+            async: false,
+            contentType: "application/json",
+            success: function (r) {
+                //User Exchange Report Section
+                var userExchangeData = r.UserExchangeReport;
+                var aObjs3 = JSON.parse(userExchangeData);
+                var divOutput = [];
+                //divOutput.push('<tr><thead><th class="rpt">User Name</th><th class="rpt">Amount</th><th class="rpt">Added On</th><th class="rpt">Added By</th><th class="rpt">Remark</th></thead></tr>');
+                //divOutput.push('<tbody>');
+                var TotalAmount = 0;
+                for (var i = 0; i < aObjs3.length; ++i) {
+
+                    divOutput.push('<tr><td>' + aObjs3[i].Fullname + '</td><td>' + aObjs3[i].Amount + '</td><td>' + aObjs3[i].AddedDate + '</td><td>' + aObjs3[i].fn + '</td><td>' + aObjs3[i].PaymentRemark + '</td></tr>');
+                    TotalAmount += parseInt(aObjs3[i].Amount);
+                }
+                divOutput.push('<tr><td>Total</td><td>' + TotalAmount + '</td><td></td><td></td><td></td></tr>');
+                //divOutput.push('</tbody>');
+                $('#userExchange').html(divOutput);
+                //User Exchange Report Section Ends
+
+                //Vendor Exchange Report Section
+                var vendorExchangeData = r.VendorExchangeReport;
+                var aObjs2 = JSON.parse(vendorExchangeData);
+                var divOutputVendor = [];
+                //divOutputVendor.push('<tr><thead><th class="rpt">User Name</th><th class="rpt">CR_AMT</th><th class="rpt">DR_AMT</th><th class="rpt">Added On</th><th class="rpt">Added By</th><th class="rpt">Remark</th></thead></tr>');
+                //divOutputVendor.push('<tbody>');
+                var CrTotal = 0;
+                var DbTotal = 0;
+                for (var i = 0; i < aObjs2.length; ++i) {
+                    divOutputVendor.push('<tr><td>' + aObjs2[i].apiName + '</td><td>' + aObjs2[i].Cr_amt + '</td><td>' + aObjs2[i].Db_Amt + '</td><td>' + aObjs2[i].AddedDate + '</td><td>' + aObjs2[i].Username + '</td><td>' + aObjs2[i].Remark + '</td></tr>');
+                    CrTotal += parseInt(aObjs2[i].Cr_amt);
+                    DbTotal += parseInt(aObjs2[i].Db_Amt);
+                }
+                divOutputVendor.push('<tr><td>Total</td><td>' + CrTotal + '</td><td>' + DbTotal + '</td><td></td><td></td><td></td></tr>');
+                //divOutputVendor.push('</tbody>');
+                $('#VendorExchange').html(divOutputVendor);
+                //Vendor Exchange Report Section Ends
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+
+    }
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Wallet/WalletExchange.js")
+
+}
+

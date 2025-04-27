@@ -1,0 +1,80 @@
+﻿@{
+	ViewBag.Title = "Chart";
+}
+
+<h2>Chart</h2>
+@Styles.Render("~/bundles/css/select2")
+<link href="~/Content/css/jquery.datetimepicker.css" rel="stylesheet" />
+<section class="content">
+	@{
+		DhruvEnterprises.Dto.RechargeFilterDto filter = (DhruvEnterprises.Dto.RechargeFilterDto)ViewBag.FilterData;
+	}
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-danger">
+				<div class="box-header" id="btnClose">
+					<h3 class="box-title">Search Panel</h3>
+					<div class="pull-right" style="color:red">Show/Hide</div>
+				</div>
+				<div class="box-body" id="dvSearchPanel">
+					<div class="row">
+						<div class="form-group col-md-1">
+							<label class="control-label">Interval</label>
+							<input type="text" id="txtContactNo" value="@filter.CustomerNo" class="form-control" />
+						</div>
+						<div class="form-group col-md-3">
+							<label class="control-label">From-Date</label>
+							<input type="text" id="txtFromDate" value="@filter.SdateNow" class="form-control" autocomplete="off" />
+						</div>
+						<div class="form-group col-md-3">
+							<label class="control-label">To-Date</label>
+							<input type="text" id="txtToDate" class="form-control" value="@filter.EdateNow" autocomplete="off" />
+						</div>
+
+						<div class="form-group col-md-3">
+							<label class="control-label">Operator</label>
+							@Html.DropDownList("ddOperator", (List<SelectListItem>)ViewBag.OperatorList, "--All--", new { @class = "form-control select2" })
+						</div>
+						<div class="form-group col-md-1">
+							<br />
+							<input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+							<input type="hidden" id="Isa" value="@filter.Isa" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+</section>
+<script>
+    var isactive = '@filter.Isa';
+</script>
+
+@section scripts{
+	@Scripts.Render("~/bundles/select2")
+	@Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+
+	@Scripts.Render("~/Scripts/Custom/Home/Chart.js")
+}
+
+<script src="~/Scripts/plugins/datetimepicker/jquery.js"></script>
+<script src="~/Scripts/plugins/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript">
+	var jqry = jQuery.noConflict();
+    jqry('#txtFromDate,#txtToDate').datetimepicker({
+        format: "Y-m-d H:m",
+		'setDate':new Date()
+    });
+// Code that uses other library's $ can follow here.
+</script>
+
+<script src="https://canvasjs.com/~/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/~/assets/script/jquery.canvasjs.min.js"></script>
+@*<script src="https://canvasjs.com/~/assets/script/canvasjs.min.js"></script>*@

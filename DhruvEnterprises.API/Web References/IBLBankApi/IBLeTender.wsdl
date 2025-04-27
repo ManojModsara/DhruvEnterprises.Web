@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="IBLeTender" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ETender_Pull" />
+    </xsd:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/ETender_Pull" />
+      <xs:element name="GetData">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTransactionTypeData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="strTranType" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTransactionTypeDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetTransactionTypeDataResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FetchIecData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ETender_Pull" minOccurs="0" name="RequestData" nillable="true" type="q1:FetchIecDataRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FetchIecDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ETender_Pull" minOccurs="0" name="FetchIecDataResult" nillable="true" type="q2:FetchIecDataResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateClientResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ETender_Pull" minOccurs="0" name="RequestData" nillable="true" type="q3:UpdateClientResponseRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateClientResponseResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ETender_Pull" minOccurs="0" name="UpdateClientResponseResult" nillable="true" type="q4:UpdateClientResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UTREnquiry">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ETender_Pull" minOccurs="0" name="RequestData" nillable="true" type="q5:UTREnquiryRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UTREnquiryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ETender_Pull" minOccurs="0" name="UTREnquiryResult" nillable="true" type="q6:UTREnquiryResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIecData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="CustomerTenderId" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIecDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetIecDataResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateIecResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="TenderID" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="RequestData" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateIecResponseResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="UpdateIecResponseResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UTRIecEnquiry">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="UTR" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="RefNo" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="CustomerTenderId" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UTRIecEnquiryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="UTRIecEnquiryResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ETender_Pull" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ETender_Pull" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="FetchIecDataRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CustomerTenderId" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FetchIecDataRequest" nillable="true" type="tns:FetchIecDataRequest" />
+      <xs:complexType name="FetchIecDataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ResponseCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ResponseDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ResponseIecData" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FetchIecDataResponse" nillable="true" type="tns:FetchIecDataResponse" />
+      <xs:complexType name="UpdateClientResponseRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CustomerResponse" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerTenderId" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UpdateClientResponseRequest" nillable="true" type="tns:UpdateClientResponseRequest" />
+      <xs:complexType name="UpdateClientResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ResponseCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ResponseDescription" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UpdateClientResponse" nillable="true" type="tns:UpdateClientResponse" />
+      <xs:complexType name="UTREnquiryRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CustomerTenderId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RefNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UTR" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UTREnquiryRequest" nillable="true" type="tns:UTREnquiryRequest" />
+      <xs:complexType name="UTREnquiryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ResponseCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ResponseDescription" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UTREnquiryResponse" nillable="true" type="tns:UTREnquiryResponse" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IIBLeTender_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_GetTransactionTypeData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionTypeData" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_GetTransactionTypeData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionTypeDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_FetchIecData_InputMessage">
+    <wsdl:part name="parameters" element="tns:FetchIecData" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_FetchIecData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FetchIecDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UpdateClientResponse_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UpdateClientResponse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientResponseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UTREnquiry_InputMessage">
+    <wsdl:part name="parameters" element="tns:UTREnquiry" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UTREnquiry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UTREnquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_GetIecData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIecData" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_GetIecData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIecDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UpdateIecResponse_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIecResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UpdateIecResponse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIecResponseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UTRIecEnquiry_InputMessage">
+    <wsdl:part name="parameters" element="tns:UTRIecEnquiry" />
+  </wsdl:message>
+  <wsdl:message name="IIBLeTender_UTRIecEnquiry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UTRIecEnquiryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IIBLeTender">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/GetData" message="tns:IIBLeTender_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/GetDataResponse" message="tns:IIBLeTender_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransactionTypeData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/GetTransactionTypeData" message="tns:IIBLeTender_GetTransactionTypeData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/GetTransactionTypeDataResponse" message="tns:IIBLeTender_GetTransactionTypeData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchIecData">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/FetchIecData" message="tns:IIBLeTender_FetchIecData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/FetchIecDataResponse" message="tns:IIBLeTender_FetchIecData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientResponse">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/UpdateClientResponse" message="tns:IIBLeTender_UpdateClientResponse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/UpdateClientResponseResponse" message="tns:IIBLeTender_UpdateClientResponse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UTREnquiry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/UTREnquiry" message="tns:IIBLeTender_UTREnquiry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/UTREnquiryResponse" message="tns:IIBLeTender_UTREnquiry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIecData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/GetIecData" message="tns:IIBLeTender_GetIecData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/GetIecDataResponse" message="tns:IIBLeTender_GetIecData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIecResponse">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/UpdateIecResponse" message="tns:IIBLeTender_UpdateIecResponse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/UpdateIecResponseResponse" message="tns:IIBLeTender_UpdateIecResponse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UTRIecEnquiry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIBLeTender/UTRIecEnquiry" message="tns:IIBLeTender_UTRIecEnquiry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIBLeTender/UTRIecEnquiryResponse" message="tns:IIBLeTender_UTRIecEnquiry_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IIBLeTender" type="tns:IIBLeTender">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransactionTypeData">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/GetTransactionTypeData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchIecData">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/FetchIecData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientResponse">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/UpdateClientResponse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UTREnquiry">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/UTREnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIecData">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/GetIecData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIecResponse">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/UpdateIecResponse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UTRIecEnquiry">
+      <soap:operation soapAction="http://tempuri.org/IIBLeTender/UTRIecEnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IBLeTender">
+    <wsdl:port name="BasicHttpBinding_IIBLeTender" binding="tns:BasicHttpBinding_IIBLeTender">
+      <soap:address location="https://ibluatapig.indusind.com/app/uat/IBLeTender?client_id=*client_id*&amp;client_secret=*client_secret*" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

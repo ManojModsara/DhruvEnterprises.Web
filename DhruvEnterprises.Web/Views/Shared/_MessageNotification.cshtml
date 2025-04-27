@@ -1,0 +1,11 @@
+﻿@{
+    var model = (ViewData["NotificationModel"] ?? TempData["NotificationModel"]) as DhruvEnterprises.Web.Models.Others.Notification;  
+}
+
+@if (model != null)
+{
+    <div class="alert alert-@(model.Type.ToString().ToLower()) alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        @(model.Message)
+    </div>
+}

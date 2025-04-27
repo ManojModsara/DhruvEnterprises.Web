@@ -1,0 +1,202 @@
+﻿@model DhruvEnterprises.Dto.LoginDto
+@using DhruvEnterprises.Web.Code.LIBS
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login -@SiteKey.CompanyShortName</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    @Styles.Render("~/Content/css/bootstrap.min.css",
+    "~/Content/css/font-awesome.min.css",
+    "~/Content/css/AdminLTE.min.css",
+    "~/Content/css/skins/_all-skins.min.css", "~/Content/plugins/iCheck/square/blue.css")
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+    <div class="">
+        
+
+        @Html.Partial("_Notification")
+        <!-- /.login-logo -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 ">
+                    <div class="">
+                        <img src="~/Images/graphic3.svg" alt="Italian Trulli" width="500px" >
+
+                    </div>
+                </div>
+                
+                <div class="col-lg-5" style="margin-top:80px;">
+                    <div class="login-box-body">
+                        <div class="login-logo">
+                            <a href="@Url.Action("Index")">
+
+                                @*<img src="~/Content/Admin/images/logo01.png" width="100" />*@
+                                @*<span style="color:navajowhite"><b style="color:white">MY</b>Recharge</span>*@
+                            </a>
+                        </div>
+                        <p class="login-box-msg">Sign in to start your session</p>
+
+                        <form id="form1" action="@Url.Action("Index", "account")" method="post">
+
+                            <div class="form-group has-feedback">
+                                @Html.TextBoxFor(model => model.Email, true, null, new { @class = "form-control", placeholder = "Email" })
+                                @*@Html.TextBoxFor()*@
+                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+
+                                @Html.PasswordFor(model => model.Password, true, new { @class = "form-control", placeholder = "Password" })
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                            <div class="footer">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign me in</button>
+                                <p class="errormsg">@ViewBag.Invalid</p>
+                                <p>
+                                    <div style="width:100%">
+                                        <div style="width:50%; float:left">
+                                            <a href="@Url.Action("forgotpassword", "account")">Forgot Your Password</a>
+                                        </div>
+                                        <div style="float:right">
+                                            <a href="@Url.Action( "UserSignUp", "account")"> Create Account</a>
+                                        </div>
+                                    </div>
+                                </p>
+                                <p style="height:20px;"></p>
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- /
+            -->
+    </div>
+
+</body>
+</html>
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.js",
+    "~/Scripts/bootstrap.min.js",
+    "~/Content/plugins/iCheck/icheck.min.js", "~/Scripts/global.js"
+    )
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-messaging.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/init-firebase.js"></script>
+<script type="text/javascript">
+        Global.DomainName = '@SiteKey.DomainName';
+</script>
+<script>
+    if (firebase.messaging.isSupported()) {
+        const messaging = firebase.messaging();
+
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+            var title = payload.data.title;
+            var options = {
+                body: payload.data.body,
+                icon: payload.data.icon,
+                image: payload.data.image,
+                data: {
+                    time: new Date(Date.now()).toString(),
+                    click: payload.data.click
+                }
+            };
+            var mynotification = new Notification(title, options);
+        });
+        requestPermission();
+        function requestPermission() {
+            console.log('Requesting permission...');
+            // [START request_permission]
+            messaging.requestPermission().then(function () {
+                console.log('Notification permission granted.');
+                if (isTokenSentToServer()) {
+                    console.log("Token Already Sent");
+                }
+                else {
+                    resetUI();
+                }
+            }).catch(function (err) {
+                console.log('Unable to get permission to notify.', err);
+            });
+            // [END request_permission]
+        }
+        function resetUI() {
+            showToken('loading...');
+            messaging.getToken().then(function (currentToken) {
+                if (currentToken) {
+                    saveToken(currentToken);
+                    console.log(currentToken);
+                    sendTokenToServer(currentToken);
+                    //updateUIForPushEnabled(currentToken);
+                } else {
+                    // Show permission request.
+                    console.log('No Instance ID token available. Request permission to generate one.');
+                    // Show permission UI.
+                    //updateUIForPushPermissionRequired();
+                    //  setTokenSentToServer(false);
+                }
+            }).catch(function (err) {
+                console.log('An error occurred while retrieving token. ', err);
+                //showToken('Error retrieving Instance ID token. ', err);
+                // setTokenSentToServer(false);
+            });
+        }
+        function showToken(currentToken) {
+            // Show token in console and UI.
+            console.log(currentToken);
+        }
+        function sendTokenToServer(currentToken) {
+            if (!isTokenSentToServer()) {
+                console.log('Sending token to server...');
+                // TODO(developer): Send the current token to your server.
+                setTokenSentToServer(true);
+            } else {
+                console.log('Token already sent to server so won\'t send it again ' +
+                    'unless it changes');
+            }
+
+        }
+        function isTokenSentToServer() {
+            return window.localStorage.getItem('sentToServer') === '1';
+        }
+        function setTokenSentToServer(sent) {
+            window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+        }
+        function saveToken(currentToken) {
+            debugger;
+            $.post(Global.DomainName + 'Account/Registration', { "token": currentToken }, function (result) {
+            });
+
+            //jQuery.ajax({
+            //    data: { "token": currentToken },
+            //    type: "post",
+            //    url: "/App/webservice/Registration",
+            //    success: function (result) {
+            //        console.log(result);
+            //    }
+            //});
+        }
+    }
+</script>

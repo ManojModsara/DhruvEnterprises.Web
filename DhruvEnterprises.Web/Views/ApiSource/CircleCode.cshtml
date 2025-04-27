@@ -1,0 +1,142 @@
+﻿@model DhruvEnterprises.Dto.CircleCodeModel
+
+@{
+    ViewBag.Title = "Vendor: OpCode/Commission";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+@Html.Partial("_Notification")
+@Html.HiddenFor(model => model.PackId)
+@Html.HiddenFor(model => model.ApiId)
+<section class="content-header">
+    <h1>
+        @(Model.ApiName + " -Circle Code")
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="validation-summary">
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group required">
+
+                                <table id="tabid" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td  style="display:none">Id</td>
+                                            <td>CircleId</td>
+                                            <td>Circle Name</td>
+                                            <td>Circle-Code(CCC)</td>
+                                            @*<td>Extra Url(EEE)</td>
+        <td>Extra Parameters(DDD)</td>*@
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var circleCode in Model.CircleCodes)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td style="display:none">@circleCode.Id</td>
+                                                <td>@circleCode.CircleId</td>
+                                                <td>@circleCode.CircleName</td>
+                                                <td>
+                                                    <input type="text" id="txtCircleCode" value="@circleCode.CircleCode">
+                                                </td>
+                                                @*<td>
+            <input type="text" id="txtExtraUrl" value="@menu.ExtraUrl">
+        </td>
+        <td>
+            <input type="text" id="txtExtraData" value="@menu.ExtraData">
+        </td>
+        <td>
+            <input type="text" id="txtCommAmt" value="@menu.CommAmt">
+        </td>
+        <td>
+            <select id="AmtTypeId" class="form-control">
+                <option value="5" @(menu.AmtTypeId == 5 ? "selected" : "")>Discount</option>
+                <option value="4" @(menu.AmtTypeId == 4 ? "selected" : "")>Surcharge</option>
+            </select>
+        </td>
+        <td>
+            <select id="CommTypeId" class="form-control">
+                <option value="2" @(menu.CommTypeId == 2 ? "selected" : "")>Percentage</option>
+                <option value="1" @(menu.CommTypeId == 1 ? "selected" : "")>Flat</option>
+            </select>
+        </td>*@
+                                                <td><input type="hidden" id="ApiID" value="@circleCode.ApiId" /></td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-mar pull-right">
+                        <input type="submit" id="btn-submit" value="Submit" class="btn btn-success pull-right" onclick="return UpdateCircleCode()" />
+                    </div>
+                    <div class="btn-mar pull-right">
+                        <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}
+
+
+<script>
+     function UpdateCircleCode() {
+                var ObjList = [];
+         var apiid = @Model.ApiId;
+         var packid = @Model.PackId;
+
+         $('#tabid > tbody  > tr').each(function (i, row) {
+                    var $row = $(row)
+             ObjList.push({
+                 ApiId: apiid,
+                 PackId: packid,
+                 Id: $row.find("td:eq(0)").html().trim(),
+                 CircleId: $row.find("td:eq(1)").html().trim(),
+                 CircleCode: $row.find("#txtCircleCode").val(), 
+                 ExtraUrl: $row.find("#txtExtraUrl").val(), 
+                 ExtraData: $row.find("#txtExtraData").val()
+             });
+
+         });
+                $.ajax({
+                    url: "/ApiSource/CircleCode",
+                    type: "POST",
+                    data: JSON.stringify(ObjList),
+                   // dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (!data) {
+                            alertify.error('An internal Error occurred.');
+                        }
+                        else {
+                            alertify.success('Data Saved.');
+                        }
+                    }
+                });
+            }
+</script>

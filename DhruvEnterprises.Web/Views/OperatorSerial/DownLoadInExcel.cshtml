@@ -1,0 +1,84 @@
+﻿@model DhruvEnterprises.Dto.OperatorSerialDto
+@{
+    ViewBag.Title = "DownLoadInExcel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        <div class="btn-mar pull-left">
+                            <input type="button" value="Download All" id="btnExport" class="btn btn-primary " /> 
+                        </div>
+                        
+                        <div class="btn-mar pull-right">
+                            <input type="button" value="Circle Wise Download" id="btnCircleWise" class="btn btn-primary " /> 
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="box-body" id="divCircle" style="display:none;">
+            <div class="btn-group">
+                <div class="btn-mar pull-left">
+                    @Html.LabelFor(m => m.CircleId, new { @class = "control-label" })
+                    @Html.DropDownListFor(m => m.CircleId, true, new SelectList(ViewBag.CircleList, "Value", "Text"), "Select a Circle", new { @class = "form-control select2" })
+
+
+                </div>
+
+                <div class="btn-mar pull-right">
+                    <br />
+                    <input type="button" value="Download Circle Wise Series" id="btnCircleExport" class="btn btn-primary " />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-mar pull-right">
+                <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+            <div class="btn-mar pull-right">
+                <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#btnExport').on('click', function () {
+            var Opid = 0;// $('select#ddOperator :Selected').val();
+            var Circleid = 0;// $('select#ddOperator :Selected').val();
+            var requrl = '/Export/ExportCSV?rt=8';
+            var routeval = '';
+            if (Opid != '' && Opid != '0') routeval += '&o=' + Opid;
+            if (Circleid != '' && Circleid != '0') routeval += '&c=' + Circleid;
+            window.location.href = requrl + routeval;
+        });
+        $('#btnCircleExport').on('click', function () {
+            var Circleid = $('select#CircleId :Selected').val();
+            var requrl = '/Export/ExportCSV?rt=8';
+            var routeval = '';           
+            if (Circleid != '' && Circleid != '0') routeval += '&c=' + Circleid;
+            window.location.href = requrl + routeval;
+        });
+        $("#btnCircleWise").click(function () {
+            $("#divCircle").css("display", "block");
+        });
+
+    });
+</script>

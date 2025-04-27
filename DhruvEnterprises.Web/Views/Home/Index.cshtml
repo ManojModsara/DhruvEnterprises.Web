@@ -1,0 +1,533 @@
+﻿@model DhruvEnterprises.Dto.HomeDto
+@using DhruvEnterprises.Web.LIBS
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/main.css" rel="stylesheet" />
+@*<style>
+        .tx-60 {
+            font-size: 22px;
+        }
+        .widget {
+            margin-bottom: 20px;
+        }
+        .stats-left h4 {
+            font-size: 1.4em;
+          margin-bottom:0;
+        }
+        .stats-left {
+            padding: 13px 10px;
+            height: 100%;
+        }
+    </style>
+    <section class="content">
+        <div class="main-temp-body">
+            <div class="container-fluid">
+                <div class="br-pagebody mb-3">
+                    <div class="row row-sm">
+                        <div class=" col-lg-3 col-md-6 col-sm-6 col-xl-3 mb-3">
+                            <div class="widget bg-green">
+                                <a class="stats-left " href="#">
+                                    <h4>SUCCESS</h4>
+                                    <h5> History</h5>
+                                </a>
+                                <div class="stats-right border-green">
+                                    <label> <i class="tx-60 lh-0 txt-green op-7">@Model.SUCCESS</i></label>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                        <div class=" col-lg-3 col-md-6 col-sm-6 col-xl-3 mb-3">
+                            <div class="widget bg-red">
+                                <a class="stats-left " href="#">
+                                    <h4>FAILED</h4>
+                                    <h5> History</h5>
+                                </a>
+                                <div class="stats-right border-red">
+                                    <label> <i class="tx-60 lh-0 txt-red op-7">@Model.Failed</i></label>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+                        <div class=" col-lg-3 col-md-6 col-sm-6 col-xl-3 mb-3">
+                            <div class="widget bg-yellow">
+                                <a class="stats-left " href="#">
+                                    <h4>Processing</h4>
+                                    <h5> History</h5>
+                                </a>
+                                <div class="stats-right border-yellow">
+                                    <label> <i class="tx-60 lh-0 txt-yellow op-7">@Model.Proceess</i></label>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+
+
+                        @if (CurrentUser.RoleId == 1)
+                        {
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 pr-0 mb-3">
+                                <div class="widget bg-blue">
+                                    <a class="stats-left " href="#">
+                                        <h4>Today</h4>
+                                        <h5> Earn</h5>
+                                    </a>
+                                    <div class="stats-right border-blue">
+                                        <label> <i class="tx-60 lh-0 txt-blue op-7">@Model.Eran</i></label>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+                <br />
+
+
+            </div>
+        </div>
+    </section>*@
+
+
+<html lang="en">
+
+<head>
+    <title>GURU Able - Free Lite Admin Template </title>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="CodedThemes">
+    <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="CodedThemes">
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="~/assets/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="~/assets/icon/icofont/css/icofont.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/jquery.mcustomscrollbar.css">
+</head>
+
+<body>
+
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+
+                                    <div class="page-body">
+
+                                        <div class="row">
+                                           
+                                            <!--<div class="col-md-6 col-xl-2 secondnav">
+                                                <div class="fixed">
+
+                                                    <!--<!--<nav class="navbar navbar-inverse sidennav">
+                                                        <div class="container-fluid logo">
+                                                            <div class="navbar-brand">
+                                                                <a href="@Url.Action("Index","Home")">
+
+                                                                    <img src="~/Content/Admin/images/LogoNew.png" width="75" height="65" class="img-fluid" />--><!---->
+
+                                                                    <!---->@*<span style="color:navajowhite"><b style="color:white">MY</b>Recharge</span>*@
+                                                                <!--</a>
+                                                            </div>
+
+                                                            <div class="navbar-header">
+
+                                                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                                                    <span id="myappname" class="icon-bar"></span>
+                                                                    <span class="icon-bar"></span>
+                                                                    <span class="icon-bar"></span>
+                                                                </button>
+                                                            </div>
+                                                            @{Html.RenderAction("adminmenu", "account");}
+                                                        </div>
+                                                    </nav>-->
+                                                <!--</div>
+                                            </div>-->
+
+                                            <div class="col-md-6 col-xl-12 secondnav2">
+                                                <div class="row">
+                                                    <!-- card1 start -->
+                                                    <div class="col-md-6 col-xl-3">
+                                                        <div class="card widget-card-1">
+                                                            <div class="card-block-small">
+                                                                <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                                <span class="text-c-blue f-w-600">Today Success Payout</span>
+                                                                <h4>@Model.SUCCESS</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>Last 24 hours
+
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card1 end -->
+                                                    <!-- card1 start -->
+                                                    <div class="col-md-6 col-xl-3">
+                                                        <div class="card widget-card-1">
+                                                            <div class="card-block-small">
+                                                                <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
+                                                                <span class="text-c-pink f-w-600">Failed Txn </span>
+                                                                <h4>@Model.Failed</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Last 24 hours
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card1 end -->
+                                                    <!-- card1 start -->
+                                                    <div class="col-md-6 col-xl-3">
+                                                        <div class="card widget-card-1">
+                                                            <div class="card-block-small">
+                                                                <i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
+                                                                <span class="text-c-green f-w-600">Proceessing Txn</span>
+                                                                <h4>@Model.Proceess</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Last 24 hours
+
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- card1 end -->
+                                                    <!-- card1 start -->
+                                                    <div class="col-md-6 col-xl-3">
+                                                        <div class="card widget-card-1">
+                                                            <div class="card-block-small">
+                                                                <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
+                                                                <span class="text-c-yellow f-w-600">Revenue</span>
+                                                                <h4>@Model.Eran</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-md-12 col-xl-8">
+                                                        <div class="card chart-card">
+                                                            <div class="card-header">
+                                                                <h5>Statestics</h5>
+                                                                <div class="card-header-left ">
+                                                                </div>
+                                                                <div class="card-header-right">
+                                                                    <ul class="list-unstyled card-option">
+                                                                        <li><i class="icofont icofont-simple-left "></i></li>
+                                                                        <li><i class="icofont icofont-maximize full-card"></i></li>
+                                                                        <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                                                        <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                                                        <li><i class="icofont icofont-error close-card"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-block">
+                                                                <div id="statestics-chart" style="height:517px;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 col-xl-4">
+                                                        <div class="sidebar sidebar2">
+                                                            @*<h2>📊 Dashboard</h2>
+                    <a href="#">🏠 Home</a>
+                    <a href="#">📈 Analytics</a>
+                    <a href="#">📁 Reports</a>
+                    <a href="#">⚙️ Settings</a>
+                    <a href="#">🚪 Logout</a>*@
+                                                        </div>
+
+                                                        <!-- Main Area -->
+                                                        <!--<div class="main-content">-->
+                                                        <!-- Topbar -->
+                                                        <!--<div class="topbar">
+                <h1>Welcome to Your Dashboard</h1>
+            </div>-->
+                                                        <!-- Dashboard Charts -->
+                                                        <div class="dashboard d2">
+                                                            <div class="charts">
+                                                                @*Line Chart Card*@
+                                                                <div class="card chart2">
+                                                                    <h3>Reports</h3>
+                                                                    <canvas id="lineChart" width="400" height="200"></canvas>
+                                                                </div>
+                                                                <!-- Donut Chart Card -->
+                                                                <div class="card analitic">
+                                                                    <h3>Analytics</h3>
+                                                                    <div class="donut-wrapper">
+                                                                        <canvas id="donutChart" class="analytic_chart"></canvas>
+                                                                        <div class="center-text">80%<br><span style="font-size:14px;color:#666;">Transactions</span></div>
+                                                                    </div>
+                                                                    <div class="legend">
+                                                                        <span class="sale">Sale</span>
+                                                                        <span class="distribute">Distribute</span>
+                                                                        <span class="return">Return</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="col-md-12 col-xl-12">
+                                                        <div class="card project-task table">
+                                                            <div class="card-header">
+                                                                <div class="card-header-left ">
+                                                                    <h5>Time spent : project &amp; task</h5>
+                                                                </div>
+                                                                <div class="card-header-right">
+                                                                    <ul class="list-unstyled card-option">
+                                                                        <li><i class="icofont icofont-simple-left "></i></li>
+                                                                        <li><i class="icofont icofont-maximize full-card"></i></li>
+                                                                        <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                                                        <li><i class="icofont icofont-refresh reload-card"></i></li>
+                                                                        <li><i class="icofont icofont-error close-card"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-block p-b-10">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Project & Task</th>
+                                                                                <th>Time Spents</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="task-contain">
+                                                                                        <h6 class="bg-c-blue d-inline-block text-center">U</h6>
+                                                                                        <p class="d-inline-block m-l-20">UI Design</p>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="d-inline-block m-r-20">4 : 36</p>
+                                                                                    <div class="progress d-inline-block">
+                                                                                        <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="task-contain">
+                                                                                        <h6 class="bg-c-pink d-inline-block text-center">R</h6>
+                                                                                        <p class="d-inline-block m-l-20">Redesign Android App</p>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="d-inline-block m-r-20">4 : 36</p>
+                                                                                    <div class="progress d-inline-block">
+                                                                                        <div class="progress-bar bg-c-pink" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="task-contain">
+                                                                                        <h6 class="bg-c-yellow d-inline-block text-center">L</h6>
+                                                                                        <p class="d-inline-block m-l-20">Logo Design</p>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="d-inline-block m-r-20">4 : 36</p>
+                                                                                    <div class="progress d-inline-block">
+                                                                                        <div class="progress-bar bg-c-yellow" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="task-contain">
+                                                                                        <h6 class="bg-c-green d-inline-block text-center">A</h6>
+                                                                                        <p class="d-inline-block m-l-20">Appestia landing Page</p>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="d-inline-block m-r-20">4 : 36</p>
+                                                                                    <div class="progress d-inline-block">
+                                                                                        <div class="progress-bar bg-c-green" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="task-contain">
+                                                                                        <h6 class="bg-c-blue d-inline-block text-center">L</h6>
+                                                                                        <p class="d-inline-block m-l-20">Logo Design</p>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="d-inline-block m-r-20">4 : 36</p>
+                                                                                    <div class="progress d-inline-block">
+                                                                                        <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+    <script type="text/javascript" src="~/assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/jquery-ui/jquery-ui.min.js"></script>
+    @*<script type="text/javascript" src="~/assets/js/popper.js/popper.min.js"></script>*@
+    <script type="text/javascript" src="~/assets/js/bootstrap/js/bootstrap.min.js"></script>
+     jquery slimscroll js 
+    <script type="text/javascript" src="~/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+     modernizr js 
+    <script type="text/javascript" src="~/assets/js/modernizr/modernizr.js"></script>
+     am chart 
+    <script src="~/assets/pages/widget/amchart/amcharts.min.js"></script>
+    <script src="~/assets/pages/widget/amchart/serial.min.js"></script>
+     Todo js 
+    <script type="text/javascript " src="~/assets/pages/todo/todo.js "></script>
+     Custom js 
+    <script type="text/javascript" src="~/assets/pages/dashboard/custom-dashboard.js"></script>
+    <script type="text/javascript" src="~/assets/js/script.js"></script>
+    <script type="text/javascript " src="~/assets/js/SmoothScroll.js"></script>
+    <script src="~/assets/js/pcoded.min.js"></script>
+    <script src="~/assets/js/demo-12.js"></script>
+    <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        var $window = $(window);
+        var nav = $('.fixed-button');
+        $window.scroll(function () {
+            if ($window.scrollTop() >= 200) {
+                nav.addClass('active');
+            }
+            else {
+                nav.removeClass('active');
+            }
+        });</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Line Chart
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        const gradient = ctxLine.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(77, 138, 255, 0.4)');
+        gradient.addColorStop(1, 'rgba(255, 0, 255, 0.05)');
+
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['10am', '11am', '12pm', '01pm', '02pm', '03pm', '04pm', '05pm', '06pm', '07pm'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [50, 65, 60, 90, 40, 35, 45, 60, 55, 80],
+                    fill: true,
+                    backgroundColor: gradient,
+                    borderColor: '#b84dff',
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 20 }
+                    }
+                }
+            }
+        });
+
+        // Donut Chart
+        new Chart(document.getElementById('donutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Sale', 'Distribute', 'Return'],
+                datasets: [{
+                    data: [60, 20, 20],
+                    backgroundColor: ['#4d8aff', '#ffd966', '#ff6e6e'],
+                    cutout: '70%',
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { display: false }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+
+
+
+@section scripts{
+    @Scripts.Render("~/Scripts/global.js")
+}

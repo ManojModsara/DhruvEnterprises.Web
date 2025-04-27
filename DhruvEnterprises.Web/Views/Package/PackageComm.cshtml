@@ -1,0 +1,99 @@
+﻿@model DhruvEnterprises.Dto.PackageDto
+
+@{
+    ViewBag.Title = "PackageComm";
+}
+
+<h2>Package Commission</h2>
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+@{
+    // var date = ViewBag.FilterData != null ? Convert.ToString(ViewBag.FilterData) : "";
+
+}
+<style>
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section>
+
+    @if (CurrentUser.Roles.FirstOrDefault() != 3)
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-danger">
+                    <div class="box-header" id="btnClose">
+                        <h3 class="box-title">Search Panel</h3>
+
+                    </div>
+                    <div class="box-body" id="dvSearchPanel">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">User</label>
+                                @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                            </div>
+
+                            <div class="form-group col-md-1">
+                                <br />
+                                <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+
+                            </div>
+                            @*<div class="form-group col-md-1">
+                                    <br />
+                                    <input type="button" value="Export" id="btnExport" class="btn btn-primary" />
+                                </div>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-md-12 table table-responsive divclass">
+            <table class="table table-hover table-responsive table-bordered">
+                <tr>
+                    <th>ServiceId</th>
+                    <th>Service Name</th>
+                    <th>Comm Amount</th>
+                    <th>Amount Type</th>
+                    <th>CommType</th>
+                </tr>
+
+                @foreach (var item in Model.PackageCommList)
+                {
+                    <tr>
+                        <td>@item.OpId</td>
+                        <td>@item.OperatorName</td>
+                        <td>@item.CommAmt</td>
+                        <td>@item.AmtTypeName</td>
+                        <td>@item.CommTypeName</td>
+                        @*<td>
+                            @if (item.IsCirclePack)
+                            {
+                                @Html.ActionLink(".", "CirclePackComm", "Package", new { id = @item.PackId, opid = item.OpId }, new { @class = "btn btn-primary fa fa-refresh", @title = "Circle-Package" })
+                            }
+                        </td>*@
+                    </tr>
+
+
+
+                }
+
+            </table>
+        </div>
+    </div>
+
+
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/package/packcomm.js")
+
+
+}

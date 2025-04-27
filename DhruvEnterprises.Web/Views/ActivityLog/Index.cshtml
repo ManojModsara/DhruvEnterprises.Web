@@ -1,0 +1,128 @@
+﻿
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+@{
+    ViewBag.Title = "Activity Log Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Activity Log
+
+        @{
+            DhruvEnterprises.Dto.ActiVityLogFilterDto filter = (DhruvEnterprises.Dto.ActiVityLogFilterDto)ViewBag.FilterData;
+        }
+
+    </h1>
+</section>
+<section class="content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">User</label>
+                            @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">IP Address</label>
+                            <input type="text" id="txtIPAddress" value="@(filter.ipaddress)" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@filter.sdateNow" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@filter.edateNow" autocomplete="off" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Activity Name</label>
+                            <input type="text" id="txtActivityName" value="@(filter.actname)" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">ActivityUrl</label>
+                            <input type="text" id="txtUrl" value="@(filter.url)" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Remark</label>
+                            <input type="text" id="txtRemark" value="@(filter.remark)" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="Isa" value="@filter.isshow" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @Html.ActionLink("Reset", "Index", new { }, new { @class = "btn btn-primary" })
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>UserId</th>
+                                    <th>ActivityName</th>
+                                    <th>ActivityDate</th>
+                                    <th>IPAddress</th>
+                                    <th>Url_Name</th>
+                                    <th>Remark</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    var isactive = '@filter.isshow';
+</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/ActivityLog/index.js")
+
+}

@@ -1,0 +1,212 @@
+﻿
+
+@model IEnumerable<DhruvEnterprises.Dto.RechargeDetail>
+
+@{
+    ViewBag.Title = "Recent-RC-CrWise";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Recent Recharge -CrWise
+    </h1>
+
+
+    <style>
+
+        #btnClose:hover {
+            cursor: pointer;
+        }
+
+
+        .tr-silver {
+            background: silver;
+        }
+
+        .tr-custom {
+            background: inherit;
+        }
+    </style>
+
+</section>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+
+                    @{
+                        var cNumber = ViewBag.Number != null ? Convert.ToString(ViewBag.Number) : "";
+                    }
+
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Operator</label>
+                            @Html.DropDownList("ddOperator", (List<SelectListItem>)ViewBag.OperatorList, "--All--", new { @class = "form-control select2" })
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @*<input type="button" value="Search" id="btnSearch" class="btn btn-success" />*@
+
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12 table table-responsive divclass">
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <p> No Records. </p>
+                        }
+                        else
+                        {
+                            var rid = CurrentUser.RoleId;
+                            var bgcolor = "silver";
+                            var circlename = "";
+                            int count = 0;
+
+                            <table class="table table-hover table-responsive table-bordered">
+
+                                <tr>
+                                    <th>Circle </th>
+                                    <th>Operator </th>
+                                    <th>RecId </th>
+
+                                    @if (rid != 3)
+                                    {
+                                        <th>UserName </th>
+                                        <th>ApiName </th>
+                                    }
+                                    <th>CustomerNo </th>
+
+                                    <th>Amount </th>
+                                    <th>DB_Amt </th>
+                                    <th>Status </th>
+                                    <th>RecDate </th>
+
+                                    @if (rid != 3)
+                                    {
+                                        <th>StatusMsg </th>
+                                    }
+                                    <th>OptTxnId </th>
+                                    <th>UserReqId </th>
+                                    <th>TxnId </th>
+
+
+                                    @if (rid != 3)
+                                    {
+                                        <th>ApiTxnId </th>
+                                        <th>OurRefTxnId </th>
+                                        <th>UpdatedDate </th>
+                                        <th>UpdatedBy </th>
+                                        <th>LapuNo </th>
+                                        <th>ROffer </th>
+                                        <th>IsResend </th>
+                                        <th>ResendTime </th>
+                                        <th>ResendBy </th>
+                                    }
+                                    <th>AccountOther </th>
+                                    <th>Optionals </th>
+
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    var color = item.StatusName == "Success" ? "green" :
+                                                item.StatusName == "Failed" ? "red" :
+                                                item.StatusName == "Processing" ? "blue" :
+                                                "orange";
+
+                                    circlename = count == 0 ? item.CircleName : circlename;
+                                    count = count == 0 ? 1 : count;
+                                    if (circlename != item.CircleName)
+                                    {
+                                        circlename = item.CircleName;
+                                        count++;
+                                    }
+
+                                <tr class='@((count%2)!=0?"tr-silver":"tr-custom")'>
+                                    <td>@item.CircleName</td>
+                                    <td>@item.OperatorName</td>
+                                    <td>@item.RecId</td>
+                                    @if (rid != 3)
+                                    {
+                                        <td>@item.UserName</td>
+                                        <td>@item.ApiName</td>
+                                    }
+                                    <td>@item.CustomerNo</td>
+
+                                    <td>@item.Amount</td>
+                                    <td>@item.DB_Amt</td>
+                                    <td style="font-weight:bold;color:@(color)">@item.StatusName</td>
+                                    <td>@item.RecDate</td>
+
+                                    @if (rid != 3)
+                                    {
+                                        <td>@item.StatusMsg</td>
+                                    }
+                                    <td>@item.OptTxnId</td>
+                                    <td>@item.UserTxnId</td>
+                                    <td>@item.TxnId</td>
+                                    @if (rid != 3)
+                                    {
+                                        <td>@item.ApiTxnId</td>
+                                        <td>@item.OurRefTxnId</td>
+                                        <td>@item.UpdatedDate</td>
+                                        <td>@item.UpdatedByName</td>
+                                        <td>@item.LapuNo</td>
+                                        <td>@item.ROffer</td>
+                                        <td>@item.IsResend</td>
+                                        <td>@item.ResendTime</td>
+                                        <td>@item.ResendByName</td>
+                                    }
+                                    <td>@item.AccountOther</td>
+                                    <td>@item.Optional1</td>
+                                </tr>
+                                }
+
+                            </table>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/RecentRechargeCrWise.js")
+}

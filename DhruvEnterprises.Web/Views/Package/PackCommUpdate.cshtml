@@ -1,0 +1,104 @@
+﻿@model DhruvEnterprises.Dto.PackCommRangeDto
+@using DhruvEnterprises.Web.Models.Others;
+@using DhruvEnterprises.Dto;
+@{
+    ViewBag.Title = "Comm Range";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1>
+        Package Update All Type Settings 
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="validation-summary">
+                @Html.Partial("_Notification")
+                @{
+                    ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                }
+                <style>
+                    th {
+                        padding: 5px;
+                        border: 1px solid whitesmoke;
+                    }
+
+                    td {
+                        padding: 5px;
+                        border: 1px solid whitesmoke;
+                    }
+                </style>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body table table-responsive">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Settings for  @Model.PackName (Id: @Model.PackId)</h3>
+                            </div>
+                            <table id="tblPackCommRange" cellpadding="0" cellspacing="0" class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none"></th>
+                                        <th style="min-width:120px;">Service-Type(s)</th>
+                                        <th style="min-width:120px;">Service(s)</th>                                        
+                                        <th style="min-width:120px;">Package</th>
+                                        <th style="min-width:120px;">Commission-Range</th>
+                                        <th>Comm</th>
+                                        <th>Action(s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                @if (act.AllowEdit)
+                                {
+                                    <tfoot>
+                                        <tr>
+                                            <td style="display:none"><input type="hidden" id="Id" /></td>
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddOpTypeIds", new SelectList(Model.OpTypeList, "TypeId", "TypeName"), "All", new { @autocomplete = "off", @class = "form-control select2", @style = "width:120px" })
+                                            </td>
+
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddOpIds", new SelectList(Model.OperatorList, "OperatorId", "OperatorName"), "All", new { @autocomplete = "off", @class = "form-control select2", @style = "width:120px" })
+                                            </td>
+                                            
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddPackages", new SelectList(Model.PackageList, "Id", "PackageName"), "All", new { @autocomplete = "off",@multiple = "multiple", @class = "form-control select2", @style = "width:120px" })
+
+                                            </td>
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.TextBoxFor(x => x.AmountRange, new { @class = "form-control", @placeholder = "Ex. 10-50" })
+
+                                            </td>
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.TextBoxFor(x => x.CommAmt, new { @class = "form-control" })
+
+                                            </td>
+                                            <td style="padding-left:5px;padding-right:5px;" colspan="4"><input type="button" id="btnAdd" value="Submit" class="btn btn-primary" /></td>
+                                        </tr>
+                                    </tfoot>
+                                }
+                            </table>
+                            <br />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-edit-packcommrange", AreaLabeledId = "modal-edit-packcommrange-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js", "~/Scripts/Custom/Package/PackUpdate.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}

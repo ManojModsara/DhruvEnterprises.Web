@@ -1,0 +1,156 @@
+﻿@model DhruvEnterprises.Dto.BlockRouteModel
+@using DhruvEnterprises.Web.Models.Others;
+@using DhruvEnterprises.Dto;
+@{
+    ViewBag.Title = "Block Route";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1>
+    </h1>
+
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="validation-summary">
+                @Html.Partial("_Notification")
+                @{
+                    ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                }
+                <style>
+                    th {
+                        padding: 5px;
+                        border: 1px solid whitesmoke;
+                    }
+
+                    td {
+                        padding: 5px;
+                        border: 1px solid whitesmoke;
+                    }
+                </style>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body table table-responsive">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Block/Callback Route Settings</h3>
+                            </div>
+                            <table id="tblBlockRoute" cellpadding="0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none"></th>
+                                        @*<th style="min-width:120px;">Service-Type(s)</th>*@
+                                        <th style="min-width:120px;">Service(s)</th>                                        
+                                        <th style="min-width:120px;">User(s)</th>
+                                        <th style="min-width:120px;">Amount(s)</th>
+                                        <th>RouteType</th>
+                                        <th>Status</th>
+                                        <th colspan="2">Action(s)</th>
+                                        <th style="width:80px;padding-left:5px;">UpdatedOn</th>
+                                        <th style="padding-left:5px;">UpdatedBy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.BlockRouteList != null)
+                                    {
+                                        foreach (var item in Model.BlockRouteList)
+                                        {
+                                            <tr>
+                                                <td style="display:none">@item.Id</td>
+                                                @*<td class="txt-wrap-hide"> <input id="lblOpTypes" type="hidden" value="@item.OpTypeIds" /> @item.OpTypeNames </td>*@
+                                                <td class="txt-wrap-hide"> <input id="lblOpIds" type="hidden" value="@item.OperatorIds" /> @item.OperatorNames </td>                                                
+                                                <td class="txt-wrap-hide"><input id="lblUserIds" value="@item.UserIds" type="hidden" /> @item.UserNames</td>
+                                                <td class="txt-wrap-hide">@item.Amounts</td>
+                                                <td>@(item.TypeId == 2 ? "Callback" : "Block")</td>
+                                                <td>@(item.TypeId == 2 ? item.StatusId == 1 ? "Success" : "Processing" : "")</td>
+                                                <td style="padding:1px;"><a data-toggle='modal' title="Edit" data-target='#modal-edit-blockroute' href='@Url.Action("EditBlockRoute","CommonSwitch",new { id=item.Id})' class='btn btn-success'><i class='fa fa-edit'></i></a></td>
+                                                <td><input type="button" style="width:34px;height:34px" value="x" title="Remove" class="btn btn-danger fa fa-trash-o" onclick="Remove(this)" /></td>
+                                                <td style="padding-left:10px">@item.UpdatedOn</td>
+                                                <td style="padding-left:10px">@item.UpdatedBy</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                                @if (act.AllowEdit)
+                                {
+                                    <tfoot>
+                                        <tr>
+                                            <td style="display:none"><input type="hidden" id="Id" /></td>
+                                            @*<td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddOpTypeIds", new SelectList(Model.OpTypeList, "TypeId", "TypeName"), "All", new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple", @style = "width:120px" })
+                                            </td>*@
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddOpIds", new SelectList(Model.OperatorList, "OperatorId", "OperatorName"), "All", new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple", @style = "width:120px" })
+                                            </td>                                            
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddUserIds", new SelectList(Model.UserList, "Uid", "Name"), "All", new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple", @style = "width:120px" })
+                                            </td>
+
+                                            <td style="max-width:250px;"><input type="text" id="txtAmounts" multiple="multiple" class="form-control" maxlength="500" /></td>
+
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddRouteType", new SelectList(Model.TypeList, "StatusId", "StatusName"), "--select--", new { @autocomplete = "off", @class = "form-control select2", @style = "width:120px" })
+                                            </td>
+
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ddStatus", new SelectList(Model.StatusList, "StatusId", "StatusName"), "--select--", new { @autocomplete = "off", @class = "form-control select2", @style = "width:120px" })
+                                            </td>
+
+                                            <td style="padding-left:5px;padding-right:5px;" colspan="4"><input type="button" id="btnAdd" value="Add" class="btn btn-primary" /></td>
+                                        </tr>
+                                    </tfoot>
+                                }
+                            </table>
+                            <br />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-edit-blockroute", AreaLabeledId = "modal-edit-blockroute-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+<script>
+    function Remove(button) {
+        var row = $(button).closest("TR");
+        var id = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + id)) {
+
+            if (id > 0) {
+                $.post(Global.DomainName + 'commonswitch/deleteblockroute', { Id: id }, function (result) {
+                    if (!result) {
+                        alertify.error("Internal Error. Something went wrong.");
+                    }
+                    else {
+                        var table = $("#tblBlockRoute")[0];
+                        table.deleteRow(row[0].rowIndex);
+                        alertify.success("Deleted!");
+                    }
+                });
+            }
+            else {
+                var table = $("#tblBlockRoute")[0];
+                table.deleteRow(row[0].rowIndex);
+                alertify.success("Deleted!");
+            }
+
+
+        }
+    }
+
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js", "~/Scripts/Custom/CommonSwitch/BlockRoute.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+
+}

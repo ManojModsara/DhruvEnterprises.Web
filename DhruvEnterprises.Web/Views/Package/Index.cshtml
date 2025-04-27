@@ -1,0 +1,71 @@
+﻿@model DhruvEnterprises.Dto.PackageDto
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Package:List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<style>
+    td {
+        text-align: center;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        Package
+        @*@LF.Resource.AdminUserRes.PageHeading*@
+    </h1>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="col-md-1">
+                        @{
+                            ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                            if (act.AllowCreate)
+                            {
+                                @(Html.Raw(Html.InsertButton(Url.Action("createedit", "Package"))))
+
+                            }
+                        }
+
+                    </div>
+                    <div class="col-md-2">
+                        <a  href="@Url.Action("PackCommUpdate", "Package")" class='btn btn-primary'>Update Package</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>PackageName</th>
+                                    @*<th>IsUserLoss</th>*@
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>                              
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-delete-adminuser", AreaLabeledId = "modal-delete-adminuser-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Package/index.js")
+}

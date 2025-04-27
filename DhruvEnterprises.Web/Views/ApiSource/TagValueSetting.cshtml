@@ -1,0 +1,165 @@
+﻿@model DhruvEnterprises.Dto.TagValueSettingDto
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Vendor:TagValueSetting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1></h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="validation-summary">
+                @Html.Partial("_Notification")
+                @Html.HiddenFor(m => m.UrlId)
+                @Html.HiddenFor(m => m.ApiId)
+            </div>
+
+
+            <div class="box box-danger">
+                <div class="box-header"  id="btnCloseTest" style="cursor:pointer">
+                    <h3 class="box-title">Test Response Settings</h3>
+                    <div class="pull-right" style="color:red; cursor:pointer">Show/Hide</div>
+                </div>
+                <div class="box-body" id="divTest">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label class="control-label">Response String</label>
+                            <textarea class="form-control" cols="20" id="txtResponse" name="txtResponse" placeholder="paste here the response string" rows="5"></textarea>
+
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <input type="button" id="btnTest" class="btn btn-primary" value="Test" />
+                            <br />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="box box-danger">
+                <div class="box-header" id="btnCloseCopy"  style="cursor:pointer">
+                    <h3 class="box-title">Export Response Settings To Another Vendor</h3>
+                    <div class="pull-right" style="color:red;cursor:pointer">Show/Hide</div>
+                </div>
+                <div class="box-body" id="divCopy">
+                    <div class="row">
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Vendor(To Export)</label>
+                            @Html.DropDownList("ddVendor", (List<SelectListItem>)ViewBag.ApiList, "--Select--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="col-md-2">
+                            <br />
+                            <input type="button" id="btnCopy" class="btn btn-primary" value="Export" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body table-responsive">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Response Setting</h3>
+                            </div>
+                            <table id="TblTagValues" class="table" cellpadding="0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none"></th>
+                                        <th>TagName</th>
+                                        <th>Check Value</th>
+                                        <th>Pre Text</th>
+                                        <th>Post Text</th>
+                                        <th>PreMargin</th>
+                                        <th>PostMargin</th>
+                                        <th>Message</th>
+                                        <th>Separator</th>
+                                        <th>Sr. No.</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var tagValueDto in Model.tagValueDtos)
+                                    {
+                                        <tr>
+                                            <td style="display:none">@tagValueDto.TagId</td>
+                                            <td>
+                                                @tagValueDto.Name
+                                            </td>
+                                            <td>@tagValueDto.CompareTxt</td>
+                                            <td>@tagValueDto.PreTxt</td>
+                                            <td>@tagValueDto.PostText</td>
+                                            <td>@tagValueDto.PreMargin</td>
+                                            <td>@tagValueDto.PostMargin</td>
+                                            <td>@tagValueDto.TagMsg</td>
+                                            <td>@tagValueDto.ResSeparator</td>
+                                            <td>@tagValueDto.TagIndex</td>
+                                            <td><input type="button" value="Remove" class="btn btn-danger" onclick="Remove(this)" /></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td style="display:none"></td>
+                                        <td>
+                                            @Html.DropDownList("txtName", new SelectList(ViewBag.GetTagList, "Id", "Name"), "--Select--", new { @class = "form-control select2" })
+                                        </td>
+                                        <td><input type="text" id="CompareTxt" class="form-control" /></td>
+                                        <td><input type="text" id="PreTxt" class="form-control" /></td>
+                                        <td><input type="text" id="PostText" class="form-control" /></td>
+                                        <td><input type="number" id="PreMargin" class="form-control" /></td>
+                                        <td><input type="number" id="PostMargin" class="form-control" /></td>
+                                        <td><input type="text" id="TagMsg" class="form-control" /></td>
+                                        <td><input type="text" id="ResSeparator" class="form-control" /></td>
+                                        <td><input type="text" id="TagIndex" class="form-control" /></td>
+                                        <td><input type="button" id="btnAdd" value="Add" class="btn btn-primary" /></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <br />
+                            <input type="button" id="btnSave" class="btn btn-success" value="Save All" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-edit-tagvalue", AreaLabeledId = "modal-edit-tagvalue-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+<script>
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#TblTagValues")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    }
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js", "~/Scripts/Custom/Api/setting.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+
+}

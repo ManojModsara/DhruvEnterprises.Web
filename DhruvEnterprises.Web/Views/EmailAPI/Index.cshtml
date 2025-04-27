@@ -1,0 +1,59 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+
+<section class="">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        @{
+                            ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                            if (act.AllowCreate)
+                            {
+                                @(Html.Raw(Html.InsertButton(Url.Action("createedit", "EmailAPI"))))
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Api Name</th>
+                                    <th>User Name</th>
+                                    <th>From Address</th>
+                                    <th>Active</th>
+                                    <th>Port Number</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-delete-SMSAPI", AreaLabeledId = "modal-delete-SMSAPI-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/EmailAPI/index.js")
+}
+

@@ -1,0 +1,251 @@
+﻿@model IEnumerable<DhruvEnterprises.Dto.RechargeDetail>
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Search Number";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Content/select2/select2-bootstrap.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css", "~/Content/css/loader.css")
+
+<section class="content-header">
+    <h1>
+        Search Payout By Order ID
+    </h1>
+</section>
+
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+
+                    @{
+                        var cNumber = ViewBag.Number != null ? Convert.ToString(ViewBag.Number) : "";
+                    }
+
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Transaction No</label>
+                            <input type="text" id="txtCustomerNo" value="@(cNumber)" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @*<input type="button" value="Search" id="btnSearch" class="btn btn-success" />*@
+
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12 table table-responsive divclass">
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <p> No Records. </p>
+                        }
+                        else
+                        {
+                            var rid = CurrentUser.RoleId;
+
+                            <table class="table table-hover table-responsive table-bordered">
+
+                                <tr>
+                                    <th></th>
+                                    <th>RecId </th>
+
+                                    @if (rid != 3)
+                                    {
+                                        <th>UserName </th>
+                                        <th>ApiName </th>
+                                    }
+                                    <th>CustomerNo </th>
+                                    <th>Operator </th>
+                                    <th>Amount </th>
+                                    <th>DB_Amt </th>
+                                    <th>Status </th>
+                                    <th>RecDate </th>
+                                    <th>Circle </th>
+                                    @if (rid != 3)
+                                    {
+                                        <th>StatusMsg </th>
+                                    }
+                                    <th>OptTxnId </th>
+                                    <th>UserReqId </th>
+                                    <th>TxnId </th>
+
+
+                                    @if (rid != 3)
+                                    {
+                                        <th>ApiTxnId </th>
+                                        <th>OurRefTxnId </th>
+                                        <th>UpdatedDate </th>
+                                        <th>UpdatedBy </th>
+                                        <th>LapuNo </th>
+                                        <th>ROffer </th>
+                                        <th>IsResend </th>
+                                        <th>ResendTime </th>
+                                        <th>ResendBy </th>
+                                    }
+                                    <th>AccountOther </th>
+                                    <th>Optionals </th>
+
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    var color = item.StatusName == "Success" ? "green" :
+                                                item.StatusName == "Failed" ? "red" :
+                                                item.StatusName == "Processing" ? "blue" :
+                                                "orange";
+                            <tr>
+                                
+                                <td>
+                                    <div style="width:140px;">
+                                        <div style="width:50%; float:left">
+                                            @{
+                                                if (item.StatusName == "Success" && item.ComplaintId == 0)
+                                                {
+                                                    <a class="btn btn-success grid-btn btn-sm" data-runid=@item.RecId name="complaint"><i class="fa fa-plus"></i> </a>
+                                                }
+                                                else if (item.StatusName == "Success" && item.ComplaintId > 0)
+                                                {
+                                                    <a href="/rechargereport/complaint?rt=@item.RecId" class="btn btn-danger grid-btn btn-sm" target="_blank" title="View Complaint"><i class="fa fa-external-link"></i></a>
+                                                    <a class="btn btn-primary grid-btn btn-sm" data-runid=@item.RecId name="complaint"><i class="fa fa-plus"></i> </a>
+                                                }
+                                                else
+                                                {
+                                                    @*<div style="width:10px;" >q </div>*@
+                                                }
+                                            }
+                                        </div>
+                                        @{
+                                            if (CurrentUser.RoleId != 3)
+                                            {
+                                                <div style="width:50%; float:right">
+                                                    <a class="btn btn-success grid-btn btn-sm" target="_blank" href="/RequestResponse/DisplayReqRes?id=@item.RecId&rf=@item.OurRefTxnId"><i class="fa fa-exclamation"></i> </a>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </td>
+                                <td>@item.RecId</td>
+                                @if (rid != 3)
+                                {
+                                    <td>@item.UserName</td>
+                                    <td>@item.ApiName</td>
+                                }
+                                <td>@item.CustomerNo</td>
+                                <td>@item.OperatorName</td>
+                                <td>@item.Amount</td>
+                                <td>@item.DB_Amt</td>
+                                <td style="font-weight:bold;color:@(color)">@item.StatusName</td>
+                                <td>@item.RecDate</td>
+                                <td>@item.CircleName</td>
+                                @if (rid != 3)
+                                {
+                                    <td>@item.StatusMsg</td>
+                                }
+                                <td>@item.OptTxnId</td>
+                                <td>@item.UserTxnId</td>
+                                <td>@item.TxnId</td>
+                                @if (rid != 3)
+                                {
+                                    <td>@item.ApiTxnId</td>
+                                    <td>@item.OurRefTxnId</td>
+                                    <td>@item.UpdatedDate</td>
+                                    <td>@item.UpdatedByName</td>
+                                    <td>@item.LapuNo</td>
+                                    <td>@item.ROffer</td>
+                                    <td>@item.IsResend</td>
+                                    <td>@item.ResendTime</td>
+                                    <td>@item.ResendByName</td>
+                                }
+                                <td>@item.AccountOther</td>
+                                <td>@item.Optional1</td>
+                            </tr>
+                                }
+
+                            </table>
+                        }
+
+                    </div>
+                    <div class="modal" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header" style="text-align:left;">
+                                    <h5 class="modal-title">Generate Complaint &nbsp;&nbsp;<button type="button" class="close" data-dismiss="modal">&times;</button></h5>
+                                </div>
+
+                                <div class="modal-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 col-sm-3 control-label" for="Remark">Remark</label>
+                                        <div class="col-lg-9 col-sm-9">
+                                            <input type="hidden" id="recid" />
+                                            <input class="form-control " id="remark" name="Remark" placeholder="Reason/Remark" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div id="pageloader" class="pageloader" style="display:none">
+                                        <div class="pageloader-inner">
+                                            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                                        </div>
+                                    </div>
+                                    <button data-dismiss="modal" id="btn-cancel" class="btn btn-default" type="button">Cancel</button>
+                                    <button class="btn btn-success" id="cComplaint" type="submit">
+                                        Submit
+                                    </button>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @*@Html.Partial("_Modal", new Modal { ID = "modal-generate-complaint", AreaLabeledId = "modal-generate-complaint-label", Size = Enums.ModalSize.Medium })*@
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/SearchNumber.js")
+}

@@ -1,0 +1,104 @@
+﻿
+
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+@model DataTableServerSide
+
+@{
+    ViewBag.Title = "User:Recharge Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Processing Recharge Report
+    </h1>
+</section>
+
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="form-group col-md-2">
+
+                        <input type="button" value="Check Status" id="btnStatusCheck" class="btn btn-success" onclick="return confirm('Are you sure?')" />
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <a data-toggle="modal" id="btnStatusChange" data-target="#modal-change-recharge-statusbulk" href="@Url.Action("changestatusbulk", "rechargereport")" class='btn btn-primary'>Status Change</a>
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <a data-toggle="modal" id="btnResend" data-target="#modal-Resend-rechargebulk" href="@Url.Action("resendrechargebulk", "rechargereport")" class='btn btn-bitbucket'>Resend</a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    @*}*@
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th title="Select All"><input type="checkbox" id="checkBoxAll" class="custom-checkbox" /></th>
+                                    <th>RecId</th>
+                                    <th>TxnId</th>
+                                    <th>UserId</th>
+                                    <th>CustomerNo</th>
+                                    <th>Operator</th>
+                                    <th>Circle</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Vendor Name</th>
+                                    <th>Vendor Txn ID</th>
+                                    <th>OP Txn ID</th>
+                                    <th>ReqTime</th>
+                                    <th>ResTime</th>
+                                    <th>OurTxnId</th>
+                                    <th>UserReqId</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Modal", new Modal { ID = "modal-change-recharge-statusbulk", AreaLabeledId = "modal-change-recharge-statusbulk-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-Resend-rechargebulk", AreaLabeledId = "modal-Resend-rechargebulk-label", Size = Enums.ModalSize.Medium })
+
+</section>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/RechargeReport/ProcessingRecharge.js")
+
+}

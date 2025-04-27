@@ -1,0 +1,61 @@
+﻿
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+
+@{
+    ViewBag.Title = "Product:Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+<section class="content-header">
+    <h1>
+        Product List
+
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        @(Html.Raw(Html.InsertButton(Url.Action("createedit", "Product"))))
+                    </div>
+                </div>
+                <div class="box-body table-responsive scroll_tbl">
+
+                    <table id="grid-index" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>Id</th>
+                                <th>Images</th>
+                                <th>Name</th>
+                                <th>Stock Qty</th>
+                                <th>Selling Price</th>
+                                <th>Voucher Cost</th>
+                                <th>Published</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Modal", new Modal { ID = "modal-add-edit-addapiwallet", AreaLabeledId = "modal-add-edit-addapiwallet-label", Size = Enums.ModalSize.Medium })
+
+</section>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Product/index.js")
+
+}
+
+
+
+

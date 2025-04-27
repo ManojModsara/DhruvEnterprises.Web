@@ -1,0 +1,86 @@
+﻿@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Vendor:Request/Response";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+<section class="content-header">
+    <h1>
+        Request Response
+    </h1>
+    <style>
+        .dataTables_filter {
+            display: none;
+        }
+    </style>
+</section>
+<section class="content">
+    @{
+        DhruvEnterprises.Dto.ReqResFilterDto ft = (DhruvEnterprises.Dto.ReqResFilterDto)ViewBag.FilterData;
+    }
+    
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+
+                <div class="box-body table table-responsive">
+
+                    <table id="grid-index" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>UserId</th>
+                                <th>Vendor</th>
+                                <th>Remark</th>
+                                <th>AddedDate</th>
+                                <th class="txt-wrap-hide">RequestTxt</th>
+                                <th class="txt-wrap-hide">ResponseText</th>
+                                <th>UpdatedDate</th>
+                                <th>Recid</th>
+                                <th>RefId</th>
+                                <th>CustomerNo</th>
+                                <th>UserReqId</th>
+                                <th>Operator</th>
+                                <th>RcStatus</th>
+
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-rec-detail", AreaLabeledId = "modal-view-rec-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-user-detail", AreaLabeledId = "modal-view-user-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-url-detail", AreaLabeledId = "modal-view-url-detail-label", Size = Enums.ModalSize.Medium })
+
+
+
+</section>
+
+<script>
+    var isactive = '@ft.Isa';
+</script>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom//RequestResponse/index1.js")
+
+}
+
+
+
+
+
+

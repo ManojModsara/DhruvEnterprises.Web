@@ -1,0 +1,205 @@
+﻿@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+@model DataTableServerSide
+@{
+    ViewBag.Title = "MicroATM:Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+<section class="content-header">
+    <h1>
+        Micro Atm Report
+    </h1>
+</section>
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+<section class="content">
+    @{
+        DhruvEnterprises.Dto.RechargeFilterDto filter = (DhruvEnterprises.Dto.RechargeFilterDto)ViewBag.FilterData;
+    }
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Customer No</label>
+                            <input type="text" id="txtCustomerNo" value="@(filter.CustomerNo!="0"?filter.CustomerNo:"")" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@filter.SdateNow" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@filter.EdateNow" autocomplete="off" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Operator</label>
+                            @Html.DropDownList("ddOperator", (List<SelectListItem>)ViewBag.OperatorList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">RecId/TxnId/OurRefId</label>
+                            <input type="text" id="txtSearchId" value="@(filter.Searchid!="0"?filter.Searchid:"")" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Op-TxnId</label>
+                            <input type="text" id="txtOpTxnid" value="@(filter.OpTxnid!="0"?filter.OpTxnid:"")" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">User-ReqId</label>
+                            <input type="text" id="txtUserReqid" value="@(filter.UserReqid!="0"?filter.UserReqid:"")" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Circle</label>
+                            @Html.DropDownList("ddCircle", (List<SelectListItem>)ViewBag.CircleList, "--All--", new { @class = "form-control select2 " })
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Status</label>
+                            @Html.DropDownList("ddStatus", (List<SelectListItem>)ViewBag.StatusList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        @{
+                            var roleid = CurrentUser.Roles.FirstOrDefault();
+                            if (roleid != 3)
+                            {
+
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">User</label>
+                                    @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Vendor</label>
+                                    @Html.DropDownList("ddVendor", (List<SelectListItem>)ViewBag.ApiList, "--All--", new { @class = "form-control select2" })
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Vendor-TxnId</label>
+                                    <input type="text" id="txtApiTxnid" value="@(filter.ApiTxnid!="0"?filter.ApiTxnid:"")" class="form-control" />
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="row">
+                        @if (roleid != 3)
+                        {
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Updated By</label>
+                                @Html.DropDownList("ddUser2", (List<SelectListItem>)ViewBag.UserList2, "--select--", new { @class = "form-control select2" })
+                            </div>
+
+                        }
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="Isa" value="@filter.Isa" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @Html.ActionLink("Reset", "index", new { }, new { @class = "btn btn-primary" })
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>RecId</th>
+                                    <th>UserId</th>
+                                    <th class="txt-wrap-hide">CustomerNo</th>
+                                    <th>Operator</th>
+                                    <th>Vendor Name</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>ReqTime</th>
+                                    <th>ResTime</th>
+                                    <th>Circle</th>
+                                    <th class="txt-wrap-hide">StatusMsg</th>
+                                    <th>OP Txn ID</th>
+                                    <th>Vendor Txn ID</th>
+                                    <th>TxnId</th>
+                                    <th>OurTxnId</th>
+                                    <th>UserReqId</th>
+                                    <th>UpdatedOn</th>
+                                    <th>UpdatedBy</th>
+                                    <th class="txt-wrap-hide">Optional(s)</th>
+
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-rec-detail", AreaLabeledId = "modal-view-rec-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-user-detail", AreaLabeledId = "modal-view-user-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-url-detail", AreaLabeledId = "modal-view-url-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-change-recharge-status", AreaLabeledId = "modal-change-recharge-status-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-generate-complaint", AreaLabeledId = "modal-generate-complaint-label", Size = Enums.ModalSize.Medium })
+
+</section>
+
+<script>
+    var isactive = '@filter.Isa';
+</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/RechargeReport/microatm.js")
+}

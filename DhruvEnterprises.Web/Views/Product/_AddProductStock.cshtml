@@ -1,0 +1,118 @@
+﻿
+@using DhruvEnterprises.Web.Models.Others
+@model DhruvEnterprises.Dto.ProductStockdto
+<div id="frm-addedit-apiwallet" class="cmxform">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.Partial("_ModalHeader", new ModalHeader { Heading = Model.Id == 0 ? "Add Product Stock" : "Edit Product Stock" })
+        <div id="validation-summary"></div>
+        <div class="modal-body form-horizontal">
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.PId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.PId, true, new SelectList(ViewBag.ProductList, "Id", "Name", @Model.PId), "Select a Product", new { @class = "form-control select2", @onchange = "SelectIndexChange()", @id = "ddlFruits" })
+                </div>
+            </div>
+            <input type="hidden" value="@ViewBag.checkAttribute" id="checkAttribute" />
+
+
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.Quantity, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.Quantity, htmlAttributes: new { @class = "form-control ", @placeholder = "Quantity", @maxlength = "8" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Remark, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.Remark, htmlAttributes: new { @class = "form-control ", @placeholder = "Remark" })
+                </div>
+            </div>
+
+            <script src="~/Scripts/Custom/Product/addedit.js"></script>
+        </div>
+        <div id="ShowButton">
+            @Html.Partial("_ModalFooter", new ModalFooter { })
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        if ($("#checkAttribute").val() == 1) {
+            $("#ShowButton").hide();
+        }
+        else {
+            $("#ShowButton").show();
+        }
+    });
+
+    $(function () {
+        $('[id*=ddlFruits]').on('change', function () {
+            var fruitId = $(this).find("option:selected").val();
+            var product = $('#ddlFruits').val();
+            debugger;
+            if (fruitId != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Product/GetProductdetails",
+                    data: "id=" + fruitId,
+                    success: function (data) {
+                        debugger;
+                        $("#ddlPaid").empty();
+                        $(".PrductAid").show();
+                        if (data.Id != 0) {
+                            $("#ShowButton").hide();
+                            var optionhtml1 = '<option value="' +
+                                0 + '">' + "--Select PAId--" + '</option>';
+                            $("#ddlPaid").append(optionhtml1);
+                            $.each(data, function (i) {
+                                var optionhtml =
+                                    '<option value="' +
+                                    data[i]["Id"] + '">' + data[i]["Name"] + '</option>';
+                                $("#ddlPaid").append(optionhtml);
+                                $('[id*=SellPrize]').val('');
+                                $('[id*=PurchasePrice]').val('');
+                            });
+                        }
+                        else
+                        {
+                            $("#ShowButton").show();
+                            $(".PrductAid").hide();
+                            $('[id*=SellPrize]').val(data.SellPrice);
+                            $('[id*=PurchasePrice]').val(data.Price);
+                        }
+                    }
+
+                });
+            } else {
+                $('[id*=txtName]').val('');
+            }
+        });
+        $('[id*=ddlPaid]').on('change', function () {
+            debugger;
+            var PAId = $(this).find("option:selected").val();
+            console.log(PAId);
+            if (PAId != "" && PAId != 0) {
+                $("#ShowButton").show();
+                $.ajax({
+                    type: "POST",
+                    url: "/Product/GetProductAtrributeDetails",
+                    data: "id=" + PAId,
+                    success: function (data) {
+                        $('[id*=SellPrize]').val(data.SellPrice);
+                        $('[id*=PurchasePrice]').val(data.Price);
+                    }
+                });
+            }
+            else {
+                $("#ShowButton").hide();
+            }
+        });
+
+
+    });
+</script>

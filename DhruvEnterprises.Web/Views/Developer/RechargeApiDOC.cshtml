@@ -1,0 +1,2246 @@
+﻿@using DhruvEnterprises.Web.LIBS
+@{
+    ViewBag.Title = "RechargeApiDOC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="~/Content/css/style33.css" rel="stylesheet" />
+<style>
+    .panel {
+        overflow: scroll !important;
+    }
+
+    .gradient {
+        background: #174edc;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .page-wrapper.chiller-theme.toggled #close-sidebar, .chiller-theme .sidebar-wrapper .sidebar-menu ul li a {
+        color: black;
+    }
+
+        .page-wrapper.chiller-theme.toggled #close-sidebar:hover, .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover > a, .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a {
+            color: red;
+        }
+
+    .sidebar-submenu {
+        background: #f3a026 !important
+    }
+
+    .page-title {
+        color: blue;
+    }
+
+
+    /**/
+    #loading-wrapper {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+
+    #loading-text {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: #999;
+        width: 100px;
+        height: 30px;
+        margin: -7px 0 0 -45px;
+        text-align: center;
+        font-family: 'PT Sans Narrow', sans-serif;
+        font-size: 20px;
+    }
+
+    #loading-content {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 170px;
+        height: 170px;
+        margin: -85px 0 0 -85px;
+        border: 3px solid #F00;
+    }
+
+        #loading-content:after {
+            content: "";
+            position: absolute;
+            border: 3px solid #0F0;
+            left: 15px;
+            right: 15px;
+            top: 15px;
+            bottom: 15px;
+        }
+
+        #loading-content:before {
+            content: "";
+            position: absolute;
+            border: 3px solid #00F;
+            left: 5px;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+        }
+
+    #loading-content {
+        border: 3px solid transparent;
+        border-top-color: #4D658D;
+        border-bottom-color: #4D658D;
+        border-radius: 50%;
+        -webkit-animation: loader 2s linear infinite;
+        -moz-animation: loader 2s linear infinite;
+        -o-animation: loader 2s linear infinite;
+        animation: loader 2s linear infinite;
+    }
+
+        #loading-content:before {
+            border: 3px solid transparent;
+            border-top-color: #D4CC6A;
+            border-bottom-color: #D4CC6A;
+            border-radius: 50%;
+            -webkit-animation: loader 3s linear infinite;
+            -moz-animation: loader 2s linear infinite;
+            -o-animation: loader 2s linear infinite;
+            animation: loader 3s linear infinite;
+        }
+
+        #loading-content:after {
+            border: 3px solid transparent;
+            border-top-color: #84417C;
+            border-bottom-color: #84417C;
+            border-radius: 50%;
+            -webkit-animation: loader 1.5s linear infinite;
+            animation: loader 1.5s linear infinite;
+            -moz-animation: loader 2s linear infinite;
+            -o-animation: loader 2s linear infinite;
+        }
+
+    @@-webkit-keyframes loaders {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes loader {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    body {
+        background: aliceblue;
+    }
+
+    #content-wrapper {
+        color: #FFF;
+        position: fixed;
+        left: 0;
+        top: 20px;
+        width: 100%;
+        height: 100%;
+    }
+
+    #header {
+        width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        height: 100px;
+        background-color: #666;
+    }
+
+    #content {
+        width: 800px;
+        height: 1000px;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #888;
+    }
+
+    .loa {
+        opacity: 0.1;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+    }
+
+    .page-wrapper.toggled .sidebar-wrapper {
+        left: 0px;
+        top: 9.7% !important;
+    }
+
+    .navbar-brand {
+        display: none;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        font-size: 14px;
+    }
+
+    footer.site-footer {
+        display: none;
+    }
+
+    .page-wrapper {
+        height: 91.7vh;
+        background: aliceblue;
+    }
+
+
+    .body-content {
+        box-shadow: none;
+    }
+
+    .nav > li > a {
+        padding: 12px 5px;
+    }
+
+    .page-wrapper.toggled .sidebar-wrapper {
+        left: 0px;
+        top: 19%;
+    }
+
+    .navbar {
+        border-radius: 0;
+        position: fixed;
+        top: 0%;
+        width: 100%;
+    }
+    /**/
+    .navbar {
+        border-radius: 0;
+        position: fixed;
+        top: 0%;
+        width: 100%;
+        z-index: 9999;
+        background: #f3a026;
+    }
+
+    .page-wrapper .page-content > div {
+        margin-top: 7%;
+    }
+
+    .horz-menu {
+        margin: 100px;
+        border: 2px solid #0000ff;
+        border-radius: 5px;
+        background: aliceblue;
+    }
+
+    div#get_qr, div#check-st, div#payot, div#dmt {
+        opacity: 1 !important;
+        padding: 30px 20px;
+    }
+
+    .nav-link.active {
+        background: #0000ff !important;
+        border-radius: 2px;
+        font-size: 18px;
+        color: #ffffff !important;
+        font-weight: 500;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+
+    .nav-link {
+        color: #0000ff;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+        .nav-link:hover {
+            color: #f3a026;
+            border: 0;
+        }
+
+    .nav-tabs {
+        border-bottom: 2px solid #0000ff;
+        height: 42px;
+    }
+
+    i#creditbal {
+        color: red;
+        margin-left: -38px !important;
+    }
+
+    .header_parameter_table {
+        margin-top: 10px;
+    }
+    .Send_otp .panel, .Fetch_Sender .panel, .Fetch_bank_List .panel {
+        height: 95%;
+    }
+    .header_parameter_table h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: blue;
+    }
+
+    .note p {
+        font-size: 18px;
+        background: #f8d7da;
+        padding: 10px;
+        color: #b02a37;
+        border-radius: 10px;
+    }
+    @@media screen and (max-width:1142px) and (min-width:889px) {
+        .horz-menu {
+            margin: 150px 50px;
+        }
+    }
+    @@media screen and (max-width:888px) and (min-width:767px){
+        .horz-menu {
+            margin: 180px 50px;
+        }
+    }
+    @@media screen and (max-width:767px) and (min-width:576px){
+        .main-div {
+            width: 570px;
+            margin-left: -25px;
+        }
+        .horz-menu {
+            margin: 100px 10px;
+        }
+    }
+    @@media screen and (max-width:575px){
+        .horz-menu {
+            margin: 110px 5px;
+        }
+        .nav-tabs {
+            height: 36px;
+        }
+        .nav-link.active {
+            font-size: 15px;
+        }
+        .nav-link {
+            font-size: 15px;
+        }
+        .panel .panel-heading .panel-title {
+            font-size: 15px;
+        }
+        .header_parameter_table h3 {
+            font-size: 15px;
+        }
+    }
+    @@media screen and (max-width: 767px){
+ td {
+    padding: 0;
+    font-size: 10px;
+}
+           }
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link href="~/Content/RechargeApiDocument.css" rel="stylesheet" />
+
+<div class="main-div">
+
+<div class="page-wrapper chiller-theme toggled" id="m">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    <div class="horz-menu">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="get-qrcode" data-bs-toggle="tab" data-bs-target="#get_qr" type="button" role="tab" aria-controls="get_qr" aria-selected="true">Get QR</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="check-status" data-bs-toggle="tab" data-bs-target="#check-st" type="button" role="tab" aria-controls="check-st" aria-selected="false">CheckStatus</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="PayOut" data-bs-toggle="tab" data-bs-target="#payot" type="button" role="tab" aria-controls="payot" aria-selected="false">PayOut</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="impsdmt" data-bs-toggle="tab" data-bs-target="#dmt" type="button" role="tab" aria-controls="dmt" aria-selected="false">MoneyTransfer</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="get_qr" role="tabpanel" aria-labelledby="get-qrcode">
+                <div class="container-fluid">
+                    <h3 class="page-title">
+                        Payin API Document
+                    </h3>
+                    <div style="display: flex">
+                        <p style="background-color: blue; width: 50px; color: white; font-weight: 500; padding-left: 5px;">POST</p>
+                    </div>
+                    <p style="color: white;">
+                        @*Aadhaar verification API is a crucial API for every financial entity for Aadhaar card
+            verification. This is the most fundamental identity that is required everywhere.*@
+                    </p>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- TABLE HOVER -->
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Name: <code style="color: black;"> Get QR</code>
+                                    </h3>
+                                    <br>
+                                    <h3 class="panel-title">
+                                        Type: <code>POST</code>
+                                    </h3>
+                                    <br>
+                                    <h3 class="panel-title">
+                                        Request: <code style="font-size: 14px;">@(SiteKey.ApiDomainName + "Upi/UpiRequest")</code>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Parameter</th>
+                                                <th>Type</th>
+                                                <th>Position</th>
+                                                <th>#</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ApiToken</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter Genrated <code style="font-size: 16px;">TokenId</code> Credentials</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CustomerName</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter given <code style="font-size: 16px;">Name</code> Credentials</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CustomerEamil</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter given <code style="font-size: 16px;">Email </code> Credentials</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CustomerMobile</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>"Your Mobile Number Credentials"</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Amount</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter Amount</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ClientId</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your Request Id</td>
+                                            </tr>
+                                            <tr>
+                                                <td>UserName</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your_LoginId</td>
+                                            </tr>
+                                            <tr>
+                                                <td>RedirectUrl</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>
+                                                    Enter URL
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- END TABLE HOVER -->
+                        </div>
+                        <div class="col-md-4">
+                            <!-- TABLE HOVER -->
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>{ "Error": "1",
+ "Status": "1",
+ "Message": "SUCCESS",
+ "ApiTxnId": "", 
+"ClientId": "Your_Request_Id", 
+"Data": { "QrIntent": "upi://pay?ver=01&mode=19&pa=ekoindiafinancialservices.rzp@hdfcbank&pn=Eko&tr=STQNMP4uc6gL4sodpqrv2&cu=INR&mc=4814&qrMedium=04&tn=PaymenttoEko&am=10",
+ "PaymentUrl":"QR Code"
+}
+</pre>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>{ "STATUS": 3, 
+"MESSAGE":FAILED, 
+"ERRORCODE": "3",
+"ClientId": Your_Request_Id, 
+"Data": null
+}
+</pre>
+                                </div>
+                            </div>
+                            <!-- END TABLE HOVER -->
+                        </div>
+                    </div>
+                    <div class="docbox">
+                        <div class="accordions">
+                            <div class="accordion">
+                                <input type="checkbox" id="second" />
+                                <label for="second" class="acc-label">
+                                    <span>
+                                        <strong>4. Purpose: </strong> To check recharge status
+                                    </span>
+                                </label>
+                                <div class="acc-content">
+                                    <b><em>To make Get Request use below URL</em></b>
+                                    <p><strong>Get URL: </strong><code>  @(SiteKey.ApiDomainName + "service/statuscheck?ApiToken=xxxx-xxxxx-xxxxx-xxx&RefTxnId=your_request_id")</code></p>
+                                    <hr />
+                                    <p> <p>
+                                        <strong>Output JSON Success: </strong> :
+                                        <code>
+                                            {"CUSTOMERNO":"8386900044","OPERATOR":"AIRTEL","AMOUNT":100.00,"STATUS":1,"MESSAGE":"Success","CIRCLE":"RAJASTHAN",
+                                            "ERRORCODE":"0","TXNNO":1010100000036814,"OPTXNID":"WREC36193648-HARIRAM","REQUESTTXNID":"10108166519","HTTPCODE":200}
+                                        </code>
+                                    </p>
+                                    <p><strong> Output JSON FAIL Result: </strong> <code>{"MESSAGE":"Request is processed!","ERRORCODE":"0"}</code></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="check-st" role="tabpanel" aria-labelledby="check-status">
+                <div class="container-fluid " id="2">
+                    <h3 class="page-title">Payin API Document</h3>
+                    <div style="display: flex">
+                        <p style="background-color: blue; width: 50px; color: white; font-weight: 500; padding-left: 5px;">POST</p>
+                    </div>
+                    <p style="color: white;">
+                        @*Aadhaar verification API is a crucial API for every financial entity for Aadhaar card
+            verification. This is the most fundamental identity that is required everywhere.*@
+                    </p>
+                    <div class="row">
+                        <div class="col-md-7">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Name: <code style="color: black;">UpiStatusCheck</code>
+                                    </h3>
+                                    <br>
+                                    <h3 class="panel-title">
+                                        Type: <code>POST</code>
+                                    </h3>
+                                    <br>
+                                    <h3 class="panel-title">
+                                        Request: <code style="font-size: 14px;">@(SiteKey.ApiDomainName + "Upi/UpiStatusCheck")</code>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Parameter</th>
+                                                <th>Type</th>
+                                                <th>Position</th>
+                                                <th>#</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ApiToken</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter Genrated <code style="font-size: 16px;">TokenId</code> Credentials</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ClientId</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your Request Id</td>
+                                            </tr>
+                                            <tr>
+                                                <td>UserName</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your_LoginId</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>                                {
+ Error = 1
+Status = 1
+Amount =10
+Order_Id = XTL35*****,
+UpiTxnId = cust_NM*****,
+ClientId = Your_Request_Id,
+Integration_id=int_17*****
+}
+                            </pre>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>{
+Error = 3
+Status = 3
+ClientId =Your_Request_Id 
+}</pre>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="docbox">
+                        <div class="accordions">
+                            <div class="accordion">
+                                <input type="checkbox" id="second" />
+                                <label for="second" class="acc-label">
+                                    <span>
+                                        <strong>4. Purpose: </strong> To check recharge status
+                                    </span>
+                                </label>
+                                <div class="acc-content">
+                                    <b><em>To make Get Request use below URL</em></b>
+                                    <p><strong>Get URL: </strong><code>  @(SiteKey.ApiDomainName + "service/statuscheck?ApiToken=xxxx-xxxxx-xxxxx-xxx&RefTxnId=your_request_id")</code></p>
+                                    <hr />
+                                    <p> <p>
+                                        <strong>Output JSON Success: </strong> :
+                                        <code>
+                                            {"CUSTOMERNO":"8386900044","OPERATOR":"AIRTEL","AMOUNT":100.00,"STATUS":1,"MESSAGE":"Success","CIRCLE":"RAJASTHAN",
+                                            "ERRORCODE":"0","TXNNO":1010100000036814,"OPTXNID":"WREC36193648-HARIRAM","REQUESTTXNID":"10108166519","HTTPCODE":200}
+                                        </code>
+                                    </p>
+                                    <p><strong> Output JSON FAIL Result: </strong> <code>{"MESSAGE":"Request is processed!","ERRORCODE":"0"}</code></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="payot" role="tabpanel" aria-labelledby="PayOut">
+                <div class="container-fluid " id="2">
+                    <h3 class="page-title">PayOut API Document</h3>
+                    <div style="display: flex">
+                        <p style="background-color: blue; width: 50px; color: white; font-weight: 500; padding-left: 5px;">POST</p>
+                    </div>
+                    <p style="color: white;">
+                        @*Aadhaar verification API is a crucial API for every financial entity for Aadhaar card
+                            verification. This is the most fundamental identity that is required everywhere.*@
+                    </p>
+                    <div class="row">
+                        <div class="col-md-7">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Name: <code style="color: black;">PayOut</code>
+                                    </h3>
+                                    <br>
+                                    <h3 class="panel-title">
+                                        Type: <code>POST</code>
+                                    </h3>
+                                    <br>
+                                    <h3 class="panel-title">
+                                        Request: <code style="font-size: 14px;">@(SiteKey.ApiDomainName + "Service/PayoutTransfer")</code>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Parameter</th>
+                                                <th>Type</th>
+                                                <th>Position</th>
+                                                <th>#</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>OpId</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter <code style="font-size: 16px;">OpId</code> Credentials</td>
+                                            </tr>
+                                            <tr>
+                                                <td>OrderID</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your Request Id</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Firstname</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your first Name</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lastname</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your last Name</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter Name</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Amount</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Amount</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Account</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter Account Number</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ApiToken</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your ApiToken</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IFSC</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Enter IFSC Code</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mode</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Select Payment MODE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobileno</td>
+                                                <td><code>string</code></td>
+                                                <td><code>Body</code></td>
+                                                <td><code>Required</code></td>
+                                                <td>Your Mobileno</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>                                
+{
+ STATUS = 1,
+MESSAGE = 'Request is successfull!',
+ERRORCODE =0,
+OPTXNID = '3252355******',
+TXNNO = '3fwt4545******',
+BENENAME = Beneficiary Name,
+REQUESTTXNID='89515454********',
+EZREFTXNID='U24054BCF******',
+HTTPCODE=200
+}
+                            </pre>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>
+{
+STATUS = 3,
+MESSAGE = 'Request is failed!',
+ERRORCODE =3,
+TXNNO='3fwt4545*****',
+REQUESTTXNID='89515454********'
+EZREFTXNID='U24054BCF******',
+HTTPCODE=200
+}</pre>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="docbox">
+                        <div class="accordions">
+                            <div class="accordion">
+                                <input type="checkbox" id="second" />
+                                <label for="second" class="acc-label">
+                                    <span>
+                                        <strong>4. Purpose: </strong> To check recharge status
+                                    </span>
+                                </label>
+                                <div class="acc-content">
+                                    <b><em>To make Get Request use below URL</em></b>
+                                    <p><strong>Get URL: </strong><code>  @(SiteKey.ApiDomainName + "service/statuscheck?ApiToken=xxxx-xxxxx-xxxxx-xxx&RefTxnId=your_request_id")</code></p>
+                                    <hr />
+                                    <p> <p>
+                                        <strong>Output JSON Success: </strong> :
+                                        <code>
+                                            {"CUSTOMERNO":"8386900044","OPERATOR":"AIRTEL","AMOUNT":100.00,"STATUS":1,"MESSAGE":"Success","CIRCLE":"RAJASTHAN",
+                                            "ERRORCODE":"0","TXNNO":1010100000036814,"OPTXNID":"WREC36193648-HARIRAM","REQUESTTXNID":"10108166519","HTTPCODE":200}
+                                        </code>
+                                    </p>
+                                    <p><strong> Output JSON FAIL Result: </strong> <code>{"MESSAGE":"Request is processed!","ERRORCODE":"0"}</code></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="dmt" role="tabpanel" aria-labelledby="impsdmt">
+                <div class="container" id="2">
+                    <h3 class="page-title">
+                        DMT Service request
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="header_parameter_table">
+                                <h3>Header Parameter:</h3>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Tag Name</th>
+                                            <th>Data Type</th>
+                                            <th>Expected value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                TokenID string
+                                            </td>
+                                            <td><code>string</code></td>
+                                            <td>Api Token Id</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                regMobileNumber string
+                                            </td>
+                                            <td><code>string</code></td>
+                                            <td>Register Mobile Number</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="note">
+                                <p>Note:Header Parameter is mandatory for every API expect for Money Transfer API</p>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="Send_otp">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            1.Send otp [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/SendOtp</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>MobileNo*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Mobile number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>OpId* </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Operator Id<code>(value = 6)</code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+"STATUS": 1,
+"RESPONSE":
+"{\"errorMsg\":\"SUCCESS\",\"errorCode\":\"00\",\"data\":{\"customerId\":\"8386900044\"}}",
+"ERRORCODE": "0",
+"HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+"STATUS": 3,
+"RESPONSE":
+"{\"errorMsg\":\"Failure\",\"errorCode\":\"00\"}",
+"ERRORCODE": 2,
+"HTTPCODE": 400
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="Fetch_Sender">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            1. Fetch Sender [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/FetchSender</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>MobileNo*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Mobile number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>OpId* </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Operator Id<code>(value = 5)</code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+ "STATUS": 1,
+ "RESPONSE":
+"{\"errorMsg\":\"SUCCESS\",\"errorCode\":\"00\",\"data\":{\"customerId\":\"8123123123\",\"name\":\"
+easepay\",\"kycstatus\":0,\"monthlyLimit\":100,\"walletbal\":100,\"dateOfBirth\":\"2024-30-
+16\"},\"pipeList\":[{\"remainingLimit\":100.0,\"pipeCode\":\"P2\",\"_notAllowedBankCode\":\"FINO\",\"
+channelAllowed\":\"ALL\"},{\"remainingLimit\":100.00,\"pipeCode\":\"P3\",\"_notAllowedBankCode\":\
+"ABCD\",\"channelAllowed\":\"ALL\"}]}",
+ "ERRORCODE": "0",
+ "HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+ "STATUS": 3,
+ "RESPONSE":
+"{\"errorMsg\":\"Failure\",\"errorCode\":\"00\"}",
+ "ERRORCODE": 2,
+ "HTTPCODE": 400
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="Add_Sender">
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            3. Add Sender [HttpPost]:
+
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/AddSender</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>MobileNo*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Mobile number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>OpId* </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Operator Id<code>(value = 5)</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Name*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Address</td>
+                                                    <td><code>string</code></td>
+                                                    <td>User Address</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Otp*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Otp</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        dateOfBirth*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td> User date of birth(yyyy-mm-dd), <code>
+    (1997-9-26)
+
+</code></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+ "STATUS": 1,
+ "RESPONSE":
+"{\"errorMsg\":\"SUCCESS\",\"errorCode\":\"00\",\"data\":{\"customerId\":\"1213123112\"}}",
+ "ERRORCODE": 0,
+ "HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+{
+ "STATUS": 3,
+ "RESPONSE":
+"{\"errorMsg\":\"Failure\",\"errorCode\":\"02\"}}",
+ "ERRORCODE": 2,
+ "HTTPCODE": 400
+}
+}</pre>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="Fetch_Recipients">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            2. Fetch All Recipients [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/FetchAllRecipients</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>MobileNo*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Mobile number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>OpId* </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Operator Id<code>(value = 5)</code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+ "STATUS": 1,
+ "RESPONSE":{"errorMsg":"SUCCESS","errorCode":"00","data":{"recipientList": [{"udf2":"SBIN000****",
+"udf1": "11111234*****","recipientId": "1587***","recipientName": "Rahul","bankName":
+"State Bank of India","mobileNo": "924300****", "Channel":"ALL",}]}},
+ "ERRORCODE": "0",
+ "HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+STATUS = 3,
+ "RESPONSE":{"errorMsg":"Failure","errorCode":"05","data":{"recipientList": []}},
+ "ERRORCODE": "0",
+HTTPCODE=400
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="Add_Recipients">
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            5. Add Recipients [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/AddRecipients</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        BankAccountNumber*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Recipient account number with
+                                                        respective bank
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        BankName*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Please pass Bank Code using bank list Api</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>MobileNumber*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Recipient mobile number
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ifsc*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Bank Ifsc Code
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        RecipientName*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Recipient name as on Bank account
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        customerId*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender mobile number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        OpId*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Operator id (value = 5)
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+ "STATUS": 1,
+ "RESPONSE":
+"{\"errorMsg\":\"Success\",\"errorCode\":\"00\",\"data\":{\"customerId\":\"1234567890\",\"recipientI
+d\":\"AES_82121212\",\"name\":\"easepay\",\"kycstatus\":0,\"walletbal\":0.0000,\"dateOfBirth\":\"20
+24-30-16\",\"recipientName\":\"User name \",\"mobileNo\":\"1231231231\"}}",
+ "ERRORCODE": "0",
+ "HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+STATUS = 3,
+ "RESPONSE":
+"{\"errorMsg\":\"Failure\",\"errorCode\":\"00\",\"data\":{}}",
+ "ERRORCODE": 2,
+HTTPCODE=400
+}</pre>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="Delete_Recipients">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            3. Delete Recipients [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/DeleteRecipients</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>MobileNo*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Mobile number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>OpId* </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Operator Id<code>(value = 5)</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>recipientId*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>Your Recipient Id</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+    "STATUS": 1,
+    "RESPONSE": "{\"errorMsg\":\"SUCCESS\",\"errorCode\":\"00\",\"data\":{}}",
+    "ERRORCODE": 0,
+    "HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+ "STATUS": 1,
+    "RESPONSE": "{\"errorMsg\":\"Failure\",\"errorCode\":\"02\"}",
+    "ERRORCODE": 0,
+    "HTTPCODE": 200
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Fetch_bank_List">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            4. Fetch Bank List [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/FetchBankList</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>OpId* </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Operator Id<code>(value = 5)</code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+"STATUS": 1,
+ "ERRORCODE": "0",
+ "HTTPCODE": 200,
+ "BANKLIST": [
+ {
+{
+ "BankCode": "1229",
+ "accVerAvailabe": "Y",
+ "BankName": "State Bank of India",
+ "Ifsc": "SBIN0013218",
+ "ifscStatus": "N",
+ "channelsSupported": "ALL"
+ },…
+}]
+                            </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+"STATUS":3,
+ "ERRORCODE": 2,
+ "HTTPCODE": 400,
+ "BANKLIST": [
+ {}]
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Add_Recipients">
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            5. Register Sender & Recipient with Transactional API  [HttpPost]:
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Type: <code>POST</code>
+                                        </h3>
+                                        <br>
+                                        <h3 class="panel-title">
+                                            Request: <code style="font-size: 14px;">https://easepays.in/api/Service/MoneyTransfer</code>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag Name</th>
+                                                    <th>Data Type</th>
+                                                    <th>Expected value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        customerId*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Sender mobile number
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Name*
+
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>Sender Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>address</td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                       Sender Address
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>BankName*</td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Bank code using bank list API
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Account*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Account Number
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        IFSC*
+
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>IFSC Code</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Mobileno*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Recipient Mobile Number
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        recipientName*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Recipient Name
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        amount*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        Amount
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        OrderID*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        User Request ID
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        ApiToken*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        API Token
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        OpId*
+                                                    </td>
+                                                    <td><code>string</code></td>
+                                                    <td>
+                                                        OperatorId <code>(value=6)</code>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>                                
+{
+ "STATUS": 1,
+ "MESSAGE": "Request is successfull!",
+ "ERRORCODE": "0",
+ "OPTXNID": "",
+ "TXNNO": 101010000155****,
+ "BENENAME": null,
+ "REQUESTTXNID": "567686464545****",
+ "REFTXNID": "U240402163353*****",
+ "HTTPCODE": 200
+}
+                            </pre>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <pre>
+{
+STATUS = 3,
+MESSAGE = 'Request is failed!',
+ERRORCODE =3,
+TXNNO='3fwt4545*****',
+REQUESTTXNID='89515454********'
+EZREFTXNID='U24054BCF******',
+HTTPCODE=200
+}</pre>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+    </div>
+<!--<nav id="sidebar" class="sidebar-wrapper bg-white">
+    <div class="sidebar-content">
+
+        <div class="sidebar-menu">
+            <ul>
+                <li class="header-menu">
+                    <span>Reference</span>
+                </li>
+                <li class="sidebar-dropdown" style="top: 0px;">
+                    <a href="#">
+                        <span>Payin API Document</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a href="#" onclick="test(1)">
+                                    Get QR
+                                    <span class="badge badge-pill badge-success">POST</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="test(2)">
+                                    CheckStatus
+                                    <span class="badge badge-pill badge-success">POST</span>
+                                </a>
+                            </li>-->
+@*<li>
+        <a href="#" onclick="test(2)">
+            CheckStatus
+            <span class="badge badge-pill badge-success">POST</span>
+        </a>
+    </li>*@
+<!--</ul>
+    </div>
+</li>-->
+@*<li class="sidebar-dropdown1">
+        <a href="#" onclick="test(3)">
+            <span>PanCard Verification API</span>
+        </a>
+    </li>*@
+<!--</ul>
+        </div>
+    </div>
+</nav>
+
+
+<main class="page-content gradient">
+    <!-- aadhaar send otp -->
+<!--<div class="container-fluid" id="1">
+    <h3 class="page-title">
+        Payin API Document
+    </h3>
+    <div style="display: flex">
+        <p style="background-color: blue; width: 50px; color: white; font-weight: 500; padding-left: 5px;">POST</p>
+    </div>
+    <p style="color: white;">-->
+@*Aadhaar verification API is a crucial API for every financial entity for Aadhaar card
+    verification. This is the most fundamental identity that is required everywhere.*@
+<!--</p>
+<div class="row">
+    <div class="col-md-8">-->
+<!-- TABLE HOVER -->
+<!--<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Name: <code style="color: black;"> Get QR</code>
+        </h3>
+        <br>
+        <h3 class="panel-title">
+            Type: <code>POST</code>
+        </h3>
+        <br>
+        <h3 class="panel-title">
+            Request: <code style="font-size: 14px;">@(SiteKey.ApiDomainName + "Upi/UpiRequest")</code>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Position</th>
+                    <th>#</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ApiToken</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter Genrated <code style="font-size: 16px;">TokenId</code> Credentials</td>
+                </tr>
+                <tr>
+                    <td>CustomerName</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter given <code style="font-size: 16px;">Name</code> Credentials</td>
+                </tr>
+                <tr>
+                    <td>CustomerEamil</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter given <code style="font-size: 16px;">Email </code> Credentials</td>
+                </tr>
+                <tr>
+                    <td>CustomerMobile</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>"Your Mobile Number Credentials"</td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter Amount</td>
+                </tr>
+                <tr>
+                    <td>ClientId</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Your Request Id</td>
+                </tr>
+                <tr>
+                    <td>UserName</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Your_LoginId</td>
+                </tr>
+                <tr>
+                    <td>RedirectUrl</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>
+                        Enter URL
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>-->
+<!-- END TABLE HOVER -->
+<!--</div>
+<div class="col-md-4">-->
+<!-- TABLE HOVER -->
+<!--<div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                        </div>
+                        <div class="panel-body">
+                            <pre>{ "Error": "1",
+ "Status": "1",
+ "Message": "SUCCESS",
+ "ApiTxnId": "",
+"ClientId": "Your_Request_Id",
+"Data": { "QrIntent": "upi://pay?ver=01&mode=19&pa=ekoindiafinancialservices.rzp@hdfcbank&pn=Eko&tr=STQNMP4uc6gL4sodpqrv2&cu=INR&mc=4814&qrMedium=04&tn=PaymenttoEko&am=10",
+ "PaymentUrl":"QR Code"
+}
+</pre>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                        </div>
+                        <div class="panel-body">
+                            <pre>{ "STATUS": 3,
+"MESSAGE":FAILED,
+"ERRORCODE": "3",
+"ClientId": Your_Request_Id,
+"Data": null
+}
+</pre>
+                        </div>
+                    </div>-->
+<!-- END TABLE HOVER -->
+<!--</div>
+    </div>
+</div>-->
+<!-- aadhaar verify otp  -->
+<!--<div class="container-fluid " id="2">
+    <h3 class="page-title">Paying API Document</h3>
+    <div style="display: flex">
+        <p style="background-color: blue; width: 50px; color: white; font-weight: 500; padding-left: 5px;">POST</p>
+    </div>
+    <p style="color: white;">-->
+@*Aadhaar verification API is a crucial API for every financial entity for Aadhaar card
+    verification. This is the most fundamental identity that is required everywhere.*@
+<!--</p>
+<div class="row">
+    <div class="col-md-7">-->
+@*TABLE HOVER
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Name: <code style="color: black;">UpiStatusCheck</code>
+                                </h3>
+                                <br>
+                                <h3 class="panel-title">
+                                    Type: <code>POST</code>
+                                </h3>
+                                <br>
+                                <h3 class="panel-title">
+                                    Request: <code style="font-size: 14px;">@(SiteKey.ApiDomainName + "Upi/UpiStatusCheck")</code>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Type</th>
+                                            <th>Position</th>
+                                            <th>#</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ApiToken</td>
+                                            <td><code>string</code></td>
+                                            <td><code>Body</code></td>
+                                            <td><code>Required</code></td>
+                                            <td>Enter Genrated <code style="font-size: 16px;">TokenId</code> Credentials</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ClientId</td>
+                                            <td><code>string</code></td>
+                                            <td><code>Body</code></td>
+                                            <td><code>Required</code></td>
+                                            <td>Your Request Id</td>
+                                        </tr>
+                                        <tr>
+                                            <td>UserName</td>
+                                            <td><code>string</code></td>
+                                            <td><code>Body</code></td>
+                                            <td><code>Required</code></td>
+                                            <td>Your_LoginId</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                         END TABLE HOVER
+                    </div>
+                    <div class="col-md-5">
+                         TABLE HOVER
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                            </div>
+                            <div class="panel-body">
+                                <pre>                                {
+     Error = 1
+    Status = 1
+    Amount =10
+    Order_Id = XTL35*****,
+    UpiTxnId = cust_NM*****,
+    ClientId = Your_Request_Id,
+    Integration_id=int_17*****
+    }
+                                </pre>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                            </div>
+                            <div class="panel-body">
+                                <pre>{
+    Error = 3
+    Status = 3
+    ClientId =Your_Request_Id
+    }</pre>
+                            </div>
+                        </div>
+                         END TABLE HOVER
+                    </div>*@
+</div>
+        </div>
+<!-- pancard verify otp  -->
+<!--<div class="container-fluid dis" id="3">
+    <h3 class="page-title">PanCard Verification API</h3>
+    <div style="display: flex">
+        <p style="background-color: blue; width: 50px; color: white; font-weight: 500; padding-left: 5px;">POST</p>
+    </div>
+    <p style="color: white;">PAN Verification API helps entities in verifying and validating the PAN credentials of an individual. It determines the legitimacy of the customer and prevents fraud.</p>
+    <div class="row">
+        <div class="col-md-7">-->
+<!-- TABLE HOVER -->
+<!--<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Name: <code style="color: black;">PAN Verification API</code>
+        </h3>
+        <br>
+        <h3 class="panel-title">
+            Type: <code>POST</code>
+        </h3>
+        <br>
+        <h3 class="panel-title">
+            Request: <code style="font-size: 14px;">https://planapi.in/Api/Ekyc/PanVerification</code>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Position</th>
+                    <th>#</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TokenID</td>
+                    <td><code>string</code></td>
+                    <td><code>Header</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter Genrated <code style="font-size: 16px;">TokenId</code> Credentials</td>
+                </tr>
+
+                <tr>
+                    <td>ApiUserID</td>
+                    <td><code>string</code></td>
+                    <td><code>Header</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter given <code style="font-size: 16PX;">USERID</code> Credentials</td>
+                </tr>
+                <tr>
+                    <td>ApiPassword</td>
+                    <td><code>string</code></td>
+                    <td><code>Header</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter given <code style="font-size: 16PX;">PASSWORD</code> Credentials</td>
+                </tr>
+                <tr>
+                    <td>Panid</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Required</code></td>
+                    <td>Enter 10 Digit <code style="font-size: 16PX;">PANCARD</code> Number</td>
+                </tr>
+                <tr>
+                    <td>ApiMode</td>
+                    <td><code>string</code></td>
+                    <td><code>Body</code></td>
+                    <td><code>Optional</code></td>
+                    <td>0 for Test API/1 for Prodution</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>-->
+<!-- END TABLE HOVER -->
+<!--</div>
+<div class="col-md-5">-->
+<!-- TABLE HOVER -->
+<!--<div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Response : <code style="background-color: green; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">200</code></h3>
+                        </div>
+                        <div class="panel-body">
+                            <pre>                                {
+  "status": "Success",
+  "Errorcode": 200,
+  "pan_no": "ssdrf3432w",
+  "response": {
+    "father_name": "NAME",
+    "registered_name": "DUMMY NAME",
+  }
+  "pan_type": "INDIVIDUAL"
+}
+                            </pre>
+                        </div>
+
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Response : <code style="background-color: red; width: 70px; color: white; font-weight: 500; padding-left: 5px; padding-right: 5px;">404</code></h3>
+                        </div>
+                        <div class="panel-body">
+                            <pre>{
+  "status": "failed",
+  "Errorcode": 404,
+  "pan_no": null,
+    "response": {
+   }
+   "pan_type": "INDIVIDUAL"
+}</pre>
+                        </div>
+                    </div>-->
+<!-- END TABLE HOVER -->
+<!--</div>
+    </div>
+</div>-->
+<!--</main>-->
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+<script>
+    $(".sidebar-dropdown > a").click(function () {
+        $(".sidebar-submenu").slideUp(200);
+        if (
+            $(this)
+                .parent()
+                .hasClass("active")
+        ) {
+            $(".sidebar-dropdown").removeClass("active");
+            $(this)
+                .parent()
+                .removeClass("active");
+        } else {
+            $(".sidebar-dropdown").removeClass("active");
+            $(this)
+                .next(".sidebar-submenu")
+                .slideDown(200);
+            $(this)
+                .parent()
+                .addClass("active");
+        }
+    });
+
+    $("#close-sidebar").click(function () {
+        $(".page-wrapper").removeClass("toggled");
+    });
+    $("#show-sidebar").click(function () {
+        $(".page-wrapper").addClass("toggled");
+    });
+
+
+</script>
+
+@*<script>
+        function test(id) {
+
+            $("#loading-wrapper").removeClass("dis")
+
+            $("#m").addClass("loa")
+            for (let i = 1; i <= 11; i++) {
+                $("#" + i).addClass("dis")
+            }
+            setTimeout(() => {
+                $("#" + id).removeClass("dis");
+                $("#m").removeClass("loa")
+
+                $("#loading-wrapper").addClass("dis");
+            }, 400)
+        }
+    </script>*@
+@*<script>
+        function test(id) {
+            // Show loading indicator
+            $("#loading-wrapper").removeClass("dis");
+            $("#m").addClass("loa");
+
+            // Hide all divs initially
+            for (let i = 1; i <= 11; i++) {
+                $("#" + i).addClass("dis");
+            }
+
+            // Show the selected div after a delay
+            setTimeout(() => {
+                $("#" + id).removeClass("dis");
+                $("#m").removeClass("loa");
+
+                // Hide loading indicator
+                $("#loading-wrapper").addClass("dis");
+            }, 400);
+        }
+    </script>*@
+
+
+

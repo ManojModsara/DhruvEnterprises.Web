@@ -1,0 +1,166 @@
+﻿
+@model DhruvEnterprises.Dto.UserDto
+
+@{
+    ViewBag.Title = "User:CreateEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css")
+
+
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+@using (Html.BeginForm("createedit", "user", FormMethod.Post, new { @action = Url.Action("createedit"), enctype = "multipart/form-data", @id = "model-createedit-adminuser" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.Uid)
+    <section class="content-header">
+        <h1>
+            @(Model.Uid == 0 ? "Add URL" : "Edit URL")
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">General Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Name, htmlAttributes: new { @class = "form-control ", @placeholder = "Full Name" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.EmailId, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.EmailId, htmlAttributes: new { @class = "form-control ", @placeholder = "Email" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.ContactNo, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.ContactNo, htmlAttributes: new { @class = "form-control ", @placeholder = "Contact Number" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.RoleId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.RoleId, true, new SelectList(ViewBag.Roles, "Id", "RoleName", @Model.RoleId), "Select a Role", new { @class = "form-control select2" })
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.PackageId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.PackageId, true, new SelectList(ViewBag.Packages, "Id", "PackageName", @Model.PackageId), "Select a Package", new { @class = "form-control select2" })
+                                    </div>
+                                    @if (Model.Uid > 0)
+                                    {
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.ApiKey, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.ApiKey, htmlAttributes: new { @class = "form-control ", @disabled = "disabled" })<!-- /.input group -->
+                                        </div>
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.AddedDate, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.AddedDate, htmlAttributes: new { @class = "form-control ", @disabled = "disabled" })<!-- /.input group -->
+                                        </div>
+
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.UpdatedDate, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.UpdatedDate, htmlAttributes: new { @class = "form-control ", @disabled = "disabled" })<!-- /.input group -->
+                                        </div>
+
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">Login Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Username, htmlAttributes: new { @class = "form-control ", @placeholder = "Username" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control ", @placeholder = "Password" })<!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IsActive, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.IsActive)
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IsLocked, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.IsLocked)
+                                    </div>
+                                    @if (Model.Uid > 0)
+                                    {
+                                        <div class="form-group ">
+                                            @Html.LabelFor(m => m.IP, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.IP, htmlAttributes: new { @class = "form-control ", @placeholder = "IP" })<!-- /.input group -->
+                                        </div>
+                                    }
+
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.HKey, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.HKey, htmlAttributes: new { @class = "form-control ", @placeholder = "H-Key", @disabled = "disabled" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.HPass, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.HPass, htmlAttributes: new { @class = "form-control ", @placeholder = "H-Pass", @disabled = "disabled" })<!-- /.input group -->
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.LabelFor(m => m.CallBackUrl, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.CallBackUrl, htmlAttributes: new { @class = "form-control ", @placeholder = "Call Back Url" })<!-- /.input group -->
+                                  <br />
+                                  <i style="color:red">Status=SSS, OPtxnId=OOO, OurTxnId =TTT, RequesterTxnId=RRR,Mobileno=MMM,</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/adminuser/createedit.js", "~/bundles/jqueryval", "~/bundles/select2")
+}
+
+
+
+
+

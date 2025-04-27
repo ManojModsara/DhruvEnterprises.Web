@@ -1,0 +1,90 @@
+﻿@using DhruvEnterprises.Web.Models.Others
+@model DhruvEnterprises.Dto.EditSwitchDto
+<div id="frm-addedit-apiwallet" class="cmxform">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+
+
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.CircleName)
+        @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Edit Switch Setting" })
+        <div id="validation-summary"></div>
+        <div class="modal-body form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserIds, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.ListBoxFor(m => m.UserIds, new MultiSelectList(@Model.UserList, "Id", "Name", @Model.UserIds), new { @class = "form-control select2" })
+                </div>
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(m => m.OperatorId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.OperatorId, new SelectList(Model.OperatorList, "OperatorId", "OperatorName"), "--Select--", new { @class = "form-control select2" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CircleIds, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.ListBoxFor(m => m.CircleIds, new MultiSelectList(@Model.CircleList, "CircleId", "CircleName", @Model.CircleIds), new { @class = "form-control select2" })
+                </div>
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(m => m.apiId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.apiId, new SelectList(Model.ApiList, "ApiId", "ApiName"), "--Select--", new { @class = "form-control select2" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(m => m.LapuIds, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.ListBoxFor(m => m.LapuIds, new MultiSelectList(ViewBag.LapuList, "Value", "Text"), new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple" })
+                </div>
+            </div>*@
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.FilterTypeId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.FilterTypeId, new SelectList(Model.FilterTypeList, "Id", "TypeName"), "--Select--", new { @class = "form-control select2" })
+                </div>
+            </div>
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.AmountFilter, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.AmountFilter, htmlAttributes: new { @class = "form-control ", @placeholder = "Amount to Filter" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.BlockUser, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.BlockUser, htmlAttributes: new { @class = "form-control ", @placeholder = "User to Block" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.MinRO, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.MinRO, htmlAttributes: new { @class = "form-control ", @placeholder = "min ROffer(%)" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Priority, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.Priority, htmlAttributes: new { @class = "form-control ", @placeholder = "Priority" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RouteOP1, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.RouteOP1, htmlAttributes: new { @class = "form-control ", @placeholder = "optional route parameter" })
+                </div>
+            </div>
+
+            <script src="~/Scripts/Custom/CommonSwitch/editswitchsetting.js"></script>
+        </div>
+
+        @Html.Partial("_ModalFooter", new ModalFooter { })
+    }
+</div>
+

@@ -1,0 +1,192 @@
+﻿@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+@model DataTableServerSide
+@{
+    ViewBag.Title = "User:Pending Recharge";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+<section class="content-header">
+    <h1>
+        Pending Payin Report
+    </h1>
+    <style>
+
+        #btnClose:hover {
+            cursor: pointer;
+        }
+
+        .dataTables_filter {
+            display: none;
+        }
+
+        a {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+
+</section>
+
+<section class="content">
+
+    @{
+        DhruvEnterprises.Dto.RechargeFilterDto filter = (DhruvEnterprises.Dto.RechargeFilterDto)ViewBag.FilterData;
+    }
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Customer No</label>
+                            <input type="text" id="txtCustomerNo" value="@(filter.CustomerNo!="0"?filter.CustomerNo:"")" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@filter.SdateNow" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@filter.EdateNow" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Id/TxnId/OurRefId</label>
+                            <input type="text" id="txtSearchId" value="@(filter.Searchid!="0"?filter.Searchid:"")" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Op-TxnId</label>
+                            <input type="text" id="txtOpTxnid" value="@(filter.OpTxnid!="0"?filter.OpTxnid:"")" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label class="control-label">User-ReqId</label>
+                            <input type="text" id="txtUserReqid" value="@(filter.UserReqid!="0"?filter.UserReqid:"")" class="form-control" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        @if (CurrentUser.RoleId != 3)
+                        {
+                            <div class="form-group col-md-2">
+                                <label class="control-label">User</label>
+                                @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label class="control-label">Vendor-TxnId</label>
+                                <input type="text" id="txtApiTxnid" value="@(filter.ApiTxnid!="0"?filter.ApiTxnid:"")" class="form-control" />
+                            </div>
+                        }
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="checkbox" id="IsResentOnly" name="IsResentOnly" @(filter.IsResentOnly == 1 ? "checked" : "") /><i>Resent</i>
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="Isa" value="@filter.Isa" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @Html.ActionLink("Reset", "index", new { }, new { @class = "btn btn-primary" })
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <input type="button" value="Check Status" id="btnStatusCheck" class="btn btn-success" onclick="return confirm('Are you sure?')" />
+                        </div>
+                        <div class="col-md-2">
+                            <a data-toggle="modal" id="btnStatusChange" data-target="#modal-change-recharge-statusbulk" href="@Url.Action("ChangeStatusBulk", "RechargeReport")" class='btn btn-primary'>Status Change</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a data-toggle="modal" id="btnResend" data-target="#modal-Resend-rechargebulk" href="@Url.Action("resendrechargebulk", "rechargereport")" class='btn btn-bitbucket'>Resend</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.Partial("_Notification")
+
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <div class="table table-responsive">
+                            <table id="grid-index" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th title="Select All"><input type="checkbox" id="checkBoxAll" class="custom-checkbox" /></th>
+                                        <th>Id</th>
+                                        <th>UserId</th>
+                                        <th>Service</th>
+                                        @*<th>TxnId</th>*@
+                                        <th>CustomerNo</th>
+                                        <th>OperatorName</th>
+                                        <th>Amount</th>
+                                        @*<th>RCTypeId</th>*@
+                                        <th>StatusId</th>
+                                        <th>RequestTime</th>
+                                        <th>ResponseTime</th>
+                                        @*<th>MediumId</th>*@
+                                        <th>StatusMsg</th>
+                                        @*<th>IPAddress</th>*@
+                                        @*<th>CircleId</th>*@
+                                        @*<th>ROfferAmount</th>*@
+                                        <th>UserTxnId</th>
+                                        <th>OurRefTxnId</th>
+                                        <th>ApiTxnId</th>
+                                        <th>OptTxnId</th>
+                                        <th>UpdatedDate</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Html.Partial("_Modal", new Modal { ID = "modal-change-recharge-statusbulk", AreaLabeledId = "modal-change-recharge-statusbulk-label", Size = Enums.ModalSize.Medium })
+        @Html.Partial("_Modal", new Modal { ID = "modal-Resend-rechargebulk", AreaLabeledId = "modal-Resend-rechargebulk-label", Size = Enums.ModalSize.Medium })
+        @Html.Partial("_Modal", new Modal { ID = "modal-change-recharge-status", AreaLabeledId = "modal-change-recharge-status-label", Size = Enums.ModalSize.Medium })
+
+    </section>
+
+
+    <script>
+    var isactive = '@filter.Isa';
+    </script>
+    @section scripts{
+        @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+        @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+        @Scripts.Render("~/Scripts/Custom/RechargeReport/Pendingrecharge.js?ver=1.1")
+    }
+

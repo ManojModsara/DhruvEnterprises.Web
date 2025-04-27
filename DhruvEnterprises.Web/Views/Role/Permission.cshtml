@@ -1,0 +1,97 @@
+﻿@model DhruvEnterprises.Dto.PermissionDto
+
+@{
+    ViewBag.Title = "User:Role&Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<int> Allowedmenus = Model.MenuIds;
+    string roleName = Model.RoleName;
+}
+
+@section styles{
+    @Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+}
+
+<section class="content-header">
+    <h1>
+        Manage Permission @(!String.IsNullOrEmpty(roleName) ? "(" + (roleName) + ")" : "")
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        @Html.Partial("_Notification")
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+      
+            <div class="box">
+                @Html.HiddenFor(x => x.CurrentRoleId)
+               <input type="hidden" value="@ViewBag.CurrentUserRole" id="CurrentUserId" />
+                <div class="box-body" id="divparent">
+                    <div id="validation-summary"></div>
+                    <table id="tabid" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="visibility:hidden">#</th>
+                                <td>Menu Name</td>
+                                <td>Allow Menu</td>
+                                <td>Create</td>
+                                <td>Edit </td>
+                                <td>Delete</td>
+                            </tr>
+                        </thead>
+                        @foreach (var menu in Model.MenuList)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td  style="visibility:hidden">@menu.Id</td>
+                                    <td>
+                                        @if (menu.ParentId > 0)
+                                        {
+                                            <span style="font-style:italic"> @menu.MenuId (@menu.Name) </span>
+                                        }
+                                        else
+                                        {
+                                            <span style="font-weight:bold"> @menu.Name </span>
+                                        }
+                                                                    </td>
+                                    <td>
+                                        <input class="chk_parent" @(Allowedmenus.Contains(menu.Id) ? "checked=checked" : "") type="checkbox" id="chk_parent" value="@menu.Id">
+                                    </td>
+                                    @{
+                                        var mapping = Model.MenuMapList.Where(m => m.MenuId == menu.Id && m.RoleId == Model.CurrentRoleId).FirstOrDefault();
+                                        <td>
+                                            <input class="chk_create" @( mapping.IsCreate ? "checked=checked" : "") type="checkbox" id="chk_create" value="@mapping.MenuId">
+                                        </td>
+
+                                        <td>
+                                            <input class="chk_edit" @(mapping.IsEdit ? "checked=checked" : "") type="checkbox" id="chk_edit" value="@mapping.MenuId">
+                                        </td>
+                                        <td>
+                                            <input class="chk_delete" @(mapping.IsDelete ? "checked=checked" : "") type="checkbox" id="chk_delete" value="@mapping.MenuId">
+                                        </td>
+
+                                    }
+
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                    <input type="submit" id="btn-submit" value="Submit" class="btn btn-success pull-right"  />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var userid = '@ViewBag.CurrentUserRole';
+ 
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/Custom/AdminRole/permission.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}
+
+
+
+

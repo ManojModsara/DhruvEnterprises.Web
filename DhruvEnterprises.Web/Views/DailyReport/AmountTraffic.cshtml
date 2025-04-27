@@ -1,0 +1,201 @@
+﻿@model IEnumerable<DhruvEnterprises.Dto.dailydto>
+
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+
+@{
+    ViewBag.Title = "Amount Traffic";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                </div>
+                @{
+                    DhruvEnterprises.Dto.RechargeFilterDto filter = (DhruvEnterprises.Dto.RechargeFilterDto)ViewBag.FilterData;
+                }
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header" id="btnClose">
+                                <h3 class="box-title">Filter</h3>
+                                <div class="pull-right" style="color:red">Show/Hide</div>
+                            </div>
+                            <div class="box-body" id="dvSearchPanel">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        Start Date
+                                        <input id="txtFromDate" type="text" value="@filter.Sdate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        End Date
+                                        <input id="txtToDate" type="text" value="@filter.Edate" class="form-control datepicker" placeholder="dd/mm/yyyy" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Operator</label>
+                                        @Html.DropDownList("ddOperator", (List<SelectListItem>)ViewBag.OperatorList, "--All--", new { @class = "form-control select2" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Circle</label>
+                                        @Html.DropDownList("ddCircle", (List<SelectListItem>)ViewBag.CircleList, "--All--", new { @class = "form-control select2" })
+                                    </div>
+
+                                    @if (CurrentUser.RoleId != 3)
+                                    {
+
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">User</label>
+                                            @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Vendor</label>
+                                            @Html.DropDownList("ddVendor", (List<SelectListItem>)ViewBag.ApiList, "--All--", new { @class = "form-control select2" })
+                                        </div>
+
+                                    }
+
+                                    <div class="form-group col-md-1">
+                                        <br />
+                                        <button class="btn btn-block btn-success" id="btnSearch"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(m => m.IsPullOut, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.IsPullOut)
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        @{
+            int i = 1;
+        }
+        <div class="col-md-12 table table-responsive">
+            <table id="grid-index" class="table table-hover table-responsive table-bordered">
+                <tr>
+                    <th>
+                        SRN
+                    </th>
+                    <th>
+                        ROffer-Amt
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Total-Count
+                    </th>
+                    <th>
+                        Success-Count
+                    </th>
+                    <th>
+                        Success-Amount
+                    </th>
+
+
+                    <th>
+                        Failed
+                    </th>
+                    <th>
+                        Processing
+                    </th>
+                    <th>
+                        Hold
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td style="color:green;font-weight: 700;">
+                            <b>
+                                @Html.DisplayFor(modelItem => item.RofferAmount)
+                            </b>
+                            <span style="color:black; font-style:italic;">(<i>@Html.DisplayFor(modelItem => item.FailedAmount)</i>%)</span>
+
+                        </td>
+                        <td style="color:#000000;color:green">
+                            <b>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </b>
+                            <span style="color:black; font-style:italic;">(<i>@Html.DisplayFor(modelItem => item.ProcessingAmount)</i>%)</span>
+
+                        </td>
+                        <td style="color:green;font-weight: 700;">
+                            @Html.DisplayFor(modelItem => item.HoldAmount)
+                        </td>
+                        <td style="color:green;font-weight: 700;">
+                            @Html.DisplayFor(modelItem => item.SuccessCount)
+                        </td>
+                        <td style="color:green;">
+
+                            @Html.DisplayFor(modelItem => item.SuccessAmount)
+                        </td>
+                        <td style="color:red;font-weight: 700;">
+                            @Html.DisplayFor(modelItem => item.FailedCount)
+                        </td>
+                        <td style="color:blue;font-weight: 700;">
+                            @Html.DisplayFor(modelItem => item.ProcessingCount)
+                        </td>
+                        <td style="color:#000000;font-weight: 700;">
+                            @Html.DisplayFor(modelItem => item.HoldCount)
+                        </td>
+                    </tr>
+                }
+                <tfoot>
+                    <tr>
+                        <td style="color:#000000;font-weight: bold;" colspan="1">Total :</td>
+                        <td style="color:#000000;font-weight: bold;">
+                            @ViewBag.Roffer
+                            <span style="color:black; font-style:italic;">(<i>@ViewBag.RPercantage</i>%)</span>
+                        </td>
+                        <td style="color:#000000;font-weight: bold;"></td>
+                        <td style="color:#000000;font-weight: bold;"> @ViewBag.TotalCount </td>
+                        <td style="color:#000000;font-weight: bold;">@ViewBag.SuccessCount </td>
+                        <td style="color:#000000;font-weight: bold;"> @ViewBag.TotalAmount </td>
+                        <td style="color:#000000;font-weight: bold;">@ViewBag.FailedCount </td>
+                        <td style="color:#000000;font-weight: bold;">@ViewBag.ProcessingCount </td>
+                        <td style="color:#000000;font-weight: bold;">@ViewBag.HoldCount </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+
+    var isactive = '@filter.Isa';
+
+
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/amounttraffic.js")
+
+}

@@ -1,0 +1,61 @@
+﻿@using DhruvEnterprises.Web.Models.Others
+@model DhruvEnterprises.Dto.RechargeUpdateDto
+<div id="frm-create-edit-adminrole" class="cmxform">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.RecIds)
+        @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Change Status" })
+        <div id="validation-summary"></div>
+        <div class="modal-body form-horizontal">
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.ApiId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.ApiId, true, new SelectList(Model.ApiList, "Apiid", "Name", @Model.StatusId), "Select a Vendor", new { @class = "form-control select2" })
+                </div>
+            </div>
+          
+            <div class="form-group">
+                    @Html.LabelFor(m => m.IsActive, new { @class = "col-lg-3 col-sm-3 control-label" })
+                    <div class="col-lg-9 col-sm-9 checkbox popup-check">
+                        @Html.CheckBoxFor(m => m.IsActive) Yes
+                    </div>
+                </div>
+
+        </div>
+        @Html.Partial("_ModalFooter", new ModalFooter { })
+    }
+</div>
+<script>
+
+    var jqry = jQuery.noConflict();
+
+    jqry(document).ready(function () {
+        jqry('#ApiId').select2();
+
+    });
+
+    jqry(document).on('submit', 'form', function () {
+
+        var buttons = jqry(this).find('[type="submit"]');
+        if (jqry(this).valid()) {
+            buttons.each(function (btn) {
+                jqry(buttons[btn]).prop('disabled', true);
+            });
+        } else {
+            buttons.each(function (btn) {
+                jqry(buttons[btn]).prop('disabled', false);
+            });
+        }
+
+        debugger;
+        var oTable = jqry("#grid-index").dataTable();
+        var arr = '';
+        jqry('input:checkbox.chkCheckBoxId:checked', oTable.fnGetNodes()).each(function () {
+            arr += jqry(this).val() + ',';
+        });
+        jqry('#RecIds').val(arr);
+    });
+
+
+</script>

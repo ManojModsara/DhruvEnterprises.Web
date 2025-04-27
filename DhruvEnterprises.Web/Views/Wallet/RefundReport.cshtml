@@ -1,0 +1,180 @@
+﻿
+
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+
+
+@{
+    ViewBag.Title = "User:Refund Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Refund Txn Report
+    </h1>
+    <style>
+        .dataTables_filter {
+            display: none;
+        }
+    </style>
+</section>
+<section class="content">
+
+    @{
+        DhruvEnterprises.Dto.TxnFilterDto filter = (DhruvEnterprises.Dto.TxnFilterDto)ViewBag.FilterData;
+        //filters-  recid, txnid,sdate,edate, remark,txntypeid,amttypeid, userid, apiid,isshow
+        //txtRecId,txtTxnId,txtFromDate,txtToDate,txtRemark,ddTxnType,ddAmtType,ddAmtType
+
+    }
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">RecId</label>
+                            <input type="text" id="txtRecId" value="@(filter.recid>0?filter.recid.ToString():"")" placeholder="Recharge Id" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">TxnId</label>
+                            <input type="text" id="txtTxnId" value="@(filter.txnid>0?filter.txnid.ToString():"")" placeholder="Transaction Id" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@filter.sdate" class="form-control" placeholder="start date(dd/mm/yyyy)" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@filter.edate" placeholder="End Date (dd/mm/yyyy)" autocomplete="off" />
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Remark</label>
+                            <input type="text" id="txtRemark" value="@(filter.remark!="0"?filter.remark:"")" placeholder="Remark" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">TxnType</label>
+                            @Html.DropDownList("ddTxnType", (List<SelectListItem>)ViewBag.TxnTypeList, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">AmtType</label>
+                            @Html.DropDownList("ddAmtType", (List<SelectListItem>)ViewBag.AmtTypeList, "--All--", new { @class = "form-control select2" })
+                        </div>
+
+                    </div>
+
+
+                    @{
+                        var roleid = CurrentUser.Roles.FirstOrDefault();
+
+                        if (roleid == 1 || roleid == 2)
+                        {
+
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">User</label>
+                                    @Html.DropDownList("ddUser", (List<SelectListItem>)ViewBag.UserList, "--All--", new { @class = "form-control select2" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Vendor</label>
+                                    @Html.DropDownList("ddVendor", (List<SelectListItem>)ViewBag.ApiList, "--All--", new { @class = "form-control select2" })
+                                </div>
+
+                            </div>
+                        }
+                    }
+
+
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="IsShow" value="@filter.isshow" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @Html.ActionLink("Reset", "Refundreport", new { }, new { @class = "btn btn-primary" })
+                        </div>
+
+
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>TxnId</th>
+                                    <th>RecId</th>
+                                    <th>UserId</th>
+                                    <th>Customer No</th>
+                                    <th>Amount</th>
+                                    <th>Opening Bal</th>
+                                    <th>Credit</th>
+                                    <th>Debit</th>
+                                    <th>Closing Bal</th>
+                                    <th>AmtType</th>
+                                    <th>TxnType</th>
+                                    <th>TxnDate</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-rec-detail", AreaLabeledId = "modal-view-rec-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-user-detail", AreaLabeledId = "modal-view-user-detail-label", Size = Enums.ModalSize.Medium })
+    @Html.Partial("_Modal", new Modal { ID = "modal-view-url-detail", AreaLabeledId = "modal-view-url-detail-label", Size = Enums.ModalSize.Medium })
+
+</section>
+
+<script>
+
+    var isactive = '@filter.isshow';
+
+
+</script>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Wallet/RefundTxnReport.js")
+
+}

@@ -1,0 +1,175 @@
+﻿@model DhruvEnterprises.Dto.KYCDataDtO
+@{
+    ViewBag.Title = "User:Kyc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+
+@Html.Partial("_Notification")
+@Html.HiddenFor(model => model.Id)
+<style>
+    .content1 {
+        /* min-height: 250px;*/
+        padding: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    img {
+        width: 100% !important;
+    }
+</style>
+<br>
+@{
+    var DocList = ViewBag.DocumentTypedList as List<DhruvEnterprises.Data.KYCTypedDocument>;
+}
+<section class="content-header">
+    <h1>
+        KYC
+    </h1>
+</section>
+@using (Html.BeginForm("UpLoadKYCDoc", "user", FormMethod.Get, new { @action = Url.Action("UpLoadKYCDoc"), enctype = "multipart/form-data", @id = "model-UpLoadKYCDoc" }))
+{
+    <section class="content1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-danger">
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.Label("Select Documents", new { @class = "control-label" })
+
+                            @Html.DropDownListFor(m => m.DocId, new SelectList(ViewBag.DocumentTypedList, "Id", "DocName", @Model.DocId), "Select Documents", new { @class = "form-control select2", @name = "DocId[]", multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success" id="btnSubmit"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("UpLoadKYCDoc")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+}
+@using (Html.BeginForm("UpLoadKYCDoc", "user", FormMethod.Post, new { @action = Url.Action("UpLoadKYCDoc"), enctype = "multipart/form-data", @id = "model-UpLoadKYCDoc" }))
+{
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    @foreach (var id in Model.DocId)
+                    {
+                        var DocDetails = DocList.Where(x => x.Id == id).FirstOrDefault();
+                        var docId1 = DocDetails.Id;
+                        var fr = "frntImg" + id;
+                        var bk = "bckimg" + id;
+                        <div class="box-body">
+
+                            <div class="col-md-4">
+                                <div class="box box-danger">
+
+                                    <div class="box-body">
+                                        <div class="form-group required">
+                                            @Html.Label(DocDetails.DocName, new { @class = "control-label" })
+                                            @Html.TextBoxFor(m => m.DocNumber, htmlAttributes: new { @class = "form-control ", @placeholder = "" + DocDetails.DocName + "" })<!-- /.input group -->
+                                            <input type="hidden" name="DocId" id="DocId" value="@docId1" />
+                                        </div>
+                                        @if (!(docId1 == 4))
+                                        {
+                                            <div class="form-group required">
+                                                @Html.Label("FrontImage", new { @class = "control-label" })
+                                                @Html.TextBox("FrontImage", "", new { type = "file", @class = "form-control", id = "FrtIMG", @onchange = "showIMG(this,'" + fr + "')" })     <!--/.input group -->
+                                            </div>
+                                            <div class="form-group required">
+                                                @Html.Label("BackImage", new { @class = "control-label" })
+                                                @Html.TextBox("BackImage", "", new { type = "file", @class = "form-control", id = "BckIMG", @onchange = "showIMG(this,'" + bk + "')" })   <!-- /.input group -->
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="box box-danger">
+
+                                    <div class="box-body">
+                                        <div class="form-group required">
+
+                                        </div>
+                                        @if (!(docId1 == 4))
+                                        {
+                                            <div class="col-md-6">
+                                                <div class="form-group required">
+                                                    @Html.Label("Front", new { @class = "control-label" })
+                                                    <img id="@fr"
+                                                         height="200"
+                                                         width="490" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group required">
+                                                    @Html.Label("Back", new { @class = "control-label" })
+                                                    <img id="@bk"
+                                                         height="200"
+                                                         width="490" />
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div><!-- /.box-body -->
+
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success" id="btnSubmit"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("UpLoadKYCDoc")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/adminuser/createedit.js", "~/bundles/jqueryval", "~/bundles/select2")
+    <script>
+            $('select#DocId').select2();
+    </script>
+}
+

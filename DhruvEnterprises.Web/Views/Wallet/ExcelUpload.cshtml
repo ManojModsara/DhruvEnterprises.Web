@@ -1,0 +1,161 @@
+﻿@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+@model DhruvEnterprises.Dto.ExcelUpload
+
+@{
+    ViewBag.Title = "User:Walet Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/css/bootstrap-datepicker.css")
+
+
+<style>
+    .loader_box {
+        background: rgb(255 255 255 / 25%);
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 4px );
+        -webkit-backdrop-filter: blur( 4px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        padding:0;
+        margin:0;
+    }
+
+    .loader {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        animation: rotate 1s linear infinite
+    }
+
+        .loader::before, .loader::after {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            inset: 0px;
+            border-radius: 50%;
+            border: 5px solid #f09e28;
+            animation: prixClipFix 2s linear infinite;
+        }
+
+        .loader::after {
+            border-color: #2d3b96;
+            animation: prixClipFix 2s linear infinite, rotate 0.5s linear infinite reverse;
+            inset: 6px;
+        }
+
+    @@keyframes rotate {
+        0% {
+            transform: rotate(0deg)
+        }
+
+        100% {
+            transform: rotate(360deg)
+        }
+    }
+
+    @@keyframes prixClipFix {
+        0% {
+            clip-path: polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)
+        }
+
+        25% {
+            clip-path: polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)
+        }
+
+        50% {
+            clip-path: polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)
+        }
+
+        75% {
+            clip-path: polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)
+        }
+
+        100% {
+            clip-path: polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)
+        }
+    }
+
+    .loader_img img {
+        width: 3.7%;
+        position: absolute;
+        top: 55%;
+        left: 51.3%;
+    }
+    nav.navbar.navbar-inverse {
+        margin: 0;
+    }
+    .container.body-content {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+</style>
+<div class="loader_box" style="display:none;">
+    <div class="p_loader">
+        <div class="loader">
+        </div>
+        <div class="loader_img">
+            <img src="~/Content/Admin/images/logo01.png" />
+            
+        </div>
+    </div>
+</div>
+<section class="content-header">
+    <h1>
+      Bank Excel Upload
+    </h1>
+</section>
+<section class="content">
+
+
+    <div class="row" style="
+    display: flex;
+    align-items: end;
+">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" name="txtFromDate" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Bank Account</label>
+                            @Html.DropDownList("ddAccount", (List<SelectListItem>)ViewBag.BankAccounts, "--All--", new { @class = "form-control select2" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Select a File</label>
+                            <input type="file" id="FileUpload" name="FileUpload" class="form-control file-input" />
+
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type="button" id="submit">Upload</button>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type="reset" id="reset">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Wallet/ExcelUpload.js?ver=1.1")
+
+}

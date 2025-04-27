@@ -1,0 +1,100 @@
+﻿@model DhruvEnterprises.Dto.ApiDto
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "Vendor:List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1>
+        Vendor List
+        @*@LF.Resource.AdminUserRes.PageHeading*@
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+         
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        @{
+                            ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                            if (act.AllowCreate)
+                            {
+                                @(Html.Raw(Html.InsertButton(Url.Action("createedit", "ApiSource"))))
+                            }
+                        }
+
+                    </div>
+                    <div class="pull-right">@(Html.Raw(Html.RefreshAllButton(Url.Action("Index", "ApiSource", new { i = 1 }))))</div>
+                </div>
+                <div class="box-body">
+
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>VId</th>
+                                    <th>Vendor Name</th>
+                                    <th>Remark</th>
+                                    <th>Active?</th>
+                                    <th>Balance(INR)</th>
+                                    <th>vBal(INR)</th>
+                                    <th>(Balance-vBal)</th>
+                                    <th>CreditBal</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Partial("_Modal", new Modal { ID = "modal-add-edit-addapiwallet", AreaLabeledId = "modal-add-edit-addapiwallet-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+@Html.Partial("_Modal", new Modal { ID = "modal-delete-api", AreaLabeledId = "modal-delete-api-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+<script>
+
+    function GetBalance(button) {
+        debugger;
+        var row = $(button).closest("TR");
+        var apiid = parseInt($("TD", row).eq(0).html());
+        var balc = parseFloat($("TD", row).eq(4).html()).toFixed(2);
+
+        if (apiid > 0) {
+            $.post(Global.DomainName + 'ApiSource/FetchApiBalance', { id: apiid }, function (result) {
+
+                debugger;
+                if (!result) {
+                    alertify.error("Internal Error. Something went wrong.");
+                }
+                else {
+                    debugger;
+                    var vbal = parseFloat(result).toFixed(2);
+
+                    var dff = parseFloat(vbal - balc).toFixed(2);
+                    $("TD", row).eq(5).html(result);
+                    $("TD", row).eq(6).html(dff);
+                    alertify.success('Done!');
+                }
+            });
+        }
+
+    }
+
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Api/index.js")
+}
+
+

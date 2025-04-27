@@ -1,0 +1,19 @@
+﻿@using DhruvEnterprises.Web.Models.Others
+@model DhruvEnterprises.Dto.WalletRequestDto
+    <style>
+        .modal-body img {
+            width: 100%;
+        }
+    </style>
+<div id="modal-viewImage-wallet-request" class="cmxform">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.Partial("_ModalHeader", new ModalHeader { Heading = "View Image " })
+        <div id="validation-summary"></div>
+        <div class="modal-body form-horizontal">
+          <img src="@Model.ImageUrl" />
+        </div>
+        @*@Html.Partial("_ModalFooter", new ModalFooter { })*@
+    }
+</div>

@@ -1,0 +1,114 @@
+﻿
+
+@model DhruvEnterprises.Dto.BalanceAllDto
+
+@{
+    ViewBag.Title = "Balance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Company Current Balance
+    </h1>
+</section>
+
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+
+<section class="content">
+
+
+    <div class="row" style="display:none;">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+
+                    @{
+                        var sdate = ViewBag.StartDate != null ? Convert.ToString(ViewBag.StartDate) : "";
+                        var edate = ViewBag.EndDate != null ? Convert.ToString(ViewBag.EndDate) : "";
+                        
+                    }
+
+
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@sdate" class="form-control" autocomplete="off" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@edate" autocomplete="off" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12"> Total Balance: <b style="background-color:yellow;font-size:16px;">@(Model.Total)</b></div>
+            <div class="col-md-12 table table-responsive divclass">
+                <table class="table table-hover table-responsive table-bordered">
+
+
+                    <tr>
+
+                        <th> Banks_Balance </th>
+                        <th> Vendors_Balance  </th>
+                        <th> Dealers_Balance </th>
+                        <th> Lapus_Balance  </th>
+                        <th> Users_Balance </th>
+                        <th> Vendors_Dues  </th>
+                        @*<th> Banks_Credits  </th>*@
+                    </tr>
+
+                   
+                    <tr>
+                        <td> @Model.Banks_Bal </td>
+                        <td> @Model.Apis_Bal    </td>
+                        <td> @Model.Dealers_Bal   </td>
+                        <td> @Model.Lapus_Bal   </td>
+                        <td> @Model.Users_Bal  </td>
+                        <td> @Model.Apis_Dues    </td>
+                        @*<td> @item.Banks_Credits    </td>*@
+
+                    </tr>
+                    
+
+                </table>
+            </div>
+        </div>
+
+</section>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/Profit/index.js")
+}

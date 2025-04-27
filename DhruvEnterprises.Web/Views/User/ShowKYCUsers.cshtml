@@ -1,0 +1,141 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "ShowKYCUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/Content/imageModal.css")
+<section class="content-header">
+    <h1>
+        KYC List
+    </h1>
+
+</section>
+@{
+    DhruvEnterprises.Dto.UserFilterDto ft = (DhruvEnterprises.Dto.UserFilterDto)ViewBag.FilterData;
+}
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Contact-No</label>
+                            <input type="text" id="txtContactNo" value="@ft.ContactNo" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Email</label>
+                            <input type="text" id="txtEmailId" value="@ft.EmailId" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="Isa" value="@ft.Isa" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @Html.ActionLink("Reset", "ShowPendingKYC", new { }, new { @class = "btn btn-primary" })
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        @{
+                            ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                            @*if (act.AllowCreate)
+                                {
+                                    @(Html.Raw(Html.InsertButton(Url.Action("ShowPendingKYC", "user"))))
+                                }*@
+                        }
+
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Actions</th>
+                                    <th>Id</th>
+                                    <th>User Name</th>
+                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Status</th>
+                                    <th>Parent</th>
+                                    <th>Requested Date</th>
+                                    <th>Approval Date</th>
+                                    @* <th>Actions</th>
+                                         <th>Id</th>
+                                         <th>UserId</th>
+                                        <th>Role</th>
+                                         <th>Email</th>
+                                         <th>Contact</th>
+                                         <th>Status</th>
+                                         <th>Parent</th>
+                                         <th>Requested Date</th>
+                                         <th>Approval Date</th>*@
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<div id="myModal" class="modal">
+
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
+
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption"></div>
+</div>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-delete-adminuser", AreaLabeledId = "modal-delete-adminuser-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/adminuser/showkyc.js")
+}
+
+
+
+

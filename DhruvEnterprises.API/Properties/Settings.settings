@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DhruvEnterprises.API.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EZYTM_API_MobiPactApi_RechargeAPI" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.mobipact.com/RechargeAPI.asmx</Value>
+    </Setting>
+    <Setting Name="EZYTM_API_IBLBankApi_IBLeTender" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ibluatapig.indusind.com/app/uat/IBLeTender?client_id=*client_id*&amp;client_secret=*client_secret*</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

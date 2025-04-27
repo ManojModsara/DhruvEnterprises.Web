@@ -1,0 +1,120 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "RETAILERUser:List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1>
+      AEPS Users
+        <input id="UpdateAEPSRoute" type="button" value="Save All" class="btn btn-primary" style="float:right" />
+    </h1>
+</section>
+<section class="content">
+    @{
+        DhruvEnterprises.Dto.AEPSUserFilterDto ft = (DhruvEnterprises.Dto.AEPSUserFilterDto)ViewBag.FilterData;
+    }
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                    <div class="pull-right" style="color:red">Show/Hide</div>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Contact-No</label>
+                            <input type="text" id="txtContactNo" value="@ft.ContactNo" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Email</label>
+                            <input type="text" id="txtEmailId" value="@ft.EmailId" class="form-control" />
+                        </div>
+
+                       
+                        <div class="form-group col-md-3">
+                            <label class="control-label">IP Address</label>
+                            <input type="text" id="txtIPAddress" value="@(ft.IPAddress)" class="form-control" />
+                        </div>
+                    </div>
+                                   <div class="row">
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                            <input type="hidden" id="Isa" value="@ft.Isa" />
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            @Html.ActionLink("Reset", "index", new { }, new { @class = "btn btn-primary" })
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+                        <div class="box">
+                @*<div class="box-header">
+                    <div class="btn-group">
+                        @{
+                            ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                            if (act.AllowCreate)
+                            {
+                                @(Html.Raw(Html.InsertButton(Url.Action("createedit", "user"))))
+                            }
+                        }
+
+                    </div>
+                </div>*@
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>MerchantUsername</th>
+                                    <th>MerchantPassword</th>
+                                    <th>MerchantName</th>
+                                    <th>MerchantAddress</th>
+                                    <th>MerchantPhoneNumber</th>
+                                    <th>CompanyLegalName</th>                                   
+                                    <th>FingPay Status</th>
+                                    <th>Ezytm Status</th>
+                                    <th>Redirect To EzyTM</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Partial("_Modal", new Modal { ID = "modal-delete-adminuser", AreaLabeledId = "modal-delete-adminuser-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+<script>
+    var isactive = '@ft.Isa';
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/adminuser/aepsUsers.js")
+}
+
+
+
+
+
+
+

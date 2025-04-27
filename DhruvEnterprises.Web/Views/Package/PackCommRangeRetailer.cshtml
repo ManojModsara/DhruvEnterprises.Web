@@ -1,0 +1,53 @@
+﻿@model DhruvEnterprises.Dto.PackCommRangeDto
+@using DhruvEnterprises.Web.Models.Others;
+@using DhruvEnterprises.Dto;
+@{
+    ViewBag.Title = "PackageCommRange";
+}
+<h2>Package Commission Range</h2>
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<style>
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section>
+    <div class="row">
+        <div class="col-md-12 table table-responsive divclass">
+            <table id="tblPackCommRange" class="table table-hover table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th style="display:none"></th>
+                        @*<th style="min-width:120px;">Operator-Type(s)</th>*@
+                        <th style="min-width:120px;">Service(s)</th>                        
+                        <th style="min-width:120px;">Amount-Range</th>
+                        <th>Comm</th>
+                        <th>CommType</th>
+                        <th>AmtType</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.PackCommRangeList != null)
+                    {
+                        foreach (var item in Model.PackCommRangeList)
+                        {
+                            <tr>
+                                <td style="display:none">@item.Id</td>
+                                @*<td class="txt-wrap-hide"> <input id="lblOpTypes" type="hidden" value="@item.OpTypeIds" /> @item.OpTypeNames </td>*@
+                                <td class="txt-wrap-hide"> <input id="lblOpIds" type="hidden" value="@item.OperatorIds" /> @item.OperatorNames </td>                                
+                                <td class="txt-wrap-hide">@item.AmountRange</td>
+                                <td class="txt-wrap-hide">@item.CommAmt</td>
+                                <td class="txt-wrap-hide">@item.CommTypeName</td>
+                                <td class="txt-wrap-hide">@item.AmtTypeName</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+}

@@ -1,0 +1,153 @@
+﻿@model List<DhruvEnterprises.Data.Menu>
+@using DhruvEnterprises.Web.Code.LIBS
+@*<div style="width:80px;">
+        <a href="@Url.Action("Index")" class="logo">
+
+            <span style="color:navajowhite"><b style="color:white">MY</b>Recharge</span>
+        </a>
+    </div>*@
+
+
+<nav class="navbar navbar-expand-md navbar-light  menu-open">
+
+    <a href="javascript:void(0);" class="navbar-brand">
+        <img id="logo" src="@(SiteKey.CompanyLogo)" style="width:100px; height:61px;" alt="@SiteKey.CompanyShortName">
+    </a>
+    <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    @*<nav class="navbar navbar-inverse">
+        <button type="button" class="navbar-toggler me-3" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span id="myappname" class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        </nav>*@
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+
+            <div class="d-block menu-p">
+                <ul class="nav navbar-nav">
+                    @foreach (var item in Model.FindAll(m => m.ParentId == null && m.IsActive == true))
+                {
+                    var childs = Model.Where(c => c.ParentId == item.Id && c.IsActive == true);
+                    if (childs.Count() > 0)
+                    {
+                <li class="dropdown" id="@item.Id">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="@item.IconClass"></i>
+                        <span>@item.Name</span>
+
+                        @if (item.MenuId == "Reports")
+                                {
+                        <span class="badge-menu">@ViewBag.cmpCount</span>
+                        <span class="badge-menu" style="color:darkblue;position:absolute;top:0px; right:20px;">@ViewBag.prcCount</span>
+                                }
+                                else if (item.MenuId == "DayBook")
+                                {
+                        <span class="badge-menu">@ViewBag.wrCount</span>
+                                }
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (var child in childs)
+                                {
+                        <li id="@child.MenuId">
+                            <a href="@(SiteKey.DomainName + child.Url)">
+                                <i class="@child.IconClass"></i>@child.Name
+                                @if (child.MenuId == "WalletRequest")
+                                            {
+                                        <span class="badge-submenu">@ViewBag.wrCount</span>
+                                            }
+                                            else if (child.MenuId == "Complaint")
+                                            {
+                                        <span class="badge-submenu">@ViewBag.cmpCount</span>
+                                            }
+                                            else if (child.MenuId == "ProcessingRecharge")
+                                            {
+                                        <span class="badge-submenu" style="color:darkblue">@ViewBag.prcCount</span>
+                                            }
+                            </a>
+                        </li>
+                                }
+                    </ul>
+                </li>
+                    }
+                    else
+                    {
+                        if (item.Url != null)
+                        {
+                <li class="" id="@item.Id">
+                    <a href="@(SiteKey.DomainName + item.Url)">
+                        <i class="@item.IconClass"></i>
+                        <span>@item.Name</span>
+                    </a>
+                </li>
+                        }
+                    }
+
+                }
+
+
+                </ul>
+            </div>
+
+        </div>
+
+
+
+    </nav>
+
+    <div class="ms-auto admin">
+        <ul class="nav navbar-nav">
+
+            <li style="padding:4px 1px">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <span class="btn" onclick="return balancecheck();">
+                            <span title="Wallet Balance">
+                                <i style="position:relative;top:-18px;font-size:smaller;padding-left:-5px;">Wallet</i>
+                                <i style="padding:5px;color:#ea116a;margin-left:-40px;" id="walletbal">₹ @(Math.Round(ViewBag.WalletBal, 2))</i>
+                            </span>
+                            &nbsp;&nbsp;
+                            <span class="credits-box-part" title="Credit Balance">
+                                <i style="position:relative;top:-18px;font-size:smaller;padding-left:-5px;">Credits</i>
+                                <i id="creditbal" style="padding:5px;margin-left:-45px;">₹ @(Math.Round(ViewBag.CreditBal, 2))</i>&nbsp;
+                            </span>
+                            &nbsp;&nbsp;
+
+
+                        </span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="dropdown" id="@(CurrentUser.Username)" style="max-width:100px;white-space: nowrap;" title="@(ViewBag.UserFullName != null ? ViewBag.UserFullName : CurrentUser.Username)">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+                    <span style="color:black"> @(ViewBag.UserFullName != null ? ViewBag.UserFullName : CurrentUser.Username)</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("UserProfile", "setting")"><i class="glyphicon glyphicon-user"></i>User Profile</a>
+                    </li>
+                    <li id="">
+                        <a href="@Url.Action("logout", "account")"><i class="glyphicon glyphicon-log-out"></i>Sign Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function balancecheck() {
+            $.ajax({
+                url: "/Wallet/GetUserWalletBalance",
+                type: "POST",
+                data: JSON.stringify({ userid: @CurrentUser.UserID }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#walletbal").text('₹ '+data.bal.toFixed(2));
+                    $("#creditbal").text('₹ '+data.cbal.toFixed(2));
+                }
+            });
+        }
+    </script>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Recharge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApiToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Account" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatorCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechargeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RechargeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Status">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApiToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Balance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApiToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BalanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BalanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AccountInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApiToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatorCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Account" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AccountInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccountInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlans">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApiToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatorCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Circle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlansResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlansResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCircles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApiToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCirclesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCirclesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RechargeSoapIn">
+    <wsdl:part name="parameters" element="tns:Recharge" />
+  </wsdl:message>
+  <wsdl:message name="RechargeSoapOut">
+    <wsdl:part name="parameters" element="tns:RechargeResponse" />
+  </wsdl:message>
+  <wsdl:message name="StatusSoapIn">
+    <wsdl:part name="parameters" element="tns:Status" />
+  </wsdl:message>
+  <wsdl:message name="StatusSoapOut">
+    <wsdl:part name="parameters" element="tns:StatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="BalanceSoapIn">
+    <wsdl:part name="parameters" element="tns:Balance" />
+  </wsdl:message>
+  <wsdl:message name="BalanceSoapOut">
+    <wsdl:part name="parameters" element="tns:BalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="AccountInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:AccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="AccountInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:AccountInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlansSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlans" />
+  </wsdl:message>
+  <wsdl:message name="GetPlansSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlansResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCirclesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCircles" />
+  </wsdl:message>
+  <wsdl:message name="GetCirclesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCirclesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RechargeAPISoap">
+    <wsdl:operation name="Recharge">
+      <wsdl:input message="tns:RechargeSoapIn" />
+      <wsdl:output message="tns:RechargeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Status">
+      <wsdl:input message="tns:StatusSoapIn" />
+      <wsdl:output message="tns:StatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Balance">
+      <wsdl:input message="tns:BalanceSoapIn" />
+      <wsdl:output message="tns:BalanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AccountInfo">
+      <wsdl:input message="tns:AccountInfoSoapIn" />
+      <wsdl:output message="tns:AccountInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlans">
+      <wsdl:input message="tns:GetPlansSoapIn" />
+      <wsdl:output message="tns:GetPlansSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCircles">
+      <wsdl:input message="tns:GetCirclesSoapIn" />
+      <wsdl:output message="tns:GetCirclesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RechargeAPISoap" type="tns:RechargeAPISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Recharge">
+      <soap:operation soapAction="http://tempuri.org/Recharge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Status">
+      <soap:operation soapAction="http://tempuri.org/Status" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Balance">
+      <soap:operation soapAction="http://tempuri.org/Balance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccountInfo">
+      <soap:operation soapAction="http://tempuri.org/AccountInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlans">
+      <soap:operation soapAction="http://tempuri.org/GetPlans" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCircles">
+      <soap:operation soapAction="http://tempuri.org/GetCircles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RechargeAPISoap12" type="tns:RechargeAPISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Recharge">
+      <soap12:operation soapAction="http://tempuri.org/Recharge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Status">
+      <soap12:operation soapAction="http://tempuri.org/Status" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Balance">
+      <soap12:operation soapAction="http://tempuri.org/Balance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccountInfo">
+      <soap12:operation soapAction="http://tempuri.org/AccountInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlans">
+      <soap12:operation soapAction="http://tempuri.org/GetPlans" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCircles">
+      <soap12:operation soapAction="http://tempuri.org/GetCircles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RechargeAPI">
+    <wsdl:port name="RechargeAPISoap" binding="tns:RechargeAPISoap">
+      <soap:address location="https://www.mobipact.com/RechargeAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RechargeAPISoap12" binding="tns:RechargeAPISoap12">
+      <soap12:address location="https://www.mobipact.com/RechargeAPI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

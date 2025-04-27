@@ -1,0 +1,62 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+@model List<DhruvEnterprises.Dto.Itemdto>
+<style>
+    .checkout {
+        margin: 10px;
+    }
+</style>
+
+<div class="blog-post wow fadeInUp animated" style="background-color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px;visibility: visible; animation-name: fadeInUp;">
+    <div class="pricedetail"><b>Price Details</b></div>
+    <table width="100%">
+        <tbody>
+            <tr style="border-bottom: 1px solid #808080">
+                <td><b>Product</b></td>
+                <td align="right"><b>TOTAL</b></td>
+            </tr>
+            @foreach (Itemdto item in Model)
+            {
+                if (item.Quantity > 0)
+                {
+                    <tr>
+                        <td style="width: 62%;">@item.ProductName × @item.Quantity</td>
+                        <td align="right">
+                            Rs. @(
+                                 item.Quantity * decimal.Round(item.UnitPrice,2))
+
+                        </td>
+                    </tr>
+                }
+            }
+         
+            <tr style="border-bottom: 1px solid #808080">
+                <td>
+                    <h5>Total Pay</h5>
+                </td>
+                <td align="right">
+                    Rs.
+                    @{
+                        decimal totalamount2 = 0;
+                        foreach (Itemdto item in Model)
+                        {
+
+                            if (item.Quantity > 0)
+                            {
+                                totalamount2 += item.Quantity * decimal.Round(Convert.ToDecimal(item.UnitPrice), 2);
+                            }
+                        }
+                        <span> @Decimal.Round(@totalamount2,2)</span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="getproceed(@totalamount2)" class="btn btn-primary"><span>Proceed To Checkout</span></button>
+
+</div>
+
+
+

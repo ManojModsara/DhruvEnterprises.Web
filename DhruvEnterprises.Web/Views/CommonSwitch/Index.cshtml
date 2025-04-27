@@ -1,0 +1,203 @@
+﻿@model DhruvEnterprises.Dto.CommonSwitchDto
+@using DhruvEnterprises.Web.Models.Others;
+@using DhruvEnterprises.Dto;
+@{
+    ViewBag.Title = "Vendor: Common Switching";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1></h1>
+    <style>
+        th {
+            padding: 5px;
+            text-align: center;
+            border: 1px solid whitesmoke;
+        }
+
+         td {
+            text-align: left;
+            padding: 5px;
+            max-width: 150px !important;
+            border: 1px solid whitesmoke;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        td.tblCommon:hover {
+            min-width: 150px;
+        }
+    </style>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="validation-summary">
+                @Html.Partial("_Notification")
+                @{
+                    ActionAllowedDto act = (ActionAllowedDto)ViewBag.actionAllowed;
+                }
+            </div>
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body table table-responsive">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Common Route Settings</h3>
+                            </div>
+                            <table id="tblCommonSwitch" >
+                                <thead>
+                                    <tr>
+                                        <th style="display:none"></th>
+                                        <th></th>
+                                        @*<th></th>*@
+                                        <th style="min-width:90px;">Users</th>
+                                        <th>Service</th>
+                                        @*<th style="min-width:90px;">Circle</th>*@
+                                        <th>Vendor Name</th>
+                                        @*<th>LapuIds</th>*@
+                                        <th>Filter_Type</th>
+                                        <th>Filter_Amount(s)</th>
+                                        <th>RO%</th>
+                                        <th>Priority</th>
+                                        <th>Block_UIds</th>
+                                        <th>OP1 <span style="color:yellow">[RRROP1]</span></th>
+                                        @*<th>OP2</th>*@
+                                        <th style="width:80px;padding-left:5px;">UpdatedOn</th>
+                                        <th style="padding-left:5px;">UpdatedBy</th>
+                                        <th style="padding-left:5px;">ON/OFF By</th>
+                                        <th style="width:80px;padding-left:5px;">ON/OFF Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.CommonSwitchList != null)
+                                    {
+                                        foreach (var item in Model.CommonSwitchList)
+                                        {
+                                            <tr>
+                                                <td style="display:none">@item.Id</td>
+                                                <td style="padding:1px;" class="tblCommon">
+                                                    <a data-toggle='modal' title="Edit" data-target='#modal-edit-switchsetting' href='@Url.Action("EditSwitchSetting","CommonSwitch",new { id=item.Id})' class='btn btn-success  grid-btn btn-sm'><i class='fa fa-edit'></i></a>
+                                                    <input title='@(item.ActiveUpdatedBy+" "+item.ActiveUpdatedOn)' type="checkbox" @(item.IsActive ? "checked='checked'" : "") class="switchBox switch-small simple" value="@item.Id" />
+                                                    <input type="button" value="x" title="Remove" class="btn btn-danger  grid-btn btn-sm" onclick="Remove(this)" />
+                                                </td>
+                                                <td><input id="lblUserId" value="@item.UserId" type="hidden" />@item.UserName</td>
+                                                <td> <input id="lblOpId" type="hidden" value="@item.OperatorId" /> @item.OperatorName </td>
+                                                @*<td><input id="lblCircleId" value="@item.CircleId" type="hidden" />@item.CircleName</td>*@
+                                                <td><input id="lblApiId" value="@item.ApiId" type="hidden" /> @item.ApiName</td>
+                                                @*<td><input id="lblLapuIds" value="@item.LapuIds" type="hidden" /> @(item.LapuIds.Count() > 0 ? string.Join(",", item.LapuIds.Select(x => x)) : string.Empty)</td>*@
+                                                <td><input id="lblFilterTypeId" value="@item.FilterTypeId" type="hidden" />@item.FilterTypeName</td>
+                                                <td class="txt-wrap-hide">@item.AmountFilter</td>
+
+                                                <td>@item.MinRO</td>
+                                                <td>@item.Priority</td>
+                                                <td>@item.BlockUser</td>
+                                                <td>@item.RouteOP1</td>
+                                                @*<td>@item.RouteOP2</td>*@
+                                                <td>@item.UpdatedOn</td>
+                                                <td>@item.UpdatedBy</td>
+
+                                                <td>@item.ActiveUpdatedBy</td>
+                                                <td>@item.ActiveUpdatedOn</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                                @if (act.AllowEdit)
+                                {
+                                    <tfoot>
+                                        <tr>
+                                            <td style="display:none"><input type="hidden" id="Id" /></td>
+                                            <td style="padding-left:5px;padding-right:5px;"></td>
+
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("UserId", new SelectList(Model.UserList, "Id", "Name"), "All", new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple", @style = "width:120px" })
+
+                                            </td>
+                                            <td style="padding-left:5px;padding-right:5px;width:">
+                                                @Html.DropDownList("OpId", new SelectList(Model.OperatorList, "OperatorId", "OperatorName"), "--Select--", new { @class = "form-control select2" })
+                                            </td>
+                                            @*<td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("CircleId", new SelectList(Model.CircleList, "CircleId", "CircleName"), "All", new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple", @style = "width:120px" })
+
+                                            </td>*@
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("ApiId", new SelectList(Model.ApiList, "ApiId", "ApiName"), "--Select--", new { @class = "form-control select2" })
+
+                                            </td>
+                                            @*<td class="form-group required">
+                                                @Html.ListBox("LapuIds", new MultiSelectList(ViewBag.LapuList, "Value", "Text"), new { @autocomplete = "off", @class = "form-control select2", @multiple = "multiple", @style = "width:120px" })
+                                            </td>*@
+                                            <td style="padding-left:5px;padding-right:5px;">
+                                                @Html.DropDownList("FilterTypeId", new SelectList(Model.FilterTypeList, "Id", "TypeName"), "--Select--", new { @class = "form-control select2" })
+
+                                            </td>
+                                            <td style="max-width:250px;"><input type="text" id="txtAmountFilter" multiple="multiple" class="form-control" maxlength="500" /></td>
+                                            <td style="padding-left:5px;padding-right:5px;"><input type="number" id="txtWaitTime" style="width:60px;" class="form-control" /></td>
+                                            <td style="padding-left:5px;padding-right:5px;"><input type="number" id="txtPriority" style="width:60px;" class="form-control" /></td>
+                                            <td style="padding-left:5px;padding-right:5px;"><input type="text" id="txtBlockUser" class="form-control" maxlength="100" /></td>
+                                            <td style="padding-left:5px;padding-right:5px;"><input type="text" id="txtRouteOP1" class="form-control" maxlength="200" placeholder="[RRROP1]" /></td>
+
+                                            @*<td style="padding-left:5px;padding-right:5px;"><input type="text" id="txtUrlOP2" class="form-control" maxlength="100" /></td>*@
+
+                                            <td style="padding-left:5px;padding-right:5px;" colspan="4"><input type="button" id="btnAdd" value="Add" class="btn btn-primary" /></td>
+                                        </tr>
+                                    </tfoot>
+                                }
+                            </table>
+                            <br />
+
+                            @*@if (act.AllowEdit)
+                                {
+                                <input type="button" id="btnSave" class="btn btn-success" value="Save All" />
+                                }*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Modal", new Modal { ID = "modal-edit-switchsetting", AreaLabeledId = "modal-edit-switchsetting-label", Size = DhruvEnterprises.Core.Enums.ModalSize.Medium })
+<script>
+    function Remove(button) {        
+        var row = $(button).closest("TR");
+        var id = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + id)) {
+
+            if (id > 0) {
+                $.post(Global.DomainName + 'commonswitch/deleteroute', { Id: id }, function (result) {
+                    if (!result) {
+                        alertify.error("Internal Error. Something went wrong.");
+                    }
+                    else {
+                        var table = $("#tblCommonSwitch")[0];
+                        table.deleteRow(row[0].rowIndex);
+                        alertify.success("Deleted!");
+                    }
+                });
+            }
+            else {
+                var table = $("#tblCommonSwitch")[0];
+                table.deleteRow(row[0].rowIndex);
+                alertify.success("Deleted!");
+            }
+
+
+        }
+    }
+
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js", "~/Scripts/Custom/CommonSwitch/index.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}

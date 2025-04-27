@@ -1,0 +1,131 @@
+﻿
+@model DhruvEnterprises.Dto.OpValidationDto
+
+@{
+    ViewBag.Title = "Switch: Replacement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css")
+
+
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+@using (Html.BeginForm("OpValidation", "OperatorSwitch", FormMethod.Post, new { @action = Url.Action("OpValidation"), enctype = "multipart/form-data", @id = "model-OpValidation" }))
+{
+    @Html.Partial("_Notification")
+
+    <section class="content-header">
+        <h1>
+            Operator Validation
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+
+                        <div class="col-md-12">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">   Operator Validation </h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table table-responsive">
+                                        @Html.HiddenFor(m=>Model.OpId)
+                                        <table id="grid-index" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Field</th>
+                                                    <th>Length(min-max)</th>
+                                                    <th>Value(min-max)</th>
+                                                    <th>StartWith</th>
+                                                    <th>Error Message</th>
+                                                    <th style="width:20px;">Numeric</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Number</td>
+                                                    <td>@Html.TextBoxFor(m => m.NumberLength, new { @class = "form-control", @placeholder = "example 10-12" })       </td>
+                                                    <td>@Html.TextBoxFor(m => m.NumberRange, new { @class = "form-control", @placeholder = "example 0-5000" })        </td>
+                                                    <td>@Html.TextBoxFor(m => m.NumberStart, new { @class = "form-control", @placeholder = "example 3" })        </td>
+                                                    <td>@Html.TextBoxFor(m => m.NumberErrorMessage, new { @class = "form-control", @placeholder = "Invalid Number" })   </td>
+                                                    <td>@Html.CheckBoxFor(m => m.NumberIsNumeric)   </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Account</td>
+                                                    <td>@Html.TextBoxFor(m => m.AccountLength, new { @class = "form-control", @placeholder = "example 10-12" })      </td>
+                                                    <td>@Html.TextBoxFor(m => m.AccountRange, new { @class = "form-control", @placeholder = "example 0-5000" })       </td>
+                                                    <td>@Html.TextBoxFor(m => m.AccountStart, new { @class = "form-control", @placeholder = "example 0" })       </td>
+                                                    <td>@Html.TextBoxFor(m => m.AccountErrorMessage, new { @class = "form-control", @placeholder = "Invalid Account No" })   </td>
+                                                    <td>@Html.CheckBoxFor(m => m.AccountIsNumeric)   </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Auth3(AccountOther)</td>
+                                                    <td>@Html.TextBoxFor(m => m.Auth3Length, new { @class = "form-control", @placeholder = "example 10-12" })        </td>
+                                                    <td>@Html.TextBoxFor(m => m.Auth3Range, new { @class = "form-control", @placeholder = "example 0-5000" })     </td>
+                                                    <td>@Html.TextBoxFor(m => m.Auth3Start, new { @class = "form-control", @placeholder = "example 5" })     </td>
+                                                    <td>@Html.TextBoxFor(m => m.Auth3ErrorMessage, new { @class = "form-control", @placeholder = "Invalid Auth-3 Number" })   </td>
+                                                    <td>@Html.CheckBoxFor(m => m.Auth3IsNumeric)     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Amount</td>
+                                                    <td>@Html.TextBoxFor(m => m.AmountLength, new { @class = "form-control", @placeholder = "example 10-12" })       </td>
+                                                    <td>@Html.TextBoxFor(m => m.AmountRange, new { @class = "form-control", @placeholder = "example 0-5000" })        </td>
+                                                    <td>@Html.TextBoxFor(m => m.AmountStart, new { @class = "form-control", @placeholder = "example E" })        </td>
+                                                    <td>@Html.TextBoxFor(m => m.AmountErrorMessage, new { @class = "form-control", @placeholder = "Invalid Amount" })   </td>
+                                                    <td>@Html.CheckBoxFor(m => m.AmountIsNumeric)        </td>
+                                                </tr>
+
+                                            </tbody>
+                                           
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/select2")
+}
+
+
+
+
+

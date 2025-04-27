@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "VendorBalance";
+}
+
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<section class="content-header">
+    <h1>
+        VendorBalance
+    </h1>
+
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>VId</th>
+                                    <th>Vendor Name</th>
+                                    <th>Remark</th>
+                                    </tr>
+                                </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/global.js", "~/Scripts/Custom/Api/ApiBalanceReport.js")
+}

@@ -1,0 +1,54 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Dto;
+@using DhruvEnterprises.Web.Models.Others;
+
+@{
+    ViewBag.Title = "Bank Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/css/select2")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Bank Details
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+
+            <div class="box">
+                
+                <div class="box-body">
+                    <div class="table-responsive scroll_tbl">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>DisplayName</th>
+                                    <th>Bank/BranchName</th>
+                                    <th>BranchAddress</th>
+                                    <th>AccountNo</th>
+                                    <th>IFSCCode</th>
+                                    <th>HolderName</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/bankaccount/bankdetails.js")
+}
+
+
+

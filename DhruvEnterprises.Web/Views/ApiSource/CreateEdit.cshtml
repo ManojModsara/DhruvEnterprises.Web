@@ -1,0 +1,334 @@
+﻿@model DhruvEnterprises.Dto.ApiDto
+
+@{
+    ViewBag.Title = "Vendor:CreateEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css")
+@Styles.Render("~/datatables/css", "~/Content/css/bootstrap-switch.css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css")
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+@*@using (Html.BeginForm("createedit", "ApiSource", FormMethod.Post, new { @action = Url.Action("createedit"), enctype = "multipart/form-data", @id = "model-createedit-apiuser" }))
+    {*@
+@Html.AntiForgeryToken()
+@Html.Partial("_Notification")
+@Html.HiddenFor(model => model.Id)
+<section class="content-header">
+    <h1>
+        @(Model.Id == 0 ? "Add Vendor" : "Edit Vendor")
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="validation-summary">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <p style="color:white">
+                                <b>Note:-</b> Please use following naming convenctions for the Vendor  urls:-
+                            </p>
+                        </div>
+                        <div class="col-md-4" >
+                            <ul class="api" style="color:white">
+                                <li> [UUU] -->  Vendor user id</li>
+                                <li> [PPP] -->  Vendor password</li>
+                                <li> [RRR] -->  any other(like token, remark etc) .</li>
+                                <li> [MMM] -->  mobileNo(Prepaid)/number(BillPay)</li>
+                                <li> [HHH] -->  account(BillPay)</li>
+                                <li> [NNN] -->  account other(BillPay)</li>
+                                <li> [VVV] -->  vendor transaction number</li>
+                                <li> [OOO] -->  operator code</li>
+                                <li> [CMPID] -->  Complaint Id</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4">
+                            <ul style="color:white">
+                                <li> [CCC] -->  Circle code</li>
+                                <li> [AAA] -->  Amount</li>
+                                <li> [EEE] -->  Extra Url(in Vendor Opcode Setting).</li>
+                                <li> [DDD] -->  Extra Parameter/data(in Vendor Opcode Setting).</li>
+                                <li> [TTT] -->  reference transaction number</li>
+                                <li> [FFF1] --> for optional1</li>
+                                <li> [FFF2] -->  optional2</li>
+                                <li> [FFF3] -->  optional3</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <ul style="color:white">
+                                <li> [FFF4] -->  optional4</li>
+                                <li> [FFFT] -->  current date time.</li>
+                                <li> [FFFR] -->  Random Key for Api.</li>
+                                @*<li> [KKKN] -->  Lapu number</li>
+                                <li> [KKKP] -->  Lapu password</li>
+                                <li> [KKKS] -->  Lapu pin</li>
+                                <li> [KKK1] -->  Lapu optional-1</li>
+                                <li> [KKK2] -->  Lapu optional-2</li>*@
+                                <li>[VVT]--> Request Date</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Vendor Info</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group required">
+                                    @Html.LabelFor(model => model.ApiName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.ApiName, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group required">
+                                    @Html.LabelFor(m => m.ApiTypeId, new { @class = "control-label" })
+                                    @Html.DropDownListFor(m => m.ApiTypeId, true, new SelectList(ViewBag.ApiType, "Id", "TypeName", @Model.ApiTypeId), "Select a Api Type", new { @class = "form-control select2" })
+                                </div>
+                                <div class="form-group ">
+                                    @Html.LabelFor(model => model.ApiUserId, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.ApiUserId, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ApiPassword, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.ApiPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BlockAmount, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.BlockAmount, new { htmlAttributes = new { @class = "form-control", @placeholder = "Block Amount(Min Required Balance)" } })
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(model => model.CheckTime, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.CheckTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "Minutes" } })
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(model => model.CallbackWaitTime, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.CallbackWaitTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "Minutes" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(model => model.ResendWaitTime, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.ResendWaitTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "Minutes" } })
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(model => model.RequestGap, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.RequestGap, new { htmlAttributes = new { @class = "form-control", @placeholder = "Seconds" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact Person" } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact No." } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email-Id" } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FullAddress, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.FullAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Full Address" } })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RequestDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Request Date" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Vendor URLs </h3>
+
+                            </div>
+                            <div class="box-body">
+
+                                <div class="form-group required">
+                                    <table id="tabid" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <td>ID</td>
+                                                <td>URL </td>
+                                                <td>Method</td>
+                                                <td>Response-Type</td>
+                                                <td></td>
+                                                @if (Model.Id > 0)
+                                                {
+                                                    <td>Action</td>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        @foreach (var apiUrl in Model.apiURlDtos)
+                                        {
+                                            <tbody>
+                                                <tr>
+                                                    <td>@apiUrl.UrlTypeId</td>
+                                                    <td>
+                                                        @apiUrl.TypeName
+                                                        <br />
+                                                        @{
+                                                            <textarea class="chk_parent" id="chk_parent" value="@apiUrl.ApiUrl" style="min-width: 100% ;min-height:100px; @(apiUrl.UrlTypeId == 4 || apiUrl.UrlTypeId == 8?"background-color:lightgray":"")" @(apiUrl.UrlTypeId == 4 || apiUrl.UrlTypeId == 8 ? "readonly" : "")>@apiUrl.ApiUrl</textarea>
+                                                        }
+                                                    </td>
+                                                    <td style="width:100px;">
+                                                        <select id="Method" class="form-control" @(apiUrl.UrlTypeId == 4 || apiUrl.UrlTypeId == 8 ? "disabled" : "")>
+                                                            <option value="GET" @(apiUrl.Method == "GET" || apiUrl.UrlTypeId == 4 || apiUrl.UrlTypeId == 8 ? "selected" : "")>GET</option>
+                                                            <option value="POST" @(apiUrl.Method == "POST" ? "selected" : "")>Post</option>
+                                                        </select>
+                                                    </td>
+                                                    <td style="max-width: 250px;">
+                                                        <select id="ResType" class="form-control" @(apiUrl.UrlTypeId == 4 || apiUrl.UrlTypeId == 8 ? "disabled" : "")>
+                                                            <option value="application/json" @(apiUrl.ResType == "application/json" ? "selected" : "")>JSON (application/json)</option>
+                                                            <option value="application/xml" @(apiUrl.ResType == "application/xml" ? "selected" : "")>XML (application/xml)</option>
+                                                            <option value="text/plain" @(apiUrl.ResType == "text/plain" ? "selected" : "")>String (text/plain)</option>
+                                                            <option value="text/split" @(apiUrl.ResType == "text/split" ? "selected" : "")>String (Separated by any charactor)</option>
+                                                            <option value="application/x-www-form-urlencoded" @(apiUrl.ResType == "application/x-www-form-urlencoded" || apiUrl.UrlTypeId == 4 || apiUrl.UrlTypeId == 8 ? "selected" : "")>FormData (application/x-www-form-urlencoded)</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+
+                                                        <textarea style="width:100%;  min-width: 300px;min-height:150px; " class="chk_parent" type="text" id="PostData" value="@apiUrl.PostData" placeholder="Post Parameter">@apiUrl.PostData</textarea>
+
+                                                    </td>
+                                                    @if (apiUrl.apiurlid > 0)
+                                                    {
+                                                        <td>
+                                                            @Html.ActionLink("Setting", "TagValueSetting", new { id = apiUrl.apiurlid }, new { @class = "btn btn-primary" })
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </tbody>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-mar pull-right">
+                        <input type="submit" id="btn-submit" value="Submit" class="btn btn-success pull-right" onclick="return ApiSaveAndUpdate()" />
+
+                        @*<button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>*@
+                    </div>
+                    <div class="btn-mar pull-right">
+                        <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@*  }*@
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/Api/createedit.js", "~/bundles/jqueryval", "~/bundles/select2", "~/Scripts/global.js")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}
+
+<script>
+     function ApiSaveAndUpdate() {
+                var ObjList = [];
+         var Id = @Model.Id;
+         var ApiName = $("#ApiName").val();
+         var ApiUserId = $("#ApiUserId").val();
+         var ApiPassword = $("#ApiPassword").val();
+         var Remark = $("#Remark").val();
+         var ApiTypeId = $("#ApiTypeId option:selected").val();
+
+         var isAutoStatusCheck = false;
+         if ($("#IsAutoStatusCheck").is(':checked'))
+            isAutoStatusCheck = true;
+
+         var checkTime = $("#CheckTime").val();
+         var requestgap = $("#RequestGap").val();
+         var blockAmount = $("#BlockAmount").val();
+         var waitTime = $("#CallbackWaitTime").val();
+
+         var personname = $("#ContactPerson").val();
+         var contactno = $("#ContactNo").val();
+         var emailid = $("#EmailId").val();
+         var fulladdress = $("#FullAddress").val();
+         var RequestDate = $("#RequestDate").val();
+
+         var resendtime = $("#ResendWaitTime").val();
+
+         if (waitTime > 0 && resendtime > 0 && resendtime <= waitTime) {
+             alertify.error('Auto Resend Time must be greater than callback wait time');
+         }
+         else {
+
+         $('#tabid > tbody  > tr').each(function (i, row) {
+                    var $row = $(row)
+             ObjList.push({
+                 Id: Id,
+                 ApiName: ApiName,
+                 ApiUserId: ApiUserId,
+                 ApiPassword: ApiPassword,
+                 Remark: Remark,
+                 ApiTypeId: ApiTypeId,
+                 ApiUrl: $row.find("#chk_parent").val().trim(),
+                 UrlTypeId: $row.find("td:eq(0)").html().trim(),
+                 Method: $row.find("#Method option:selected").val(),
+                 PostData: $row.find("#PostData").val().trim(),
+                 ResType: $row.find("#ResType option:selected").val(),
+                 IsAutoStatusCheck: isAutoStatusCheck,
+                 CheckTime: checkTime,
+                 RequestGap: requestgap,
+                 BlockAmount: blockAmount,
+                 CallbackWaitTime: waitTime,
+                 ContactPerson: personname,
+                 ContactNo: contactno,
+                 FullAddress: fulladdress,
+                 EmailId: emailid,
+                 ResendWaitTime : resendtime,
+                 RequestDate:RequestDate
+             });
+
+         });
+         //alert(JSON.stringify(ObjList));
+                $.ajax({
+                    url: "/ApiSource/CreateEdit",
+                    type: "POST",
+                    data: JSON.stringify(ObjList),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (!data) {
+                            alertify.error('An internal Error occurred.');
+                        }
+                        else {
+                            alertify.success('Status Updated.');
+                            //window.location.href = Global.DomainName+'/Index'
+                        }
+                    }
+                });
+    }
+
+    }
+</script>
+

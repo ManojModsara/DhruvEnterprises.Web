@@ -1,0 +1,143 @@
+﻿
+@model DhruvEnterprises.Dto.Productdto
+
+@{
+    ViewBag.Title = "Product:CreateEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css")
+
+
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+    .box{
+        width:85%!important;
+        margin:auto;
+    }
+    .btn-mar {
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+</style>
+@using (Html.BeginForm("CreateEdit", "Product", FormMethod.Post, new { @action = Url.Action("CreateEdit"), enctype = "multipart/form-data", @id = "model-createedit-adminuser" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.Id)
+    <section class="content-header">
+        <h1>
+            @(Model.Id == 0 ? "Add Product" : "Edit Product")
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">General Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Name, htmlAttributes: new { @class = "form-control ", @placeholder = "Name" })<!-- /.input group -->
+                                        @Html.ValidationMessageFor(m => m.Name, "")
+                                    </div>
+                                    <!--<div class="form-group required">-->
+                                    @*@Html.LabelFor(m => m.OrderMaximumQuantity, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.OrderMaximumQuantity, htmlAttributes: new { @class = "form-control ", @placeholder = "OrderMaximumQuantity" })
+
+                                        @Html.LabelFor(m => m.OrderMinimumQuantity, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.OrderMinimumQuantity, htmlAttributes: new { @class = "form-control ", @placeholder = "OrderMinimumQuantity" })*@
+
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">Category Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                                                @Html.TextBoxFor(m => m.Price, htmlAttributes: new { @class = "form-control ", @placeholder = "0.00", @maxlength = "10" })<!-- /.input group -->
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ProductCost, new { @class = "control-label" })
+                                                @Html.TextBoxFor(m => m.ProductCost, htmlAttributes: new { @class = "form-control ", @placeholder = "0.00", @maxlength = "10" })<!-- /.input group -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group required">
+                                                @Html.LabelFor(m => m.StockQuantity, new { @class = "control-label" })
+                                                @if (Model.StockQuantity > 0)
+                                                {
+                                                    @Html.TextBoxFor(m => m.StockQuantity, htmlAttributes: new { @class = "form-control ", @placeholder = "Stock Quantity" })<!-- /.input group -->
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(m => m.StockQuantity, htmlAttributes: new { @class = "form-control ", @placeholder = "Stock Quantity", @disabled = "disabled" })<!-- /.input group -->
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.FullDescription, new { @class = "control-label" })
+                                        @Html.TextAreaFor(m => m.FullDescription, htmlAttributes: new { @id = "FullDescription1", @class = "form-control ", @placeholder = "Description" })<!-- /.input group -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                           <label>IsActive</label>
+                                            @Html.CheckBoxFor(m => m.Published)
+                                        </div>
+                                        <div class="col-md-5 form-group">
+                                            @Html.LabelFor(m => m.ShowOnHomepage, new { @class = "control-label" })
+                                            @Html.CheckBoxFor(m => m.ShowOnHomepage)
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @*@Scripts.Render("~/Scripts/Custom/Product/createedit.js", "~/bundles/jqueryval", "~/bundles/select2")*@
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/select2")
+}
+

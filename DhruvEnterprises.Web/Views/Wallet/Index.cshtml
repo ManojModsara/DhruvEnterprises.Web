@@ -1,0 +1,124 @@
+﻿
+@model DhruvEnterprises.Dto.WalletDto
+
+@{
+    ViewBag.Title = "User:Wallet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/select2/select2-bootstrap.css", "~/Content/select2/select2.css", "~/Content/css/bootstrap-datepicker.css")
+
+<style>
+    select.select2 {
+        display: block !important;
+        visibility: hidden;
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 4px;
+        width: 190px;
+        height: 20px;
+    }
+</style>
+@using (Html.BeginForm("Index", "Wallet", FormMethod.Post, new { @action = Url.Action("Index"), enctype = "multipart/form-data", @id = "model-index-wallet" }))
+{
+    @Html.Partial("_Notification")
+  
+<section class="content-header">
+    <h1>
+        Wallet
+    </h1>
+</section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.userid, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.userid, true, new SelectList(ViewBag.User, "Id", "Username", @Model.userid), "Select a User", new { @class = "form-control select2" })
+                                    </div>
+                                    <div class="form-group"  style="color:#ea116a">
+                                       <label id="CurrentBalance"></label>
+                                       <label id="CreditBalance"></label>   
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.AddAmount, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.AddAmount, htmlAttributes: new { @class = "form-control ", @placeholder = "Add Amount", @autocomplete = "off", @maxlength = "8" })<!-- /.input group -->
+                                        <label id="AmountWords" class="amount-words"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IsClearCredit, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.IsClearCredit) Yes
+
+                                        <span class="badge" style="color:darkblue" title="Request to Clear Your Old Credits">?</span>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.IsPullOut, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.IsPullOut) Yes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.TrTypeId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.TrTypeId, true, new SelectList(Model.TrTypeList, "Id", "Name", @Model.TrTypeId), "Select Transfer Type", new { @class = "form-control select2" })
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(m => m.PaymentDate, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.PaymentDate, htmlAttributes: new { @class = "form-control ", @placeholder = "Payment Date", @autocomplete = "off" })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BankAccountId, new { @class = "control-label" })
+                                        @Html.DropDownListFor(m => m.BankAccountId, true, new SelectList(Model.BankAccountList, "Id", "HolderName", @Model.BankAccountId), "Select Bank Account", new { @class = "form-control select2" })
+
+                                    </div>
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.ChequeNo, new { @class = " control-label" })
+                                        @Html.TextBoxFor(m => m.ChequeNo, htmlAttributes: new { @class = "form-control ", @placeholder = "Cheque/reference number" })
+
+                                    </div>
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Remark, new { @class = "control-label" })
+                                        @Html.TextAreaFor(m => m.Remark, htmlAttributes: new { @class = "form-control ", @placeholder = "Comment" })<!-- /.input group -->
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/Wallet/index.js", "~/bundles/jqueryval", "~/bundles/select2", "~/bundles/datepicker")
+}

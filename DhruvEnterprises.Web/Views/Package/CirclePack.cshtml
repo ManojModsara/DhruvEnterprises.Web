@@ -1,0 +1,155 @@
+﻿@model DhruvEnterprises.Dto.PackageDto
+
+@{
+    ViewBag.Title = "Package:CreateEdit";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+@Html.Partial("_Notification")
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.OpId)
+<section class="content-header">
+    <h1>
+        @(Model.Id == 0 ? "Add Package" : "Edit Package")
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="validation-summary">
+
+            </div>
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <div class="box-body">
+
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h3 class="box-title">Package Info</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-4 form-group">
+                                    @Model.PackageName > @Model.OperatorName
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Package>Operator Circle</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group required">
+                                <table id="tabid" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>ID</td>
+                                            <td>Circle Name</td>
+                                            <td>Operator Commission</td>
+                                            <td>Commission Type</td>
+                                            <td>Amount Type</td>
+                                            <td>Daily Limit</td>
+                                            <td>Used Limit</td>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model.PackageCommList)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td>@item.CircleId</td>
+                                                <td>@item.CircleName</td>
+                                                <td>
+                                                    <input class="chk_parent" type="text" id="chk_parent" value="@item.CommAmt">
+                                                </td>
+                                                <td>
+                                                    <select id="CommTypeId" class="form-control">
+                                                        <option value="2" @(item.CommTypeId == 2 ? "selected" : "")>Percentage</option>
+                                                        <option value="1" @(item.CommTypeId == 1 ? "selected" : "")>Flat</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id="AmtTypeId" class="form-control">
+                                                        <option value="5" @(item.AmtTypeId == 5 ? "selected" : "")>Discount</option>
+                                                        <option value="4" @(item.AmtTypeId == 4 ? "selected" : "")>Surcharge</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txtDailyLimit" value="@item.DailyLimit">
+                                                </td>
+                                                <td>@item.UsedLimit</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-mar pull-right">
+                        <input type="submit" id="btn-submit" value="Submit" class="btn btn-success pull-right" onclick="return PackageSaveAndUpdate()" />
+                    </div>
+                    <div class="btn-mar pull-right">
+                        <a class="btn btn-block btn-default" href="@Url.Action("createedit", new { id=Model.Id})"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/Package/createedit.js", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+}
+
+
+<script>
+     function PackageSaveAndUpdate() {
+                var ObjList = [];
+         var Packageid = @Model.Id;
+         var Packagename = $("#PackageName").val();
+         var opid= @Model.OpId;
+         //var commTypeId = $("#CommTypeId option:selected").val();
+         //var amtTypeId = $("#AmtTypeId option:selected").val();
+         $('#tabid > tbody  > tr').each(function (i, row) {
+             var $row = $(row)
+
+             ObjList.push({
+                         PackId: Packageid,
+                         Id: Packageid,
+                         OpId: opid,
+                         PackageName: Packagename,
+                         CircleId: $row.find("td:eq(0)").html().trim(), // get current row 1st TD value
+                         CommAmt: $row.find("#chk_parent").val(), // get current row 1st TD value
+                 CommTypeId: $row.find("#CommTypeId option:selected").val(),
+                 AmtTypeId: $row.find("#AmtTypeId option:selected").val(),
+                 DailyLimit: $row.find('#txtDailyLimit').val()
+             });
+
+         });
+         $.post(Global.DomainName + '/Package/CirclePack', {data: ObjList }, function (result) {
+
+             if (!result) {
+                           alertify.error('An internal Error occurred.');
+                       }
+                       else {
+                           alertify.success('Status Updated.');
+                          // Response.redirect("Package");
+                       }
+
+         });
+            }
+</script>

@@ -1,0 +1,118 @@
+﻿@model DhruvEnterprises.Dto.EmailAPIDto
+@{
+    ViewBag.Title = "CreateEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/select2/select2-bootstrap.css")
+
+
+@using (Html.BeginForm("createedit", "EmailAPI", FormMethod.Post, new { @action = Url.Action("createedit"), enctype = "multipart/form-data", @id = "model-createedit-EmailAPI" }))
+{
+    @Html.Partial("_Notification")
+    @Html.HiddenFor(model => model.Id)
+    <section class="content-header">
+        <h1>
+            @(Model.Id == 0 ? "Add Email Api" : "Edit Email Api")
+        </h1>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="validation-summary">
+
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:red">
+                                    <b>Note:-</b> In case of Gmail Api Please Set less secure permission on from below link after login gmail account:-
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <ul style="color:red">
+                                    <li> <a href="https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4PMKaE7gs3h8FEzoKNgFzoxdgHb5m87LxYuyvA0VflJ9nLBsowNBEqTymAv6goV4TwpOxJ9ulKKJwN_zdAJG_SfIFtC9g" target="_blank">Gmail Less secure app access </a></li>
+                                   
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">Email Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.ApiName, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.ApiName, htmlAttributes: new { @class = "form-control ", @placeholder = "API Name" })<!-- /.input group -->
+                                    </div>
+
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.FromAddress, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.FromAddress, htmlAttributes: new { @class = "form-control ", @placeholder = "FromAddress" })<!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.portNumber, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.portNumber, htmlAttributes: new { @class = "form-control ", @placeholder = "PortNumber" })<!-- /.input group -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-danger">
+                                <div class="box-header">
+                                    <h3 class="box-title">Credential Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    
+
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.UserName, htmlAttributes: new { @class = "form-control ", @placeholder = "UserName" })<!-- /.input group -->
+                                    </div>
+                                    
+                                    <div class="form-group required">
+                                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control ", @placeholder = "Password" })<!-- /.input group -->
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.status, new { @class = "control-label" })
+                                        @Html.CheckBoxFor(m => m.status)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-mar pull-right">
+                            <button class="btn btn-block btn-success"> Submit <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="btn-mar pull-right">
+                            <a class="btn btn-block btn-default" href="@Url.Action("index")"><i class="fa fa-arrow-circle-left"></i> Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

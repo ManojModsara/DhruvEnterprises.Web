@@ -1,0 +1,159 @@
+﻿
+@model IEnumerable<DhruvEnterprises.Dto.LapuDayBookDto>
+
+@{
+    ViewBag.Title = "LapuMargin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+
+<section class="content-header">
+    <h1>
+        Lapu Margin Report
+    </h1>
+</section>
+
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+
+                    @{
+
+                        var sdate = ViewBag.StartDate != null ? Convert.ToString(ViewBag.StartDate) : "";
+                        var edate = ViewBag.EndDate != null ? Convert.ToString(ViewBag.EndDate) : "";
+
+                        decimal RC_Amt = 0;
+                       // decimal CM_Amt = 0;
+                        decimal Ins_Amt = 0;
+                        decimal RO_Amt = 0;
+                    }
+
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+
+                        <div class="form-group col-md-3">
+                            <label class="control-label">From-Date</label>
+                            <input type="text" id="txtFromDate" value="@sdate" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">To-Date</label>
+                            <input type="text" id="txtToDate" class="form-control" value="@edate" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-default" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 table table-responsive divclass">
+            <table class="table table-hover table-responsive table-bordered">
+
+                <tr>
+                    <th>LapuId</th>
+                    <th>LapuNumber</th>
+                    
+                    <th>
+                      RC_Amt
+                    </th>
+                   
+                    @*<th>
+                        CM_Amt
+                    </th>*@
+                    <th>
+                        Ins_Amt
+                    </th>
+                    <th>
+                        RO_Amt
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    RC_Amt += !string.IsNullOrEmpty(item.RC_Amt) ? Convert.ToDecimal(item.RC_Amt):0;
+                  //  CM_Amt += !string.IsNullOrEmpty(item.CM_Amt) ? Convert.ToDecimal(item.CM_Amt) : 0;
+                    Ins_Amt += !string.IsNullOrEmpty(item.Ins_Amt) ? Convert.ToDecimal(item.Ins_Amt) : 0;
+                    RO_Amt += !string.IsNullOrEmpty(item.RO_Amt) ? Convert.ToDecimal(item.RO_Amt) : 0;
+                    <tr>
+                        <td>
+                            @(item.LapuId)
+                        </td>
+                        <td>
+                            @(item.LapuNumber)
+                        </td>
+                        <td>
+                            @(item.RC_Amt)
+                        </td>
+                        @*<td>
+                            @(item.CM_Amt)
+                        </td>*@
+                        <td>
+                            @(item.Ins_Amt)
+                        </td>
+                        <td>
+                            @(item.RO_Amt)
+                        </td>
+
+                    </tr>
+                }
+
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" style="text-align:right;">TOTAL</th>
+
+                            <th>
+                                @RC_Amt
+                            </th>
+
+                            @*<th>
+                                @CM_Amt
+                            </th>*@
+                            <th>
+                                @Ins_Amt
+                            </th>
+                            <th>
+                                @RO_Amt
+                            </th>
+
+                        </tr>
+                    </tfoot>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/DailyReport/LapuMargin.js")
+}

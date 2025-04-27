@@ -1,0 +1,443 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/* gernal css */
+* {
+  magin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*a, a:hover, a:active, a:focus, a:visited {
+  text-decoration: none !important;
+}*/
+html, body, table, th, td, tr, tbody, thead, thead, tfoot, dl, dt, dd, div, em, strong, b, i, sub, sup, ul, ol, li, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, blockquote, a, abbr, acronym, address, big, small, cite, code, del, dfn, font, ins, kbd, q, s, samp, strike, fieldset, form, label, legend, caption, main, section, header, footer, aside, hgroup {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: inherit;
+  text-decoration: none;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit
+}
+::-webkit-input-placeholder {
+  color: #000000;
+	font-size:10px;
+}
+:-moz-placeholder {
+    color: #000000;
+    font-size: 10px;
+}
+::-moz-placeholder {
+    color: #000000;
+    font-size: 10px;
+}
+:-ms-input-placeholder {
+    color: #000000;
+    font-size: 10px;
+}
+body {
+  font-size: 14px;
+}
+strong, b {
+  font-weight: 700;
+}
+i, em {
+  font-style: italic
+}
+input {
+  width: 100%;
+  padding: 8px;
+}
+textarea {
+  width: 100%;
+  resize: none;
+}
+select {
+  width: 100%
+}
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+  border: none;
+}
+ul li, ol li {
+  list-style: none
+}
+.wrapper, main, .container {
+  max-width: 1170px;
+  margin: auto;
+  width: auto;
+}
+main:after, .wrapper:after, footer:after, header:after, .container:after {
+  content: "";
+  display: block;
+  clear: both
+}
+input:focus {
+  outline: none;
+}
+h1 {
+  font-size: 36px;
+  margin: 30px 0
+}
+h2 {
+  font-size: 30px;
+  margin: 20px 0
+}
+h3 {
+  font-size: 24px;
+  margin: 15px 0
+}
+h4 {
+  font-size: 18px;
+  margin: 10px 0;
+	  
+}
+h5 {
+  font-size: 13px;
+  margin: 10px 0;
+	font-weight:bold;
+}
+h6 {
+  font-size: 12px;
+  margin: 5px 0;
+}
+.purple{
+	color:#613cb5;
+}
+.bd-offer {
+    color: #fff;
+    background-color: #f0134d;
+}
+.bd-recived {
+    color: #fff;
+    background-color: #ff7400;
+}
+.bd-vendor {
+    color: #fff;
+    background-color: #303960;
+}
+.bd-dealer {
+    color: #fff;
+    background-color: #c94858;
+}
+#sale .btn{
+	background-color:#613cb5;
+	color:#fff;
+}
+/*--header--*/
+header {
+    
+    background:#ea116a;
+	position:relative;
+}
+
+    header .navbar {
+        padding: 0px 5px;
+        min-height: auto;
+    }
+        header .navbar:before, header .navbar:after{
+            display: none;
+        }
+        header .admin .nav > li > a {
+            padding: 15px 30px;
+            font-size: 14px;
+            color: black !important;
+            position: relative;
+        }
+header .nav > li > a {
+    padding: 15px 5px;
+    font-size: 14px;
+    color: #ffffff !important;
+    position: relative;
+}
+header a.navbar-brand {
+    height: auto;
+	width:18%;
+}
+    header a.navbar-brand img{
+       width: 100%;
+    }
+    header .nav-link {
+        font-size: 16px;
+        color: #FEF200 !important;
+        position: relative;
+    }
+
+header .active>.nav-link {
+	color: #fff !important;
+}
+
+.wallet-box-part h5 {
+	font-size: 17px;
+	color: #fff;
+	text-align: center;
+	line-height: 30px;
+}
+
+.wallet-box-part {
+	padding-right: 15px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.credits-box-part {
+	border-left: 2px solid #f2f2f2;
+}
+
+.credits-box-part h5 {
+	font-size: 17px;
+	color: #FFF300;
+	text-align: center;
+	line-height: 30px;
+}
+
+.credits-box-part {
+	padding-left: 15px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.user-div>a.nav-link {
+	color: #fff !important;
+}
+header .badge-menu {
+    
+    min-width: 10px;
+    padding: 2px 5px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color:#613cb5;
+    border-radius: 10px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+header .menu-p{
+	padding-right: 100px;
+}
+header .badge-submenu {
+    min-width: 10px;
+    padding: 2px 5px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #613cb5;
+    border-radius: 10px;
+}
+header li.nav-item.active a::before {
+	content: "";
+	background: #fff;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	transform: rotateZ(50deg);
+	position: absolute;
+	top: -5px;
+	left: 50%;
+	margin-left: -7px;
+
+}
+header .dropdown:hover .dropdown-menu{display:none;}
+header .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 0px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+}
+header .dropdown-menu > li {
+    color: #fff;
+    padding: 8px 15px 5px 15px;
+    font-weight: bold;
+    border: 1px solid #fff;
+    /*background-color: #009486;*/
+	  background:#ea116a;
+    clear: both;
+    line-height: 1.42857143;
+    white-space: nowrap;
+}
+header .dropdown-menu > li > a{
+	color:#fff;
+}
+header a i {
+    color: #f0eff3;
+}
+#total-report .re-main img{
+	height: 40px;
+}
+header .admin{
+	    padding: 0px 0px;
+    box-shadow: 0px 0px 5px grey;
+    position: absolute;
+    top: 80%;
+	right:1%;
+    min-width: 11%;
+    text-align: center;
+    z-index: 1;
+	border-radius:10px;
+	background-color:white;
+}
+#total-report .re-main{
+	    padding: 12px 40px;
+    box-shadow: 0px 0px 5px grey;
+    position: absolute;
+    top: 13%;
+	left:1%;
+    min-width: 72%!important;
+    text-align: center;
+    z-index: 1;
+	border-radius:10px;
+}
+#total-report .col-2{
+	position:relative;
+	text-align: center;
+}
+#total-report .col-2:after{
+	content: '';
+	display:inline-block;
+	width: 2px;
+	height:75px;
+	border-radius:10px;
+	background-color: #000;
+	position: absolute;
+	    top: 0%;
+    left: 95%;
+}
+#total-report .col-2.t-credit:after{
+	content: '';
+	display: none;
+}
+#total-report  .row{padding: 0px 0px;}
+#total-report  .row .col-4{padding: 0px 0px;}
+/*--payment-report-*/
+#payment-report{
+	margin-top:40px;
+}
+#payment-report .row{
+	margin-right:0px;
+}
+#payment-report h5{
+	font-size:17px;
+	font-weight: bold;
+}
+#payment-report .row .widget{
+	box-shadow:0px 0px 5px grey;
+	padding:0px;
+	border-radius:10px;
+}
+.float-end.col-8{
+    border-radius: 0px 10px 10px 0px;
+	height: 110px;
+	text-align: center;
+    padding: 20px 0px;
+}
+.table-content{
+	    border-radius: 10px;
+    box-shadow: 0px 0px 5px grey;
+}
+.table-content ul{
+	/*background-color:#00baa9 ;*/
+    background-color: #ea116a;   
+border-radius:10px 10px 0px 0px;
+}
+.table-content.balance-record ul li{
+	padding:12px 25px;
+	color:#fff;
+}
+.table-content ul li{
+	padding:12px;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #FFFFFF;
+    background-color: transparent!important;
+    border-color:transparent!important;
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+	border-color:none;
+}
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    border: none;
+    border-top-left-radius:0px;
+    border-top-right-radius: 0px;
+	padding: 0px;
+	color: #fff;
+}
+.widget img{
+	height:100px;
+}
+/*--footer--*/
+footer {
+    /*background: #00baa9;*/
+     background:#ea116a;
+    padding: 15px;
+    text-align: center;
+	    margin-top: 30px;
+}
+
+.copy-right-part p {
+	color: #fff;
+	margin: 0;
+}
+/*-sale--*/
+#sale{
+	margin-top:80px;
+}
+#sale .box-sh{
+	    box-shadow: 0px 0px 5px grey;
+    border-radius: 10px;
+    padding: 10px;
+}
+#balance{
+	margin-top:70px;
+}
+/*--bargraph--*/
+.table-content .nav-link:active , .table-content .nav-link:focus , .table-content .nav-link:hover , .table-content .nav-link.active{
+	border-bottom: 4px solid #fff !important;
+}
+.table-content .nav-link{
+	border-bottom: 4px solid transparent !important;
+}
+#top_x_div path{
+	/*fill: #613cb5;*/
+   fill: #ea116a;
+}
+#line_top_x path{
+	/*stroke:#613cb5;*/
+    stroke:#ea116a;
+}
+#line_top_x circle{
+	fill:#613cb5;
+}
+#top_x_div, #line_top_x{
+	width: 500px; height: 430px;
+}

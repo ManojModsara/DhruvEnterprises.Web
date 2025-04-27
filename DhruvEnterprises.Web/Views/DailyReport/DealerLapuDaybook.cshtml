@@ -1,0 +1,166 @@
+﻿@model IEnumerable<DhruvEnterprises.Dto.DealerDayBookDto>
+
+@{
+    ViewBag.Title = "DealerDayBook";
+}
+
+<h2>Dealer-DayBook</h2>
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+@{
+    var date = ViewBag.StartDate != null ? Convert.ToString(ViewBag.StartDate) : "";
+    var date2 = ViewBag.EndDate != null ? Convert.ToString(ViewBag.EndDate) : "";
+
+    decimal OP_Bal = 0;
+    decimal CR_Amt = 0;
+    decimal CM_Amt = 0;
+    decimal DB_Amt = 0;
+    decimal CM_DB_Amt = 0;
+    decimal CL_Bal = 0;
+    decimal Amt_Diff = 0;
+    decimal RO_Amt = 0;
+}
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header" id="btnClose">
+                    <h3 class="box-title">Search Panel</h3>
+                </div>
+                <div class="box-body" id="dvSearchPanel">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">from Date</label>
+                            <input type="text" id="txtFromDate" value="@date" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">to-Date</label>
+                            <input type="text" id="txtToDate" value="@date2" class="form-control" autocomplete="off" />
+                        </div>
+                        @if (CurrentUser.RoleId != 3)
+                        {
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Dealer</label>
+                                @Html.DropDownList("ddDealer", (List<SelectListItem>)ViewBag.DealerList, "--All--", new { @class = "form-control select2" })
+                            </div>
+
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Search" id="btnSearch" class="btn btn-success" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <br />
+                            <input type="button" value="Export" id="btnExport" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 table table-responsive divclass">
+            <table class="table table-hover table-responsive table-bordered">
+
+                <tr>
+                    <th>Dealer</th>
+                    <th>Oppening</th>
+                    <th>Sale</th>
+                    <th> Purchase</th>
+                    <th>Closing</th>
+                    <th>R-Offer</th>
+                    <th>Difference</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    OP_Bal += !string.IsNullOrEmpty(item.OP_Bal) ? Convert.ToDecimal(item.OP_Bal) : 0;
+                    CR_Amt += !string.IsNullOrEmpty(item.CR_Amt) ? Convert.ToDecimal(item.CR_Amt) : 0;
+                    CM_Amt += !string.IsNullOrEmpty(item.CM_Amt) ? Convert.ToDecimal(item.CM_Amt) : 0;
+                    DB_Amt += !string.IsNullOrEmpty(item.DB_Amt) ? Convert.ToDecimal(item.DB_Amt) : 0;
+                    RO_Amt += !string.IsNullOrEmpty(item.RO_Amt) ? Convert.ToDecimal(item.RO_Amt) : 0;
+                    CM_DB_Amt += !string.IsNullOrEmpty(item.CM_DB_Amt) ? Convert.ToDecimal(item.CM_DB_Amt) : 0;
+                    CL_Bal += !string.IsNullOrEmpty(item.CL_Bal) ? Convert.ToDecimal(item.CL_Bal) : 0;
+                    Amt_Diff += !string.IsNullOrEmpty(item.Amt_Diff) ? Convert.ToDecimal(item.Amt_Diff) : 0;
+
+                    <tr>
+                        <td>
+                            @(item.DealerName)
+                        </td>
+                        <td>
+                            @(item.OP_Bal)
+                        </td>
+                        <td>
+                            @(item.DB_Amt)
+                        </td>
+                        @*<td>
+                                @(item.CM_Amt)
+                            </td>*@
+                        <td>
+                            @(item.CR_Amt)
+                        </td>
+                        @*<td>
+                                @(item.CM_DB_Amt)
+                            </td>*@
+                         <td>
+                            @(item.CL_Bal)
+                        </td>
+                        <td>
+                            @(item.RO_Amt)
+                        </td>
+                       
+                        <td>
+                            @(item.Amt_Diff)
+                        </td>
+                    </tr>
+                }
+                <tfoot>
+                    <tr>
+                        <th>TOTAL</th>
+                        <th>
+                            @OP_Bal
+                        </th>
+                        <th>
+                            @DB_Amt
+                        </th>
+                        @*<th>
+                            @CM_Amt
+                        </th>*@
+                        <th>
+                            @CR_Amt
+                        </th>
+                        @*<th>
+                            @CM_DB_Amt
+                        </th>*@
+                        <th>
+                            @CL_Bal
+                        </th>
+                        <th>
+                            @RO_Amt
+                        </th>
+                        <th>
+                            @Amt_Diff
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/dailyreport/DealerLapuDayBook.js")
+
+}

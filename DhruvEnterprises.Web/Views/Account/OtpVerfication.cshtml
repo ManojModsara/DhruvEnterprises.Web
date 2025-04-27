@@ -1,0 +1,21 @@
+﻿
+@model DhruvEnterprises.Dto.OtpVerficationDto
+@using DhruvEnterprises.Core;
+@using DhruvEnterprises.Web.Code.LIBS;
+@using DhruvEnterprises.Web.Models.Others;
+@{
+    ViewBag.Title = "OtpVerfication";
+}
+
+<h2>OtpVerfication</h2>
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2")
+
+@Html.Partial("_OtpVerfication")
+
+@*@Html.Partial("_OtpVerfication", new Modal { ID = "modal-add-edit-Otprole", AreaLabeledId = "modal-add-edit-Otprole-label", Size = Enums.ModalSize.Medium })*@
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/datepicker", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js")
+    @Scripts.Render("~/Scripts/Custom/Setting/OtpVerfication.js")
+}

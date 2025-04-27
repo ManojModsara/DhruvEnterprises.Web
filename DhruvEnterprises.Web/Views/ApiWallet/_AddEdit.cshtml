@@ -1,0 +1,82 @@
+﻿
+@using DhruvEnterprises.Web.Models.Others
+@model DhruvEnterprises.Dto.ApiWalletDto
+<div id="frm-addedit-apiwallet" class="cmxform">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.TxnId)
+        @Html.HiddenFor(model => model.IsDirect)
+        @Html.Partial("_ModalHeader", new ModalHeader { Heading = Model.TxnId == 0 ? "Add Api Wallet" : "Edit Api Wallet" })
+        <div id="validation-summary"></div>
+        <div class="modal-body form-horizontal">
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.ApiId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.ApiId, true, new SelectList(ViewBag.APIList, "Id", "ApiName", @Model.ApiId), "Select a Api", new { @class = "form-control select2" })
+                </div>
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(m => m.TrTypeId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.TrTypeId, true, new SelectList(Model.TrTypeList, "Id", "Name", @Model.TrTypeId), "Select Transfer Type", new { @class = "form-control select2" })
+                </div>
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(m => m.BankAccountId, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.DropDownListFor(m => m.BankAccountId, true, new SelectList(Model.BankAccountList, "Id", "HolderName", @Model.BankAccountId), "Select Bank Account", new { @class = "form-control select2" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CurrentBalance, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.CurrentBalance, htmlAttributes: new { @class = "form-control ", @placeholder = "Api Balance", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(m => m.SentAmount, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.SentAmount, htmlAttributes: new { @class = "form-control ", @placeholder = "Sent Amount", @maxlength = "8" })
+                </div>
+            </div>
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.ReceivedAmount, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.ReceivedAmount, htmlAttributes: new { @class = "form-control ", @placeholder = "Received Amount", @autocomplete = "off", @maxlength = "8" })
+                    <label id="AmountWords" class="amount-words"></label>
+                </div>
+            </div>
+
+            <div class="form-group required">
+                @Html.LabelFor(m => m.IncentiveAmount, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.IncentiveAmount, htmlAttributes: new { @class = "form-control ", @placeholder = "Incentive Amount", @maxlength = "8" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ChequeNo, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.ChequeNo, htmlAttributes: new { @class = "form-control ", @placeholder = "Cheque/Ref number" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Remark, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9">
+                    @Html.TextBoxFor(m => m.Remark, htmlAttributes: new { @class = "form-control ", @placeholder = "Remark" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.IsPullOut, new { @class = "col-lg-3 col-sm-3 control-label" })
+                <div class="col-lg-9 col-sm-9 checkbox popup-check">
+                    @Html.CheckBoxFor(m => m.IsPullOut)
+                </div>
+            </div>
+
+            <script src="Scripts/Custom/ApiWallet/addedit.js"></script>
+        </div>
+        @Html.Partial("_ModalFooter", new ModalFooter { })
+    }
+</div>

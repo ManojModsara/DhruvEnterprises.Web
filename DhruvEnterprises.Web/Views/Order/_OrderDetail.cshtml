@@ -1,0 +1,46 @@
+﻿@using DhruvEnterprises.Web.Models.Others
+@using DhruvEnterprises.Web.Code.LIBS
+@model IEnumerable<DhruvEnterprises.Dto.OrderDetailDto>
+<div id="modal-Order-Detail" class="cmxform">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_Notification")
+            <div class="box">
+                <div class="box-header">
+                    <h2>Order Detail</h2>
+                </div>
+                <div class="box-body order_box">
+                    <div class="table table-responsive">
+                        <table id="grid-index" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Orderid</th>
+                                    <th class="txt-wrap-hide">Product Name</th>
+                                    <th>Product Image</th>
+                                    <th>Quantity</th>
+                                    <th>UnitPrice</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var img = SiteKey.ImageLink + @item.ImageUrl;
+                                    var amt = @item.UnitPrice * @item.Quantity;
+                                    <tr>
+                                        <td>@item.OrderId</td>
+                                        <td>@item.Name</td>
+                                        <td align="center"><img src='@img' alt='@item.Name' class="img-responsive" width="200" ></td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.UnitPrice</td>
+                                        <td>@amt</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model DhruvEnterprises.Dto.PackageDto
+
+@{
+    ViewBag.Title = "PackageComm";
+}
+
+<h3>Commission- Circle Of @(Model.PackageCommList.FirstOrDefault()?.OperatorName??"") Operator</h3>
+@Styles.Render("~/datatables/css", "~/Scripts/plugins/alertifyjs/css/alertify.min.css", "~/bundles/css/select2", "~/Content/jquery-ui.css", "~/Content/css/bootstrap-datepicker.css")
+@{
+    // var date = ViewBag.FilterData != null ? Convert.ToString(ViewBag.FilterData) : "";
+
+}
+<style>
+
+    #btnClose:hover {
+        cursor: pointer;
+    }
+</style>
+<section>
+
+  
+
+    <div class="row">
+        <div class="col-md-12 table table-responsive divclass">
+            <table class="table table-hover table-responsive table-bordered">
+
+
+                <tr>
+                    <th>CircleId</th>
+                    <th>Circle Name</th>
+                    <th>
+                        Comm Amount
+                    </th>
+
+                    <th>
+                        Amount Type
+                    </th>
+                    <th>
+                        CommType
+                    </th>
+                    @*<th>
+                        Daily Limit
+                    </th>
+                    <th>
+                        Used Limit
+                    </th>*@
+
+
+
+                </tr>
+
+                @foreach (var item in Model.PackageCommList)
+                {
+                    //if (item.CommAmt>0)
+                    //{
+                <tr>
+                    <td>@item.CircleId</td>
+                    <td>@item.CircleName</td>
+                    <td>
+                        @item.CommAmt
+                    </td>
+
+                    <td>
+                        @item.AmtTypeName
+                    </td>
+                    <td>
+                        @item.CommTypeName
+                    </td>
+                    @*<td>
+                        @item.DailyLimit
+                    </td>
+                    <td>
+                        @item.UsedLimit
+                    </td>*@
+
+                </tr>
+
+                        //}
+
+                    }
+
+            </table>
+        </div>
+    </div>
+
+
+</section>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatables", "~/bundles/jqueryval", "~/bundles/select2")
+    @Scripts.Render("~/Scripts/plugins/alertifyjs/alertify.min.js", "~/Scripts/jquery-ui.js", "~/bundles/datepicker")
+    @Scripts.Render("~/Scripts/Custom/package/packcomm.js")
+
+
+}

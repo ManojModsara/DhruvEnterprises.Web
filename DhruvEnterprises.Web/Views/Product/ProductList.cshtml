@@ -1,0 +1,368 @@
+﻿@using DhruvEnterprises.Web.Code.LIBS
+@model List<DhruvEnterprises.Dto.Productdto>
+
+@{ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #ShowById .dropdown-item, #SortById .dropdown-item {
+        border-bottom: 1px solid #aaa;
+        padding: 5px 10px;
+    }
+
+    .btn.btn-2 {
+        border-radius: 0.25rem;
+        background: gray;
+        color: #fff;
+        box-shadow: none !important;
+        margin-bottom: 5px;
+        width: 100%;
+        padding: 3px 10px;
+    }
+
+        .btn.btn-2:hover {
+            background-color: rgb(255, 0, 149);
+            color: #fff;
+        }
+
+        .btn.btn-2:focus {
+            background-color: rgb(255, 0, 149);
+        }
+
+    h3.name {
+        margin-top: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+
+    .clearfix ul li {
+        background-color: #fff;
+    }
+
+    #ContentPlaceHolder1_up {
+        position: relative;
+        top: 0;
+        width: calc(100% - 300px);
+        background: linear-gradient( -135deg, #24aeb169, #24aeb12e) no-repeat 0px 0px;
+        padding: 40px 0px;
+    }
+
+    .main-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+    }
+
+        .main-container .left-sidebar {
+            width: 300px;
+            height: 100%;
+            position: relative;
+            left: 0;
+            top: 0;
+            padding: 10px;
+            overflow: auto;
+        }
+
+    .accordion .card-header:after {
+        font-family: 'FontAwesome';
+        content: "\f068";
+        float: right;
+    }
+
+    .accordion .card-header.collapsed:after {
+        /* symbol for "collapsed" panels */
+        content: "\f067";
+    }
+
+    .accordion .card-header {
+        background: #d10025;
+        padding: 10px;
+        border-radius: 4px;
+        color: #fff;
+        margin-top: 10px;
+    }
+
+        .accordion .card-header.collapsed {
+            background: #727070;
+            margin-bottom: 10px;
+        }
+
+        .accordion .card-header a {
+            color: #fff;
+        }
+
+    .accordion .card-body {
+        background: #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 0px;
+    }
+
+    .image {
+        width: 100%;
+    }
+
+        .image .a img {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+    .product-info.text-left {
+        display: block;
+        padding: 20px;
+    }
+
+    .product .product-info .name a {
+        color: #c42055;
+        font-size: 17px;
+    }
+
+    .product .product-image img {
+        width: 100%;
+        height: 100%;
+    }
+
+    h3.name {
+        margin-top: 0px;
+        text-align: left;
+        padding: 0px;
+        margin-bottom: 5px;
+    }
+
+    .filters-container .nav-tabs.nav-tab-box {
+        margin-top: 8px;
+        width: 100%;
+    }
+
+        .filters-container .nav-tabs.nav-tab-box li a .icon {
+            margin-right: 5px;
+            margin-left: 10px;
+            color: #aaa;
+            font-size: 27px;
+        }
+
+    .activeFirst {
+        background-color: darkred;
+        color: black;
+    }
+
+    .filters-container .nav-tabs.nav-tab-box li a {
+        background: transparent;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        color: #aaa;
+        font-family: 'Open Sans',sans-serif,sans-serif;
+        line-height: 18px;
+        border: none !important;
+        padding: 0;
+        display: flex;
+        font-size: 18px;
+        margin-right: 10px;
+        align-items: center;
+    }
+
+    select {
+        background: transparent;
+        width: fit-content;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .filters-container .nav-tabs.nav-tab-box li.active a .icon {
+        color: #aaa;
+        font-size: 27px;
+    }
+
+    .filters-container .lbl-cnt .lbl {
+        font-size: 17px;
+        line-height: 38px;
+    }
+
+    .data-not-available {
+        width: 100%;
+        padding: 40px 0px;
+        display: none;
+    }
+
+        .data-not-available img {
+            width: 100%;
+        }
+
+    .data-not-available-card {
+        padding: 15px;
+        background: #fff;
+    }
+
+    .data-not-available h3 {
+        color: #ff7c80;
+        text-align: center;
+        font-size: 50px;
+    }
+
+    .data-not-available .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #OrderListDiv .arrow {
+        display: none;
+    }
+
+    #OrderListDiv.sideHide .arrow {
+        display: block;
+    }
+
+    .arrow {
+        background: #24aeb1;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border-radius: 0px 40px 40px 0px;
+        margin-top: -30px;
+        cursor: pointer;
+    }
+
+        .arrow i, .crose i {
+            position: absolute;
+            color: #e2f4f4;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    .sideHide .left-sidebar {
+        width: 0;
+        padding: 0;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .left-sidebar {
+        transition: all ease-in-out 0.3s;
+    }
+
+    .sideHide #ContentPlaceHolder1_up {
+        width: 100%;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .crose {
+        cursor: pointer;
+        background: #24aeb1;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border-radius: 40px 0px 0px 40px;
+        margin-left: auto;
+        margin-right: -10px;
+        margin-bottom: 10px;
+    }
+
+    @@media (max-width:768px) {
+        .left-sidebar {
+            position: fixed !important;
+            height: 100vh !important;
+            bottom: 0;
+            z-index: 1;
+            background: #e2f4f4;
+        }
+
+        #ContentPlaceHolder1_up {
+            width: 100%;
+        }
+
+        .crose {
+            display: block;
+        }
+
+        .pharma-product-card {
+            margin-bottom: 17px !important;
+        }
+    }
+
+
+    .container.body-content {
+        background: #2c3b95;
+        padding: 0;
+        width: 100%;
+    }
+
+    #ContentPlaceHolder1_up {
+        background: linear-gradient( -135deg, #ffffffab, #ffffffc9) no-repeat 0px 0px !important;
+    }
+
+    .crose {
+        background: #ffffff;
+    }
+
+        .arrow i, .crose i {
+            color: #2c3b95;
+        }
+
+    button.btn.cart_btn {
+        position: absolute;
+        top: -7%;
+        right: 24%;
+        background: #2c3b95;
+        color: white;
+    }
+</style>
+
+
+<section class="data-not-available" id="ProductNotAvble">
+    <div class="container">
+        <div class="data-not-available-card">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <img src="~/Content/img/data-not.gif" />
+                </div>
+                <div class="col-12 col-md-6">
+                    <h3>Product Not Available</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="OrderListDiv" class="main-container">
+    <div class="left-sidebar">
+        <div class="crose">
+            <i class="fa fa-arrow-left"></i>
+        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">ProductList</li>
+            </ol>
+        </nav>
+
+    </div>
+    <div id="ContentPlaceHolder1_up">
+        <div class="arrow">
+            <i class="fa fa-arrow-right"></i>
+        </div>
+        <div class="body-content outer-top-xs">
+
+            <div class='container-fluid'>
+                @*<div class="row pull-right">
+                    <button type="button" onclick="location.href='@Url.Action("viewcart", "Product")'" class="btn cart_btn" title="Go to cart"></abbr><i class='fa fa-shopping-cart'></i></button>
+                </div>*@
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <div id="products">
+                            @{
+                                var FilterProduct = Model;
+                                Html.RenderPartial("_GetProductList", FilterProduct);
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Scripts/plugins/alertifyjs/alertify.min.js"></script>
